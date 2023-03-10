@@ -10,6 +10,8 @@ import { v4 as uuidv4 } from "uuid";
 import "./index.css";
 
 export default function App() {
+  let inventoryContent;
+
   const [inventory, setInventory] = useState([
     {
       id: 1,
@@ -78,24 +80,10 @@ export default function App() {
     },
   ]);
 
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
   const [search, setSearch] = useState("");
 
   const [selectedStatus, setSelectedStatus] = useState([]);
   const [statusFilteredResult, setStatusFilteredResult] = useState([]);
-
-  const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-    if (searchInput !== "") {
-      const filteredData = inventory.filter((item) => {
-        return item.name.toLowerCase().includes(searchInput.toLowerCase());
-      });
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(inventory);
-    }
-  };
 
   const status = [
     {
@@ -117,7 +105,6 @@ export default function App() {
           .includes(selectedStatus.toLowerCase());
       });
       setStatusFilteredResult(filteredData);
-      console.log(selectedStatus);
     } else {
       setStatusFilteredResult(inventory);
     }
@@ -191,6 +178,88 @@ export default function App() {
     setInventory((prevInv) =>
       prevInv.filter((prevItem) => prevItem.id !== itemId)
     );
+  }
+
+  if (search.length >= 1) {
+    inventoryContent = inventory
+      .filter((item) => {
+        return item.name.toLowerCase().includes(search.toLowerCase());
+      })
+      .map((item) => {
+        const editItem = (
+          <EditItem
+            id={item.id}
+            name={item.name}
+            brand={item.brand}
+            size={item.size}
+            styleId={item.styleId}
+            status={item.status}
+            purchasedDate={item.purchasedDate}
+            soldDate={item.soldDate}
+            price={item.price}
+            roi={item.roi}
+            condition={item.condition}
+            updateItem={updateItem}
+          />
+        );
+        const deletedItem = <DeleteItem id={item.id} deleteItem={deleteItem} />;
+        return (
+          <Inventory
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            brand={item.brand}
+            size={item.size}
+            styleId={item.styleId}
+            status={item.status}
+            purchasedDate={item.purchasedDate}
+            soldDate={item.soldDate}
+            price={item.price}
+            roi={item.roi}
+            condition={item.condition}
+            editItem={editItem}
+            deletedItem={deletedItem}
+          />
+        );
+      });
+  } else {
+    inventoryContent = inventory.map((item) => {
+      const editItem = (
+        <EditItem
+          id={item.id}
+          name={item.name}
+          brand={item.brand}
+          size={item.size}
+          styleId={item.styleId}
+          status={item.status}
+          purchasedDate={item.purchasedDate}
+          soldDate={item.soldDate}
+          price={item.price}
+          roi={item.roi}
+          condition={item.condition}
+          updateItem={updateItem}
+        />
+      );
+      const deletedItem = <DeleteItem id={item.id} deleteItem={deleteItem} />;
+      return (
+        <Inventory
+          key={item.id}
+          id={item.id}
+          name={item.name}
+          brand={item.brand}
+          size={item.size}
+          styleId={item.styleId}
+          status={item.status}
+          purchasedDate={item.purchasedDate}
+          soldDate={item.soldDate}
+          price={item.price}
+          roi={item.roi}
+          condition={item.condition}
+          editItem={editItem}
+          deletedItem={deletedItem}
+        />
+      );
+    });
   }
 
   return (
@@ -278,7 +347,7 @@ export default function App() {
       <div className="p-4 sm:ml-64">
         <div className="flex">
           <div className="w-3/5 flex flex-row">
-            <Search searchItems={searchItems} />
+            <Search setSearch={setSearch} />
             <div className="pl-3">
               <StatusFilter
                 selectedStatus={selectedStatus}
@@ -329,7 +398,8 @@ export default function App() {
                 <th scope="col" className="px-6 py-3"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody>{inventoryContent}</tbody>
+            {/* <tbody>
               {searchInput.length > 1
                 ? filteredResults.map((item) => {
                     const editItem = (
@@ -409,7 +479,7 @@ export default function App() {
                       />
                     );
                   })}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
       </div>
