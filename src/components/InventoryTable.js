@@ -1,4 +1,4 @@
-export default function Inventory(props) {
+export default function InventoryTable(props) {
   const profitColor =
     props.roi > 0 ? "px-6 py-4 text-[#65a30d]" : "px-6 py-4 text-[#e11d48]";
   return (
