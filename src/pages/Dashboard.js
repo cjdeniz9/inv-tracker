@@ -18,6 +18,9 @@ import { useEffect, useState } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSackDollar } from "@fortawesome/free-solid-svg-icons";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -110,6 +113,21 @@ export default function Dashboard(props) {
         display: false,
         text: "Inventory Profit Chart",
       },
+      tooltip: {
+        displayColors: false,
+        backgroundColor: "rgba(243, 243, 243, 0.5)",
+        borderWidth: 1,
+        borderColor: "rgb(237, 237, 237)",
+        padding: 12,
+        titleFont: {
+          weight: 300,
+        },
+        titleColor: "#393939",
+        bodyFont: {
+          family: "'FontAwesome', sans-serif",
+        },
+        bodyColor: "#393939",
+      },
     },
     scales: {
       x: {
@@ -129,11 +147,12 @@ export default function Dashboard(props) {
     labels,
     datasets: [
       {
-        label: "Profit",
+        label: "\uf81d",
+        // <FontAwesomeIcon icon={faSackDollar} style={{ color: "#393939" }} />
+        // "Tets",
         data: newDate.map((item) => item.profit),
         borderColor: "rgba(72, 187, 120, 1)",
-        pointStyle: "false",
-        pointRadius: 0,
+        pointRadius: 3,
         pointHoverRadius: 0,
       },
     ],
@@ -143,7 +162,11 @@ export default function Dashboard(props) {
     <>
       <Navbar />
       <div className="p-4 sm:ml-64">
-        <DashboardHeader />
+        <DashboardHeader
+          inventoryData={inventoryData}
+          newDate={newDate}
+          salesCount={salesCount}
+        />
         <Line options={options} data={data} />
         <Reports
           salesIncome={salesIncome}
