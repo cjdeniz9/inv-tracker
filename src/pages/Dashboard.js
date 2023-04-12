@@ -36,7 +36,7 @@ export default function Dashboard(props) {
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
 
-  const date = moment().format("MM/DD/YYYY");
+  const date = moment().format("LL");
 
   const [newDate, setNewDate] = useState(
     () => JSON.parse(localStorage.getItem("newDate")) || []

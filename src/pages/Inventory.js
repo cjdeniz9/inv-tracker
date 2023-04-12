@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import InventoryHeader from "../components/InventoryHeader";
 import AddItem from "../components/AddItem";
 import EditItem from "../components/EditItem";
 import DeleteItem from "../components/DeleteItem";
@@ -53,6 +54,16 @@ export default function Inventory(props) {
     roi,
     condition
   ) {
+    let dateSold;
+
+    if (soldDate === "" && roi === "") {
+      dateSold = "";
+    } else if (roi !== "") {
+      dateSold = moment().format("LL");
+    } else if (soldDate !== "") {
+      dateSold = moment(soldDate).format("LL");
+    }
+
     const newItem = {
       id: uuidv4(),
       name: name,
@@ -60,8 +71,9 @@ export default function Inventory(props) {
       size: size,
       styleId: styleId,
       status: status,
-      purchasedDate: purchasedDate,
-      soldDate: roi !== "" ? moment().format("MM/DD/YYYY") : soldDate,
+      purchasedDate:
+        purchasedDate === "" ? "" : moment(purchasedDate).format("LL"),
+      soldDate: dateSold,
       price: price,
       roi: roi,
       condition: condition,
@@ -84,6 +96,16 @@ export default function Inventory(props) {
   ) {
     const updatedItem = inventory.map((item) => {
       if (id === item.id) {
+        let dateSold;
+
+        if (newSoldDate === "" && newRoi === "") {
+          dateSold = "";
+        } else if (newRoi !== "") {
+          dateSold = moment().format("LL");
+        } else {
+          dateSold = moment(newSoldDate).format("LL");
+        }
+
         return {
           ...item,
           name: newName,
@@ -91,8 +113,11 @@ export default function Inventory(props) {
           size: newSize,
           styleId: newStyleId,
           status: newStatus,
-          purchasedDate: newPurchasedDate,
-          soldDate: newRoi !== "" ? moment().format("MM/DD/YYYY") : newSoldDate,
+          purchasedDate:
+            newPurchasedDate === ""
+              ? ""
+              : moment(newPurchasedDate).format("LL"),
+          soldDate: dateSold,
           price: newPrice,
           roi: newRoi,
           condition: newCondition,
@@ -284,7 +309,8 @@ export default function Inventory(props) {
       <Navbar />
 
       <div className="p-4 sm:ml-64">
-        <div className="flex">
+        <InventoryHeader />
+        <div className="flex pt-3">
           <div className="w-4/5 flex flex-row">
             <Search setSearch={setSearch} />
             <div className="pl-3">
@@ -306,46 +332,7 @@ export default function Inventory(props) {
             <AddItem addItem={addItem} />
           </div>
         </div>
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Brand
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Size
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Style ID
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Purchase Date
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Sold Date
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Price
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Profit
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Condtion
-                </th>
-                <th scope="col" className="px-6 py-3"></th>
-              </tr>
-            </thead>
-            <tbody>{inventoryContent}</tbody>
-          </table>
-        </div>
+        {inventoryContent}
       </div>
     </div>
   );

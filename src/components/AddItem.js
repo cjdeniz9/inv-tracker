@@ -69,7 +69,7 @@ export default function AddItem(props) {
               <div className="w-full md:w-4/6 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                  for="name"
+                  htmlFor="name"
                 >
                   Name
                 </label>

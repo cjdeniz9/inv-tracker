@@ -9,6 +9,8 @@ module.exports = {
         "granite-gray": "#5F5F5F",
         "salem-green": "#1D8751",
         "cinnabar-red": "#E53E3E",
+        "tufts-blue": "#3182CE",
+        "blue-ryb": "#003EFF",
       },
     },
   },
