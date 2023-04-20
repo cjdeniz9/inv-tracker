@@ -10,11 +10,15 @@ export default function AddItem(props) {
   const [size, setSize] = useState("");
   const [styleId, setStyleId] = useState("");
   const [status, setStatus] = useState("");
+  const [colorway, setColorway] = useState("");
+  const [placeOfPurchase, setPlaceOfPurchase] = useState("");
   const [purchasedDate, setPurchaseDate] = useState("");
   const [soldDate, setSoldDate] = useState("");
   const [price, setPrice] = useState("");
   const [roi, setRoi] = useState("");
   const [condition, setCondition] = useState("");
+  const [notes, setNotes] = useState("");
+  const [orderNum, setOrderNum] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -44,22 +48,30 @@ export default function AddItem(props) {
               setSize("");
               setStyleId("");
               setStatus("");
+              setColorway("");
+              setPlaceOfPurchase("");
               setPurchaseDate("");
               setSoldDate("");
               setPrice("");
               setRoi("");
               setCondition("");
+              setNotes("");
+              setOrderNum("");
               props.addItem(
                 name,
                 brand,
                 size,
                 styleId,
                 status,
+                colorway,
+                placeOfPurchase,
                 purchasedDate,
                 soldDate,
                 price,
                 roi,
-                condition
+                condition,
+                notes,
+                orderNum
               );
             }}
             id="editmodal"
@@ -102,7 +114,7 @@ export default function AddItem(props) {
               </div>
             </div>
             <div className="flex flex-wrap -mx-1 mb-6">
-              <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+              <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold mb-2"
                   for="size"
@@ -119,7 +131,7 @@ export default function AddItem(props) {
                   }}
                 />
               </div>
-              <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+              <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold mb-2"
                   for="styleId"
@@ -136,7 +148,9 @@ export default function AddItem(props) {
                   }}
                 />
               </div>
-              <div className="w-full md:w-2/6 px-3 mb-6 md:mb-0">
+            </div>
+            <div className="flex flex-wrap -mx-1 mb-6">
+              <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
                 <label
                   className="block uppercase text-gray-700 text-xs font-bold mb-2"
                   for="status"
@@ -150,6 +164,23 @@ export default function AddItem(props) {
                   value={status}
                   onChange={(e) => {
                     setStatus(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                  for="colorway"
+                >
+                  Colorway
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-100 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  id="colorway"
+                  value={colorway}
+                  onChange={(e) => {
+                    setColorway(e.target.value);
                   }}
                 />
               </div>
@@ -186,6 +217,42 @@ export default function AddItem(props) {
                   value={soldDate}
                   onChange={(e) => {
                     setSoldDate(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-1 mb-6">
+              <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                  for="placeOfPurchase"
+                >
+                  Place of Purchase
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-100 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  id="placeOfPurchase"
+                  value={placeOfPurchase}
+                  onChange={(e) => {
+                    setPlaceOfPurchase(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="w-full md:w-2/4 px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                  for="orderNum"
+                >
+                  Order Number
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-100 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  id="orderNum"
+                  value={orderNum}
+                  onChange={(e) => {
+                    setOrderNum(e.target.value);
                   }}
                 />
               </div>
@@ -239,6 +306,25 @@ export default function AddItem(props) {
                   value={condition}
                   onChange={(e) => {
                     setCondition(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-1 mb-6">
+              <div className="w-full md:w-full px-3 mb-6 md:mb-0">
+                <label
+                  className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                  for="notes"
+                >
+                  Notes
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-100 rounded py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="text"
+                  id="notes"
+                  value={notes}
+                  onChange={(e) => {
+                    setNotes(e.target.value);
                   }}
                 />
               </div>

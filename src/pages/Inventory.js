@@ -7,6 +7,7 @@ import DeleteItem from "../components/DeleteItem";
 import Search from "../components/Search";
 import StatusFilter from "../components/StatusFilter";
 import ProfitFilter from "../components/ProfitFilter";
+import InventoryTableHead from "../components/InventoryTableHead";
 import InventoryTable from "../components/InventoryTable";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
@@ -48,11 +49,15 @@ export default function Inventory(props) {
     size,
     styleId,
     status,
+    colorway,
+    placeOfPurchase,
     purchasedDate,
     soldDate,
     price,
     roi,
-    condition
+    condition,
+    notes,
+    orderNum
   ) {
     let dateSold;
 
@@ -71,12 +76,16 @@ export default function Inventory(props) {
       size: size,
       styleId: styleId,
       status: status,
+      colorway: colorway,
+      placeOfPurchase: placeOfPurchase,
       purchasedDate:
         purchasedDate === "" ? "" : moment(purchasedDate).format("LL"),
       soldDate: dateSold,
       price: price,
       roi: roi,
       condition: condition,
+      notes: notes,
+      orderNum: orderNum,
     };
     setInventory([...inventory, newItem]);
   }
@@ -168,11 +177,14 @@ export default function Inventory(props) {
             size={item.size}
             styleId={item.styleId}
             status={item.status}
+            colorway={item.colorway}
+            placeOfPurchase={item.placeOfPurchase}
             purchasedDate={item.purchasedDate}
             soldDate={item.soldDate}
             price={item.price}
             roi={item.roi}
             condition={item.condition}
+            notes={item.notes}
             editItem={editItem}
             deletedItem={deletedItem}
           />
@@ -209,11 +221,14 @@ export default function Inventory(props) {
               size={item.size}
               styleId={item.styleId}
               status={item.status}
+              colorway={item.colorway}
+              placeOfPurchase={item.placeOfPurchase}
               purchasedDate={item.purchasedDate}
               soldDate={item.soldDate}
               price={item.price}
               roi={item.roi}
               condition={item.condition}
+              notes={item.notes}
               editItem={editItem}
               deletedItem={deletedItem}
             />
@@ -254,11 +269,14 @@ export default function Inventory(props) {
                 size={item.size}
                 styleId={item.styleId}
                 status={item.status}
+                colorway={item.colorway}
+                placeOfPurchase={item.placeOfPurchase}
                 purchasedDate={item.purchasedDate}
                 soldDate={item.soldDate}
                 price={item.price}
                 roi={item.roi}
                 condition={item.condition}
+                notes={item.notes}
                 editItem={editItem}
                 deletedItem={deletedItem}
               />
@@ -292,11 +310,14 @@ export default function Inventory(props) {
           size={item.size}
           styleId={item.styleId}
           status={item.status}
+          colorway={item.colorway}
+          placeOfPurchase={item.placeOfPurchase}
           purchasedDate={item.purchasedDate}
           soldDate={item.soldDate}
           price={item.price}
           roi={item.roi}
           condition={item.condition}
+          notes={item.notes}
           editItem={editItem}
           deletedItem={deletedItem}
         />
@@ -332,7 +353,12 @@ export default function Inventory(props) {
             <AddItem addItem={addItem} />
           </div>
         </div>
-        {inventoryContent}
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm text-left">
+            <InventoryTableHead />
+            <tbody>{inventoryContent}</tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
