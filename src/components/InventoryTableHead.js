@@ -3,74 +3,69 @@ export default function InventoryTableHead() {
     {
       id: 1,
       name: "Name",
-      prNum: "pr-72",
+      prNum: "",
     },
     {
       id: 2,
       name: "Brand",
-      prNum: "pr-20",
+      prNum: "pl-20",
     },
     {
       id: 3,
       name: "Size",
-      prNum: "pr-20",
+      prNum: "pl-16",
     },
     {
       id: 4,
       name: "Style ID",
-      prNum: "pr-28",
+      prNum: "pl-20",
     },
     {
       id: 5,
       name: "Status",
-      prNum: "pr-24",
+      prNum: "pl-20",
     },
     {
       id: 6,
       name: "Colorway",
-      prNum: "pr-24",
+      prNum: "pl-16",
     },
     {
       id: 7,
       name: "Place of Purchase",
-      prNum: "pr-20",
+      prNum: "pl-16",
     },
     {
       id: 8,
       name: "Purchase Date",
-      prNum: "pr-20",
+      prNum: "pl-20",
     },
     {
       id: 9,
       name: "Sold Date",
-      prNum: "pr-28",
+      prNum: "pl-20",
     },
     {
       id: 10,
       name: "Price",
-      prNum: "pr-20",
+      prNum: "pl-24",
     },
     {
       id: 11,
       name: "Profit",
-      prNum: "pr-20",
+      prNum: "pl-20",
     },
     {
       id: 12,
       name: "Condition",
-      prNum: "pr-20",
-    },
-    {
-      id: 13,
-      name: "",
-      prNum: "pr-0",
+      prNum: "px-20",
     },
   ];
 
   return (
     <thead className="border-b text-sm text-gray-700">
       <tr>
-        <th scope="col" className="p-3">
+        <th scope="col" className="py-2.5 px-3">
           <div className="flex items-center">
             <input
               id="checkbox-all-search"
@@ -87,7 +82,7 @@ export default function InventoryTableHead() {
             <th
               key={item.id}
               scope="col"
-              className={`${item.prNum} py-3 whitespace-nowrap`}
+              className={`${item.prNum} py-2.5 whitespace-nowrap`}
             >
               {item.name}
             </th>

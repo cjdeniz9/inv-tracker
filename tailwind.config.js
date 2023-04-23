@@ -8,6 +8,7 @@ module.exports = {
         "bright-gray": "#EDEDED",
         "american-silver": "#CFCFCF",
         "quick-silver": "#A1A5A4",
+        "davys-grey": "#525252",
         "onyx-gray": "#393939",
         "slate-gray": "#718096",
         "granite-gray": "#5F5F5F",
@@ -16,6 +17,10 @@ module.exports = {
         "cinnabar-red": "#E53E3E",
         "tufts-blue": "#3182CE",
         "blue-ryb": "#003EFF",
+        "absolute-zero": "#0033CC",
+      },
+      gridTemplateColumns: {
+        13: "repeat(13, minmax(0, 1fr))",
       },
     },
   },

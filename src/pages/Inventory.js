@@ -328,7 +328,6 @@ export default function Inventory(props) {
   return (
     <div className="App">
       <Navbar />
-
       <div className="p-4 sm:ml-64">
         <InventoryHeader />
         <div className="flex pt-3">
@@ -349,12 +348,12 @@ export default function Inventory(props) {
               />
             </div>
           </div>
-          <div className="w-1/5 justify-end">
+          <div className="w-1/5">
             <AddItem addItem={addItem} />
           </div>
         </div>
         <div className="relative overflow-x-auto">
-          <table className="w-full text-sm text-left">
+          <table className="w-full overflow-scroll text-sm text-left">
             <InventoryTableHead />
             <tbody>{inventoryContent}</tbody>
           </table>

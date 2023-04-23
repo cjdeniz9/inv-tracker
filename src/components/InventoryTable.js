@@ -27,8 +27,8 @@ export default function InventoryTable(props) {
 
   const profitColor =
     props.roi > 0
-      ? "py-3 text-[15px] text-[#65a30d]"
-      : "py-3 text-[15px] text-[#e11d48]";
+      ? "pl-20 py-2 text-base text-[#65a30d]"
+      : "pl-20 py-2 text-base text-[#e11d48]";
 
   return (
     <tr className="hover:bg-[#FAFAFA]">
@@ -44,27 +44,36 @@ export default function InventoryTable(props) {
           </label>
         </div>
       </td>
-      <td className="pr-12 py-3 text-[15px] text-blue-ryb whitespace-nowrap text-clip">
-        {/* <a href={`/productDetail/${props.id}`} className="no-underline">
-          {props.name}
-        </a> */}
+      <td className="max-w-xs py-2 text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">
         <Link to={`/productDetail/${props.id}`} className="no-underline">
           {props.name}
         </Link>
       </td>
-      <td className="py-3 text-[15px]">{props.brand}</td>
-      <td className="py-3 text-[15px]">{props.size}</td>
-      <td className="py-3 text-[15px] whitespace-nowrap">{props.styleId}</td>
-      <td className={`py-3 text-[15px] ${statusTextColor} whitespace-nowrap`}>
+      <td className="max-w-[5rem] pl-20 py-2 text-base">{props.brand}</td>
+      <td className="max-w-[10rem] pl-16 py-2 text-base whitespace-nowrap">
+        US M {props.size}
+      </td>
+      <td className="max-w-[15rem] pl-20 py-2 text-base whitespace-nowrap truncate">
+        {props.styleId}
+      </td>
+      <td
+        className={`max-w-[10rem] pl-20 py-2 text-base ${statusTextColor} whitespace-nowrap`}
+      >
         <span className="pr-1">{statusSymbol}</span> {props.status}
       </td>
-      <td className="py-3 text-[15px] whitespace-nowrap truncate">
+      <td className="max-w-[15rem] pl-16 py-2 text-base whitespace-nowrap truncate">
         {props.colorway}
       </td>
-      <td className="py-3 text-[15px]">{props.placeOfPurchase}</td>
-      <td className="py-3 text-[15px]">{props.purchasedDate}</td>
-      <td className="py-3 text-[15px] whitespace-nowrap">{props.soldDate}</td>
-      <td className="py-3 text-[15px]">
+      <td className="max-w-[15rem] pl-16 py-2 text-base whitespace-nowrap text-clip overflow-hidden">
+        {props.placeOfPurchase}
+      </td>
+      <td className="max-w-[10rem] pl-20 py-2 text-base whitespace-nowrap">
+        {props.purchasedDate}
+      </td>
+      <td className="max-w-[10rem] pl-20 py-2 text-base whitespace-nowrap">
+        {props.soldDate}
+      </td>
+      <td className="max-w-[10rem] pl-24 py-2 text-base">
         {currencySymbol(props.price)}
         {props.price}
       </td>
@@ -72,11 +81,7 @@ export default function InventoryTable(props) {
         {currencySymbol(props.roi)}
         {props.roi}
       </td>
-      <td className="py-3 text-[15px]">{props.condition}</td>
-      {/* <td className="flex py-3 text-base">
-          {props.editItem}
-          {props.deletedItem}
-        </td> */}
+      <td className="max-w-[10rem] px-20 py-2 text-base">{props.condition}</td>
     </tr>
   );
 }
