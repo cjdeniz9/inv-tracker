@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import EditItem from "../components/EditItem";
+import DeleteItem from "../components/DeleteItem";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +21,7 @@ export default function ProductDetailHeader(props) {
   }
 
   return (
-    <div>
+    <div className="pb-4">
       <div className="text-lg">
         <Link to="/Inventory" className="no-underline text-tufts-blue">
           <FontAwesomeIcon icon={faAngleLeft} /> Inventory
@@ -29,15 +31,22 @@ export default function ProductDetailHeader(props) {
           / Item #{props.activeProductId}
         </span>
       </div>
-      <div className="py-3">
+      <div className="flex justify-between pt-3">
         <div>
           <h2>{props.activeProduct[0].name}</h2>
         </div>
-        <div>
-          <span className={statusTextColor}>
-            {statusSymbol} {props.activeProduct[0].status}
-          </span>
+        <div className="flex">
+          <EditItem
+            activeProductId={props.activeProductId}
+            activeProduct={props.activeProduct}
+          />
+          <DeleteItem activeProductId={props.activeProductId} />
         </div>
+      </div>
+      <div>
+        <span className={statusTextColor}>
+          {statusSymbol} {props.activeProduct[0].status}
+        </span>
       </div>
     </div>
   );

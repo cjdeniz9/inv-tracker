@@ -11,9 +11,14 @@ export default function SizeTypeFilter(props) {
       onChange={(e) => handleSizeTypeChange(e)}
       className="w-full mt-3 text-center text-sm font-medium"
     >
-      {sizeType.map((item, key) => (
-        <option value={key}>{item}</option>
-      ))}
+      {sizeType.map((item, key) => {
+        const selectedType = props.sizeTypeSelected === item ? "selected" : "";
+        return (
+          <option value={key} defaultValue={selectedType}>
+            {item}
+          </option>
+        );
+      })}
     </select>
   );
 }

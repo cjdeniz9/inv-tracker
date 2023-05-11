@@ -71,8 +71,8 @@ export default function Reports(props) {
   ];
 
   return (
-    <div className="pt-4">
-      <div className="border rounded-lg border-[#E2E8F0] drop-shadow-sm">
+    <div className="pt-10">
+      <div className="border rounded-lg border-[#E2E8F0]">
         <h6 className="pl-2 pt-3">Reports</h6>
         <div className="grid grid-cols-3 p-2">
           {reportsGrid.map((item, key) => {
@@ -91,7 +91,7 @@ export default function Reports(props) {
             return (
               <div
                 key={uuidv4()}
-                className={`${topBordering} ${bottomBordering} ${leftBordering} ${rightBordering} pl-4 pt-2 pb-2`}
+                className={`${topBordering} ${bottomBordering} ${leftBordering} ${rightBordering} pl-4 pt-3 pb-3`}
               >
                 <h6>{item.title}</h6>
                 <div className="flex items-center">

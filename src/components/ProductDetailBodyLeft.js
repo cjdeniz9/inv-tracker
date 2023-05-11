@@ -1,3 +1,5 @@
+import UploadImage from "./UploadImage";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,7 +23,10 @@ export default function ProductDetailBodyLeft(props) {
     {
       id: 4,
       title: "Order Number",
-      value: "#" + props.productData[0].orderNum,
+      value:
+        props.productData[0].orderNum === ""
+          ? ""
+          : "#" + props.productData[0].orderNum,
     },
     {
       id: 5,
@@ -36,19 +41,32 @@ export default function ProductDetailBodyLeft(props) {
   ];
   return (
     <div className="w-8/12 py-1">
-      <div className="w-full flex bg-anti-flash-white rounded">
-        <div className="py-8 px-16">
-          <h1>{props.productData[0].size}</h1>
-          <span className="text-xl">US</span>
-          <p className="text-xl">M</p>
+      <div className="w-full h-52 flex bg-anti-flash-white rounded">
+        <div className="w-[16%]">
+          <div className="min-h-full flex items-center justify-center">
+            <h1>{props.productData[0].size}</h1>
+            {/* <span className="text-xl">US</span>
+            <p className="text-xl">M</p> */}
+          </div>
         </div>
-        <div class="my-8 border-l border-american-silver"></div>
-        <div className="p-8">
-          <h2>{props.productData[0].styleId}</h2>
+        <div className="my-8 bg-black border-l border-american-silver"></div>
+        <div className="w-[55%] mt-8 ml-6">
+          <h3>{props.productData[0].styleId}</h3>
           <span className="mt-2 text-lg">{props.productData[0].colorway}</span>
           <p className="text-lg text-granite-gray">
             {props.productData[0].brand}
           </p>
+        </div>
+        <div className="w-[29%] flex items-center justify-center">
+          {props.productData[0].img === undefined ? (
+            <UploadImage activeProductId={props.activeProductId} />
+          ) : (
+            <img
+              src={props.productData[0].img}
+              alt="Product Image"
+              className="h-[170px] w-[200px] rounded"
+            />
+          )}
         </div>
       </div>
       <div className="py-8">
@@ -85,7 +103,7 @@ export default function ProductDetailBodyLeft(props) {
                 {purchaseDetails.slice(0, 3).map((item, key) => {
                   return (
                     <p key={item.id} className="text-lg">
-                      {item.value}
+                      {item.value} &nbsp;
                     </p>
                   );
                 })}
@@ -105,7 +123,7 @@ export default function ProductDetailBodyLeft(props) {
                 {purchaseDetails.slice(3, 6).map((item, key) => {
                   return (
                     <p key={item.id} className="text-lg">
-                      {item.value}
+                      {item.value} &nbsp;
                     </p>
                   );
                 })}

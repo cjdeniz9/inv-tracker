@@ -5,7 +5,10 @@ export default function ProductDetailBody(props) {
   const productData = props.activeProduct;
   return (
     <div className="w-full flex">
-      <ProductDetailBodyLeft productData={productData} />
+      <ProductDetailBodyLeft
+        activeProductId={props.activeProductId}
+        productData={productData}
+      />
       <ProductDetailBodyRight productData={productData} />
     </div>
   );

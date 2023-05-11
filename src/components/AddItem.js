@@ -21,9 +21,7 @@ export default function AddItem(props) {
   const [notes, setNotes] = useState("");
   const [orderNum, setOrderNum] = useState("");
 
-  const [sizeTypeSelected, setSizeTypeSelected] = useState("");
-
-  console.log(sizeTypeSelected);
+  const [sizeTypeSelected, setSizeTypeSelected] = useState("Shoes");
 
   const shoeSizeNum = [
     {
@@ -189,7 +187,12 @@ export default function AddItem(props) {
   return (
     <>
       {!isOpen ? (
-        <button onClick={() => setIsOpen(!isOpen)}>+</button>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-10 h-10 pb-1 bg-blue-ryb rounded text-white text-xl font-medium"
+        >
+          +
+        </button>
       ) : (
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -200,8 +203,10 @@ export default function AddItem(props) {
       )}
       <div
         className={`${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        } absolute w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40`}
+          isOpen
+            ? "translate-x-0 absolute w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
+            : ""
+        }`}
       ></div>
       <div
         className={`fixed top-0 right-0 w-7/12 h-full bg-white ${
@@ -217,6 +222,7 @@ export default function AddItem(props) {
                 setName("");
                 setBrand("");
                 setSize("");
+                setSizeTypeSelected("");
                 setStyleId("");
                 setStatus("");
                 setColorway("");
@@ -232,6 +238,7 @@ export default function AddItem(props) {
                   name,
                   brand,
                   size,
+                  sizeTypeSelected,
                   styleId,
                   status,
                   colorway,
@@ -257,7 +264,7 @@ export default function AddItem(props) {
                     className="block text-xs text-raisin-black mb-2"
                     htmlFor="name"
                   >
-                    Name
+                    Name <span className="text-cinnabar-red">*</span>
                   </label>
                   <input
                     className="appearance-none block w-full text-granite-gray border border-granite-gray rounded-[3px] py-2.5 px-3 leading-tight"
@@ -268,6 +275,7 @@ export default function AddItem(props) {
                     onChange={(e) => {
                       setName(e.target.value);
                     }}
+                    required
                   />
                 </div>
                 <div className="w-2/12 mr-4">
@@ -381,17 +389,18 @@ export default function AddItem(props) {
                         className="block text-xs text-raisin-black mb-2"
                         for="price"
                       >
-                        Price
+                        Price <span className="text-cinnabar-red">*</span>
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         placeholder="0.00"
-                        type="text"
+                        type="number"
                         id="price"
                         value={price}
                         onChange={(e) => {
                           setPrice(e.target.value);
                         }}
+                        required
                       />
                     </div>
                     <div className="w-1/2">
@@ -399,7 +408,8 @@ export default function AddItem(props) {
                         className="block text-xs text-raisin-black mb-2"
                         for="purchaseDate"
                       >
-                        Purchase Date
+                        Purchase Date{" "}
+                        <span className="text-cinnabar-red">*</span>
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -409,6 +419,7 @@ export default function AddItem(props) {
                         onChange={(e) => {
                           setPurchaseDate(e.target.value);
                         }}
+                        required
                       />
                     </div>
                   </div>
@@ -520,7 +531,13 @@ export default function AddItem(props) {
                   className="bg-blue-ryb rounded py-2 px-3 text-white font-medium hover:bg-absolute-zero"
                   type="submit"
                   form="editmodal"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    if (name === "" || purchasedDate === "" || price === "") {
+                      setIsOpen(true);
+                    } else {
+                      setIsOpen(false);
+                    }
+                  }}
                 />
               </div>
             </form>

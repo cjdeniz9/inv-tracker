@@ -34,7 +34,11 @@ export default function ProductDetailBodyRight(props) {
         <div className="mt-12">
           <span className="text-xl">
             Net Profit:{" "}
-            <span className={profitTextColor}>${props.productData[0].roi}</span>
+            <span className={profitTextColor}>
+              {props.productData[0].roi === ""
+                ? "$0"
+                : "$" + props.productData[0].roi}
+            </span>
           </span>
         </div>
       </div>

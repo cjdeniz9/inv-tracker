@@ -20,6 +20,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar } from "@fortawesome/free-solid-svg-icons";
+import DashboardInventory from "../components/DashboardInventory";
 
 ChartJS.register(
   CategoryScale,
@@ -45,6 +46,8 @@ export default function Dashboard(props) {
   const [profitTotal, setProfitTotal] = useState(
     () => JSON.parse(localStorage.getItem("profitTotal")) || []
   );
+
+  const [test, setTest] = useState({});
 
   const netProfit = inventoryData.reduce(function (prev, current) {
     return prev + +current.roi;
@@ -90,6 +93,19 @@ export default function Dashboard(props) {
     return item.status.toLowerCase().includes("sold");
   }).length;
 
+  const updateChartData = newDate.map((item) => {
+    for (let i = 0; i > newDate.length; i++) {
+      if (newDate[i].id === item.id) {
+        console.log(newDate[i].id);
+        return {
+          ...item,
+          profit: filterTableData,
+        };
+      }
+    }
+    return;
+  });
+
   useEffect(() => {
     localStorage.setItem("newDate", JSON.stringify(newDate));
     localStorage.setItem("profitTotal", JSON.stringify(profitTotal));
@@ -101,7 +117,12 @@ export default function Dashboard(props) {
     if (newDate.length !== 0 && newDate.slice(-1)[0].current !== date) {
       setNewDate([...newDate, currentDate]);
     }
-  }, [date, newDate]);
+
+    const interval = setInterval(() => setNewDate(updateChartData, 1000000));
+    return () => {
+      clearInterval(interval);
+    };
+  }, [newDate]);
 
   const options = {
     responsive: true,
@@ -161,20 +182,25 @@ export default function Dashboard(props) {
   return (
     <>
       <Navbar />
-      <div className="p-4 sm:ml-64">
-        <DashboardHeader
-          inventoryData={inventoryData}
-          newDate={newDate}
-          salesCount={salesCount}
-        />
-        <Line options={options} data={data} />
-        <Reports
-          salesIncome={salesIncome}
-          totalSpend={totalSpend}
-          netProfit={netProfit}
-          itemPurchased={itemPurchased}
-          salesCount={salesCount}
-        />
+      <div className="flex sm:ml-64">
+        <div className="w-7/12 h-screen py-4 px-4">
+          <DashboardHeader
+            inventoryData={inventoryData}
+            newDate={newDate}
+            salesCount={salesCount}
+          />
+          <Line options={options} data={data} />
+          <Reports
+            salesIncome={salesIncome}
+            totalSpend={totalSpend}
+            netProfit={netProfit}
+            itemPurchased={itemPurchased}
+            salesCount={salesCount}
+          />
+        </div>
+        <div className="w-5/12">
+          <DashboardInventory inventoryData={inventoryData} />
+        </div>
       </div>
     </>
   );

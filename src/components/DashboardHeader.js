@@ -6,15 +6,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function DashboardHeader(props) {
-  const currentProfit = props.newDate.slice(-1)[0].profit;
+  const currentProfit =
+    props.newDate.length === 0 ? 0 : props.newDate.slice(-1)[0].profit;
 
   const adjustedProfitAmount =
-    props.newDate.slice(-2)[0].profit - props.newDate.slice(-1)[0].profit;
+    props.newDate.length === 0 || 1
+      ? 0
+      : props.newDate.slice(-2)[0].profit - props.newDate.slice(-1)[0].profit;
 
-  const adjustedProfitPercent = (
-    (props.newDate.slice(-1)[0].profit / props.newDate.slice(-2)[0].profit) *
-    100
-  ).toFixed(2);
+  const adjustedProfitPercent =
+    props.newDate.length === 0 || 1
+      ? 0
+      : (
+          (props.newDate.slice(-1)[0].profit /
+            props.newDate.slice(-2)[0].profit) *
+          100
+        ).toFixed(2);
 
   const checkAdjustedProfitPercent = isNaN(adjustedProfitPercent)
     ? 0

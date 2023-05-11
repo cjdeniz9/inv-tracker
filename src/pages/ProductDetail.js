@@ -28,7 +28,10 @@ export default function ProductDetail() {
           activeProductId={activeProductId}
           activeProduct={activeProduct}
         />
-        <ProductDetailBody activeProduct={activeProduct} />
+        <ProductDetailBody
+          activeProductId={activeProductId}
+          activeProduct={activeProduct}
+        />
       </div>
     </>
   );

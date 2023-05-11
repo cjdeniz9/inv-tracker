@@ -47,6 +47,7 @@ export default function Inventory(props) {
     name,
     brand,
     size,
+    sizeTypeSelected,
     styleId,
     status,
     colorway,
@@ -74,6 +75,7 @@ export default function Inventory(props) {
       name: name,
       brand: brand,
       size: size,
+      sizeTypeSelected: sizeTypeSelected,
       styleId: styleId,
       status: status,
       colorway: colorway,
@@ -90,60 +92,60 @@ export default function Inventory(props) {
     setInventory([...inventory, newItem]);
   }
 
-  function updateItem(
-    id,
-    newName,
-    newBrand,
-    newSize,
-    newStyleId,
-    newStatus,
-    newPurchasedDate,
-    newSoldDate,
-    newPrice,
-    newRoi,
-    newCondition
-  ) {
-    const updatedItem = inventory.map((item) => {
-      if (id === item.id) {
-        let dateSold;
+  // function updateItem(
+  //   id,
+  //   newName,
+  //   newBrand,
+  //   newSize,
+  //   newStyleId,
+  //   newStatus,
+  //   newPurchasedDate,
+  //   newSoldDate,
+  //   newPrice,
+  //   newRoi,
+  //   newCondition
+  // ) {
+  //   const updatedItem = inventory.map((item) => {
+  //     if (id === item.id) {
+  //       let dateSold;
 
-        if (newSoldDate === "" && newRoi === "") {
-          dateSold = "";
-        } else if (newRoi !== "") {
-          dateSold = moment().format("LL");
-        } else {
-          dateSold = moment(newSoldDate).format("LL");
-        }
+  //       if (newSoldDate === "" && newRoi === "") {
+  //         dateSold = "";
+  //       } else if (newRoi !== "") {
+  //         dateSold = moment().format("LL");
+  //       } else {
+  //         dateSold = moment(newSoldDate).format("LL");
+  //       }
 
-        return {
-          ...item,
-          name: newName,
-          brand: newBrand,
-          size: newSize,
-          styleId: newStyleId,
-          status: newStatus,
-          purchasedDate:
-            newPurchasedDate === ""
-              ? ""
-              : moment(newPurchasedDate).format("LL"),
-          soldDate: dateSold,
-          price: newPrice,
-          roi: newRoi,
-          condition: newCondition,
-        };
-      }
+  //       return {
+  //         ...item,
+  //         name: newName,
+  //         brand: newBrand,
+  //         size: newSize,
+  //         styleId: newStyleId,
+  //         status: newStatus,
+  //         purchasedDate:
+  //           newPurchasedDate === ""
+  //             ? ""
+  //             : moment(newPurchasedDate).format("LL"),
+  //         soldDate: dateSold,
+  //         price: newPrice,
+  //         roi: newRoi,
+  //         condition: newCondition,
+  //       };
+  //     }
 
-      return item;
-    });
-    setInventory(updatedItem);
-  }
+  //     return item;
+  //   });
+  //   setInventory(updatedItem);
+  // }
 
-  function deleteItem(event, itemId) {
-    event.stopPropagation();
-    setInventory((prevInv) =>
-      prevInv.filter((prevItem) => prevItem.id !== itemId)
-    );
-  }
+  // function deleteItem(event, itemId) {
+  //   event.stopPropagation();
+  //   setInventory((prevInv) =>
+  //     prevInv.filter((prevItem) => prevItem.id !== itemId)
+  //   );
+  // }
 
   if (search.length >= 1) {
     inventoryContent = inventory
@@ -164,10 +166,9 @@ export default function Inventory(props) {
             price={item.price}
             roi={item.roi}
             condition={item.condition}
-            updateItem={updateItem}
           />
         );
-        const deletedItem = <DeleteItem id={item.id} deleteItem={deleteItem} />;
+
         return (
           <InventoryTable
             key={item.id}
@@ -175,6 +176,7 @@ export default function Inventory(props) {
             name={item.name}
             brand={item.brand}
             size={item.size}
+            sizeTypeSelected={item.sizeTypeSelected}
             styleId={item.styleId}
             status={item.status}
             colorway={item.colorway}
@@ -186,7 +188,6 @@ export default function Inventory(props) {
             condition={item.condition}
             notes={item.notes}
             editItem={editItem}
-            deletedItem={deletedItem}
           />
         );
       });
@@ -206,11 +207,7 @@ export default function Inventory(props) {
               price={item.price}
               roi={item.roi}
               condition={item.condition}
-              updateItem={updateItem}
             />
-          );
-          const deletedItem = (
-            <DeleteItem id={item.id} deleteItem={deleteItem} />
           );
           return (
             <InventoryTable
@@ -219,6 +216,7 @@ export default function Inventory(props) {
               name={item.name}
               brand={item.brand}
               size={item.size}
+              sizeTypeSelected={item.sizeTypeSelected}
               styleId={item.styleId}
               status={item.status}
               colorway={item.colorway}
@@ -230,7 +228,6 @@ export default function Inventory(props) {
               condition={item.condition}
               notes={item.notes}
               editItem={editItem}
-              deletedItem={deletedItem}
             />
           );
         }))
@@ -254,11 +251,7 @@ export default function Inventory(props) {
                 price={item.price}
                 roi={item.roi}
                 condition={item.condition}
-                updateItem={updateItem}
               />
-            );
-            const deletedItem = (
-              <DeleteItem id={item.id} deleteItem={deleteItem} />
             );
             return (
               <InventoryTable
@@ -267,6 +260,7 @@ export default function Inventory(props) {
                 name={item.name}
                 brand={item.brand}
                 size={item.size}
+                sizeTypeSelected={item.sizeTypeSelected}
                 styleId={item.styleId}
                 status={item.status}
                 colorway={item.colorway}
@@ -278,7 +272,6 @@ export default function Inventory(props) {
                 condition={item.condition}
                 notes={item.notes}
                 editItem={editItem}
-                deletedItem={deletedItem}
               />
             );
           }));
@@ -297,10 +290,8 @@ export default function Inventory(props) {
           price={item.price}
           roi={item.roi}
           condition={item.condition}
-          updateItem={updateItem}
         />
       );
-      const deletedItem = <DeleteItem id={item.id} deleteItem={deleteItem} />;
       return (
         <InventoryTable
           key={item.id}
@@ -308,6 +299,7 @@ export default function Inventory(props) {
           name={item.name}
           brand={item.brand}
           size={item.size}
+          sizeTypeSelected={item.sizeTypeSelected}
           styleId={item.styleId}
           status={item.status}
           colorway={item.colorway}
@@ -319,7 +311,6 @@ export default function Inventory(props) {
           condition={item.condition}
           notes={item.notes}
           editItem={editItem}
-          deletedItem={deletedItem}
         />
       );
     });
@@ -330,7 +321,7 @@ export default function Inventory(props) {
       <Navbar />
       <div className="p-4 sm:ml-64">
         <InventoryHeader />
-        <div className="flex pt-3">
+        <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">
             <Search setSearch={setSearch} />
             <div className="pl-3">
@@ -340,19 +331,19 @@ export default function Inventory(props) {
                 setSelectedStatus={setSelectedStatus}
               />
             </div>
-            <div className="pl-100">
+            {/* <div className="pl-100">
               <ProfitFilter
                 status={status}
                 selectedStatus={selectedStatus}
                 setSelectedStatus={setSelectedStatus}
               />
-            </div>
+            </div> */}
           </div>
-          <div className="w-1/5">
+          <div className="w-1/5 flex justify-end">
             <AddItem addItem={addItem} />
           </div>
         </div>
-        <div className="relative overflow-x-auto">
+        <div className="relative overflow-x-auto max-h-[39rem]">
           <table className="w-full overflow-scroll text-sm text-left">
             <InventoryTableHead />
             <tbody>{inventoryContent}</tbody>
