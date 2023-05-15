@@ -63,7 +63,7 @@ export default function InventoryTableHead() {
   ];
 
   return (
-    <thead className="border-b text-sm text-gray-700">
+    <thead className="fixed bg-white border-b text-sm text-gray-700">
       <tr>
         <th scope="col" className="py-2.5 px-3">
           <div className="flex items-center">

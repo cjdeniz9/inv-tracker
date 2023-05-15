@@ -19,7 +19,7 @@ export default function DeleteItem(props) {
     <Link to="/Inventory">
       <button
         onClick={(event) => deleteItem(event, props.activeProductId)}
-        className="border ml-2 py-2.5 px-3 rounded text-raisin-black font-medium"
+        className="bg-cinnabar-red border ml-2 py-[11px] px-3 rounded text-white font-medium"
       >
         Delete
       </button>

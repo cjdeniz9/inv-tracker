@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+
 import EditItem from "../components/EditItem";
 import DeleteItem from "../components/DeleteItem";
+import UploadImage from "./UploadImage";
+import ChangeImage from "./ChangeImage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -36,6 +39,14 @@ export default function ProductDetailHeader(props) {
           <h2>{props.activeProduct[0].name}</h2>
         </div>
         <div className="flex">
+          {props.activeProduct[0].img === undefined ? (
+            <UploadImage activeProductId={props.activeProductId} />
+          ) : (
+            <ChangeImage
+              activeProductId={props.activeProductId}
+              activeProduct={props.activeProduct}
+            />
+          )}
           <EditItem
             activeProductId={props.activeProductId}
             activeProduct={props.activeProduct}

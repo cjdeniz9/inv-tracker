@@ -261,7 +261,7 @@ export default function EditItem(props) {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="border px-3 rounded text-raisin-black font-medium"
+          className="border ml-2 px-3 rounded text-raisin-black font-medium"
         >
           Edit
         </button>
