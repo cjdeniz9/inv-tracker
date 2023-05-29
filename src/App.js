@@ -11,10 +11,7 @@ export default function App() {
     <BrowserRouter>
       {/* <Header> */}
       <Routes>
-        <Route
-          path="/dashboard"
-          element={<Dashboard profitData={profitData} />}
-        />
+        <Route path="/" element={<Dashboard profitData={profitData} />} />
         <Route
           path="/inventory"
           element={<Inventory setProfitData={setProfitData} />}

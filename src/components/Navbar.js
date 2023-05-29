@@ -64,7 +64,7 @@ export default function Navbar() {
           <ul className="space-y-3">
             <li>
               <a
-                href="/Dashboard"
+                href="/"
                 className="flex no-underline items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon icon={faTable} style={{ color: "#181818" }} />
