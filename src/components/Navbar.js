@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import trackerLogo from "../img/trackerLogo.png";
 
@@ -63,17 +64,17 @@ export default function Navbar() {
 
           <ul className="space-y-3">
             <li>
-              <a
-                href="/Dashboard"
+              <Link
+                to="/dashboard"
                 className="flex no-underline items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon icon={faTable} style={{ color: "#181818" }} />
                 <span className="ml-4 text-[#242424]">Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="flex no-underline items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon
@@ -81,7 +82,7 @@ export default function Navbar() {
                   style={{ color: "#181818" }}
                 />
                 <span className="ml-3 text-[#242424]">Inventory</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
