@@ -11,11 +11,11 @@ export default function App() {
     <BrowserRouter>
       {/* <Header> */}
       <Routes>
-        <Route path="/" element={<Dashboard profitData={profitData} />} />
         <Route
-          path="/inventory"
-          element={<Inventory setProfitData={setProfitData} />}
+          path="/dashboard"
+          element={<Dashboard profitData={profitData} />}
         />
+        <Route path="/" element={<Inventory setProfitData={setProfitData} />} />
         <Route path="/productDetail/:productId" element={<ProductDetail />} />
       </Routes>
       {/* </Header> */}
