@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -6,6 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function DashboardHeader(props) {
+  const [inventory, setInventory] = useState(
+    () => JSON.parse(localStorage.getItem("inventory")) || []
+  );
+
+  const totalIncome = props.totalSpend + props.netProfit;
+
   const currentProfit =
     props.newDate.length === 0 ? 0 : props.newDate.slice(-1)[0].profit;
 
@@ -14,12 +22,20 @@ export default function DashboardHeader(props) {
       ? 0
       : props.newDate.slice(-2)[0].profit - props.newDate.slice(-1)[0].profit;
 
+  // const adjustedProfitPercent =
+  //   props.newDate.length === 0 || 1
+  //     ? 0
+  //     : (
+  //         (props.newDate.slice(-1)[0].profit /
+  //           props.newDate.slice(-2)[0].profit) *
+  //         100
+  //       ).toFixed(2);
+
   const adjustedProfitPercent =
-    props.newDate.length === 0 || 1
+    props.newDate.length === 0 || undefined
       ? 0
       : (
-          (props.newDate.slice(-1)[0].profit /
-            props.newDate.slice(-2)[0].profit) *
+          (inventory.slice(-1)[0].roi / inventory.slice(-1)[0].price) *
           100
         ).toFixed(2);
 
@@ -47,10 +63,10 @@ export default function DashboardHeader(props) {
   let profitTextColor;
   let profitSymbol;
 
-  if (adjustedProfitAmount < 0) {
+  if (adjustedProfitPercent < 0) {
     profitTextColor = "text-cinnabar-red";
     profitSymbol = <FontAwesomeIcon icon={faArrowDown} />;
-  } else if (adjustedProfitAmount > 0) {
+  } else if (adjustedProfitPercent > 0) {
     profitTextColor = "text-salem-green";
     profitSymbol = <FontAwesomeIcon icon={faArrowUp} />;
   } else {
@@ -60,13 +76,13 @@ export default function DashboardHeader(props) {
 
   return (
     <div className="inline-block">
-      <h3>Inventory Profit</h3>
-      <h1>${currentProfit}</h1>
+      <h4>Inventory Profit</h4>
+      <h3>${totalIncome}</h3>
       <div>
         <span
           className={`block relative ${profitTextColor} font-medium text-lg`}
         >
-          {profitSymbol} ${adjustedProfitAmount} ({checkAdjustedProfitPercent}%)
+          {profitSymbol} ${currentProfit} ({checkAdjustedProfitPercent}%)
         </span>
         {inventoryStock.map((item, key) => {
           return (

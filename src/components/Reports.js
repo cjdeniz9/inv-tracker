@@ -71,10 +71,10 @@ export default function Reports(props) {
   ];
 
   return (
-    <div className="pt-10">
+    <div className="xl:pb-0 py-10">
       <div className="border rounded-lg border-[#E2E8F0]">
         <h6 className="pl-2 pt-3">Reports</h6>
-        <div className="grid grid-cols-3 p-2">
+        <div className="phone-sizing:grid-cols-2 tablet-screen:grid-cols-3 grid grid-cols-1 p-2">
           {reportsGrid.map((item, key) => {
             const reportTextColor =
               item.value >= 0 ? "text-[#1D8751]" : "text-[#e53e3e]";
@@ -89,10 +89,7 @@ export default function Reports(props) {
             const rightBordering = item.rightBorder === true ? "border-r" : "";
 
             return (
-              <div
-                key={uuidv4()}
-                className={`${topBordering} ${bottomBordering} ${leftBordering} ${rightBordering} pl-4 pt-3 pb-3`}
-              >
+              <div key={uuidv4()} className={`border pl-4 pt-3 pb-3`}>
                 <h6>{item.title}</h6>
                 <div className="flex items-center">
                   <h5 className={reportTextColor}>{item.priceCount}</h5>

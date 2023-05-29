@@ -47,8 +47,6 @@ export default function Dashboard(props) {
     () => JSON.parse(localStorage.getItem("profitTotal")) || []
   );
 
-  const [test, setTest] = useState({});
-
   const netProfit = inventoryData.reduce(function (prev, current) {
     return prev + +current.roi;
   }, 0);
@@ -94,35 +92,33 @@ export default function Dashboard(props) {
   }).length;
 
   const updateChartData = newDate.map((item) => {
-    for (let i = 0; i > newDate.length; i++) {
-      if (newDate[i].id === item.id) {
-        console.log(newDate[i].id);
-        return {
-          ...item,
-          profit: filterTableData,
-        };
-      }
-    }
-    return;
+    const updateProfit = inventoryData
+      .filter((element) => {
+        return element.soldDate.includes(item.current);
+      })
+      .reduce(function (prev, current) {
+        return prev + +current.roi;
+      }, 0);
+    return {
+      ...item,
+      profit: updateProfit,
+    };
   });
+
+  if (newDate.length === 0) {
+    setNewDate([defaultTableData]);
+  }
+
+  if (newDate.length !== 0 && newDate.slice(-1)[0].current !== date) {
+    setNewDate([...newDate, currentDate]);
+  }
 
   useEffect(() => {
     localStorage.setItem("newDate", JSON.stringify(newDate));
     localStorage.setItem("profitTotal", JSON.stringify(profitTotal));
 
-    if (newDate.length === 0) {
-      setNewDate([defaultTableData]);
-    }
-
-    if (newDate.length !== 0 && newDate.slice(-1)[0].current !== date) {
-      setNewDate([...newDate, currentDate]);
-    }
-
-    const interval = setInterval(() => setNewDate(updateChartData, 1000000));
-    return () => {
-      clearInterval(interval);
-    };
-  }, [newDate]);
+    setNewDate(updateChartData);
+  }, []);
 
   const options = {
     responsive: true,
@@ -182,12 +178,14 @@ export default function Dashboard(props) {
   return (
     <>
       <Navbar />
-      <div className="flex sm:ml-64">
-        <div className="w-7/12 h-screen py-4 px-4">
+      <div className="tablet-screen:ml-64 flex">
+        <div className="xl:w-7/12 w-full h-screen py-4 px-4">
           <DashboardHeader
             inventoryData={inventoryData}
             newDate={newDate}
             salesCount={salesCount}
+            totalSpend={totalSpend}
+            netProfit={netProfit}
           />
           <Line options={options} data={data} />
           <Reports
@@ -198,7 +196,7 @@ export default function Dashboard(props) {
             salesCount={salesCount}
           />
         </div>
-        <div className="w-5/12">
+        <div className="xl:block hidden w-5/12">
           <DashboardInventory inventoryData={inventoryData} />
         </div>
       </div>

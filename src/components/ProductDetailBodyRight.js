@@ -8,8 +8,8 @@ export default function ProductDetailBodyRight(props) {
     props.productData[0].roi < 0 ? "text-cinnabar-red" : "text-salem-green";
 
   return (
-    <div className="w-4/12">
-      <div className="px-7">
+    <div className="tablet-screen:w-4/12 w-full">
+      <div className="tablet-screen:px-7">
         <h4>Timeline</h4>
         <div className="flex mt-6 py-3 px-4 bg-anti-flash-white rounded">
           <div className="py-2 pr-6">

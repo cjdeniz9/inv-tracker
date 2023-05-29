@@ -209,13 +209,13 @@ export default function AddItem(props) {
         }`}
       ></div>
       <div
-        className={`fixed top-0 right-0 w-7/12 h-full bg-white ${
+        className={`lg:w-7/12 fixed top-0 right-0 w-full h-full bg-white ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } ease-in-out duration-300 z-40`}
       >
         <div className="py-8 px-4">
           <h4>Product Details</h4>
-          <div className="py-8">
+          <div className="phone-screen:max-h-none phone-screen:overflow-hidden py-8 max-h-[40rem] overflow-y-scroll">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -336,7 +336,7 @@ export default function AddItem(props) {
                 </div>
                 <div className="w-2/12 mr-4">
                   <label
-                    className="block text-xs text-raisin-black mb-2"
+                    className="block text-xs text-raisin-black mb-2 whitespace-nowrap text-clip overflow-hidden"
                     for="placeOfPurchase"
                   >
                     Place of Purchase
@@ -376,7 +376,9 @@ export default function AddItem(props) {
                   <h2 className="text-sm text-raisin-black">Sizing</h2>
                 </div>
                 <SizeTypeFilter setSizeTypeSelected={setSizeTypeSelected} />
-                <div className="grid grid-cols-13 gap-2 pt-4">{sizing}</div>
+                <div className="lg:grid-cols-13 grid grid-cols-9 gap-2 pt-4">
+                  {sizing}
+                </div>
               </div>
               <div className="flex py-4">
                 <div className="w-5/12 mr-12">
@@ -405,7 +407,7 @@ export default function AddItem(props) {
                     </div>
                     <div className="w-1/2">
                       <label
-                        className="block text-xs text-raisin-black mb-2"
+                        className="block text-xs text-raisin-black mb-2 whitespace-nowrap text-clip overflow-hidden"
                         for="purchaseDate"
                       >
                         Purchase Date{" "}

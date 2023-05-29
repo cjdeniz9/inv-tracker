@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import ProductDetailHeader from "../components/ProductDetailHeader";
 import ProductDetailBody from "../components/ProductDetailBody";
+import MobileProductDetail from "../components/MobileProductDetail";
 
-export default function ProductDetail() {
+export default function ProductDetail(props) {
   const [inventory, setInventory] = useState(
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
@@ -23,12 +24,18 @@ export default function ProductDetail() {
   return (
     <>
       <Navbar />
-      <div className="p-3 sm:ml-64">
+      <div className="md:block hidden p-3 tablet-screen:ml-64">
         <ProductDetailHeader
           activeProductId={activeProductId}
           activeProduct={activeProduct}
         />
         <ProductDetailBody
+          activeProductId={activeProductId}
+          activeProduct={activeProduct}
+        />
+      </div>
+      <div className="md:hidden">
+        <MobileProductDetail
           activeProductId={activeProductId}
           activeProduct={activeProduct}
         />

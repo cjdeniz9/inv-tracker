@@ -41,7 +41,7 @@ export default function ProductDetailBodyLeft(props) {
   ];
 
   return (
-    <div className="w-8/12 py-1">
+    <div className="tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
       <div className="w-full h-48 flex bg-anti-flash-white rounded">
         <div className="w-[16%]">
           <div className="min-h-full flex items-center justify-center">
@@ -50,7 +50,7 @@ export default function ProductDetailBodyLeft(props) {
             <p className="text-xl">M</p> */}
           </div>
         </div>
-        <div className="my-8 bg-black border-l border-american-silver"></div>
+        <div className="my-8 border-l border-american-silver"></div>
         <div className="w-[55%] mt-8 ml-6">
           <h2>{props.productData[0].styleId}</h2>
           <span className="mt-2 text-lg">{props.productData[0].colorway}</span>
@@ -60,13 +60,12 @@ export default function ProductDetailBodyLeft(props) {
         </div>
         <div className="w-[29%] flex items-center justify-center">
           {props.productData[0].img === undefined ? (
-            // <UploadImage activeProductId={props.activeProductId} />
             ""
           ) : (
             <img
               src={props.productData[0].img}
               alt="Product Image"
-              className="h-[170px] w-[207px] rounded"
+              className="h-[90%] w-[92.5%] rounded"
             />
           )}
         </div>
