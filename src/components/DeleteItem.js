@@ -16,7 +16,7 @@ export default function DeleteItem(props) {
   }
 
   return (
-    <Link to="/Inventory">
+    <Link to="/">
       <button
         onClick={(event) => deleteItem(event, props.activeProductId)}
         className="bg-cinnabar-red border ml-2 py-[11px] px-3 rounded text-white font-medium"

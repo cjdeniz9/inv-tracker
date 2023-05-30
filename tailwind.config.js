@@ -16,6 +16,7 @@ module.exports = {
         "raisin-black": "#242424",
         "salem-green": "#1D8751",
         "cinnabar-red": "#E53E3E",
+        "blood-red": "#AB1615",
         "tufts-blue": "#3182CE",
         "blue-ryb": "#003EFF",
         "absolute-zero": "#0033CC",

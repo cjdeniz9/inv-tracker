@@ -17,6 +17,14 @@ export default function DashboardHeader(props) {
   const currentProfit =
     props.newDate.length === 0 ? 0 : props.newDate.slice(-1)[0].profit;
 
+  const currentTotal = inventory
+    .filter((item) => {
+      return item.soldDate.includes(props.date);
+    })
+    .reduce(function (prev, current) {
+      return prev + +current.price;
+    }, 0);
+
   const adjustedProfitAmount =
     props.newDate.length === 0 || 1
       ? 0
@@ -31,13 +39,12 @@ export default function DashboardHeader(props) {
   //         100
   //       ).toFixed(2);
 
+  console.log((currentProfit / currentTotal).toFixed(2));
+
   const adjustedProfitPercent =
     props.newDate.length === 0 || undefined
       ? 0
-      : (
-          (inventory.slice(-1)[0].roi / inventory.slice(-1)[0].price) *
-          100
-        ).toFixed(2);
+      : ((currentProfit / currentTotal) * 100).toFixed(2);
 
   const checkAdjustedProfitPercent = isNaN(adjustedProfitPercent)
     ? 0
@@ -64,7 +71,7 @@ export default function DashboardHeader(props) {
   let profitSymbol;
 
   if (adjustedProfitPercent < 0) {
-    profitTextColor = "text-cinnabar-red";
+    profitTextColor = "text-blood-red";
     profitSymbol = <FontAwesomeIcon icon={faArrowDown} />;
   } else if (adjustedProfitPercent > 0) {
     profitTextColor = "text-salem-green";

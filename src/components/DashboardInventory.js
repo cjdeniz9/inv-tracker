@@ -1,3 +1,5 @@
+import trackerLogo from "../img/trackerLogo-alt.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,11 +26,12 @@ export default function DashboardInventory(props) {
             <div className="pb-3">
               <div className="w-full h-full bg-white rounded flex p-3 drop-shadow-sm">
                 {item.img === undefined ? (
-                  <div className="w-20 flex items-center justify-center">
-                    <FontAwesomeIcon
+                  <div className="w-20 flex items-center justify-center bg-white drop-shadow-md rounded">
+                    {/* <FontAwesomeIcon
                       icon={faTag}
                       className="text-davys-grey text-4xl"
-                    />
+                    /> */}
+                    <img src={trackerLogo} alt="" className="w-[50%]" />
                   </div>
                 ) : (
                   <img
