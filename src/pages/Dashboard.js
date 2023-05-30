@@ -117,7 +117,7 @@ export default function Dashboard(props) {
     localStorage.setItem("newDate", JSON.stringify(newDate));
     localStorage.setItem("profitTotal", JSON.stringify(profitTotal));
 
-    setNewDate(updateChartData);
+    // setNewDate(updateChartData);
   }, []);
 
   const options = {
@@ -186,6 +186,7 @@ export default function Dashboard(props) {
             salesCount={salesCount}
             totalSpend={totalSpend}
             netProfit={netProfit}
+            date={date}
           />
           <Line options={options} data={data} />
           <Reports
