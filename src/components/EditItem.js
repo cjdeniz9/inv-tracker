@@ -276,7 +276,7 @@ export default function EditItem(props) {
       <div
         className={`${
           isOpen
-            ? "translate-x-0 absolute overflow-hidden w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
+            ? "translate-x-0 fixed overflow-hidden w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
             : ""
         }`}
       ></div>
@@ -287,7 +287,7 @@ export default function EditItem(props) {
       >
         <div className="py-8 px-4">
           <h4>Product Details</h4>
-          <div className="phone-screen:max-h-none py-8 max-h-[47rem] overflow-y-auto">
+          <div className="min-h-[85vh] py-8 overflow-auto">
             <form
               onSubmit={(e) => {
                 // e.preventDefault();
