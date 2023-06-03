@@ -50,7 +50,7 @@ export default function Navbar() {
         } tablet-screen:translate-x-0`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50">
+        <div className="h-screen px-3 py-4 overflow-y-auto bg-gray-50">
           <a href="#" className="flex items-center pl-2.5 mb-5 no-underline">
             <img
               src={trackerLogo}

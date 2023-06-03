@@ -276,7 +276,7 @@ export default function EditItem(props) {
       <div
         className={`${
           isOpen
-            ? "translate-x-0 absolute w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
+            ? "translate-x-0 absolute overflow-hidden w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
             : ""
         }`}
       ></div>
@@ -287,7 +287,7 @@ export default function EditItem(props) {
       >
         <div className="py-8 px-4">
           <h4>Product Details</h4>
-          <div className="phone-screen:max-h-none phone-screen:overflow-hidden py-8 max-h-[40rem] overflow-y-scroll">
+          <div className="phone-screen:max-h-none py-8 max-h-[47rem] overflow-y-auto">
             <form
               onSubmit={(e) => {
                 // e.preventDefault();
@@ -441,7 +441,7 @@ export default function EditItem(props) {
                   {sizing}
                 </div>
               </div>
-              <div className="flex py-4">
+              <div className="flex pt-4">
                 <div className="w-5/12 mr-12">
                   <div className="w-full border-b mr-14">
                     <h2 className="text-sm text-raisin-black">Pricing Data</h2>
@@ -558,7 +558,7 @@ export default function EditItem(props) {
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        placeholder="Unlisted"
+                        placeholder="Listed"
                         type="text"
                         id="status"
                         value={status}
@@ -589,7 +589,7 @@ export default function EditItem(props) {
                   </div>
                 </div>
               </div>
-              <div className="fixed bottom-8 right-6 z-50">
+              <div className="phone-screen:mt-16 tablet-screen:mt-10 w-full mt-8 flex flex-row-reverse">
                 <input
                   className="bg-blue-ryb rounded py-2 px-3 text-white font-medium hover:bg-absolute-zero"
                   type="submit"

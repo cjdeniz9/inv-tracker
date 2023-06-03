@@ -497,7 +497,7 @@ export default function AddItem(props) {
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        placeholder="Unlisted"
+                        placeholder="Listed"
                         type="text"
                         id="status"
                         value={status}

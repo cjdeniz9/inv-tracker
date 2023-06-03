@@ -31,7 +31,7 @@ export default function Reports(props) {
     {
       title: "Net Profit",
       priceCount: `$${props.netProfit}`,
-      percentValue: `${netProfitPercent}%`,
+      percentValue: `${isNaN(netProfitPercent) ? 0 : netProfitPercent}%`,
       value: props.netProfit,
       topBorder: true,
       bottomBorder: true,

@@ -24,7 +24,7 @@ export default function ProductDetail(props) {
   return (
     <>
       <Navbar />
-      <div className="md:block hidden p-3 tablet-screen:ml-64">
+      <div className="md:block tablet-screen:ml-64 hidden p-3 overflow-hidden">
         <ProductDetailHeader
           activeProductId={activeProductId}
           activeProduct={activeProduct}

@@ -43,10 +43,6 @@ export default function Dashboard(props) {
     () => JSON.parse(localStorage.getItem("newDate")) || []
   );
 
-  const [profitTotal, setProfitTotal] = useState(
-    () => JSON.parse(localStorage.getItem("profitTotal")) || []
-  );
-
   const netProfit = inventoryData.reduce(function (prev, current) {
     return prev + +current.roi;
   }, 0);
@@ -115,9 +111,8 @@ export default function Dashboard(props) {
 
   useEffect(() => {
     localStorage.setItem("newDate", JSON.stringify(newDate));
-    localStorage.setItem("profitTotal", JSON.stringify(profitTotal));
 
-    // setNewDate(updateChartData);
+    setNewDate(updateChartData);
   }, []);
 
   const options = {
@@ -179,7 +174,7 @@ export default function Dashboard(props) {
     <>
       <Navbar />
       <div className="tablet-screen:ml-64 flex">
-        <div className="xl:w-7/12 w-full h-screen py-4 px-4">
+        <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4">
           <DashboardHeader
             inventoryData={inventoryData}
             newDate={newDate}
@@ -197,7 +192,7 @@ export default function Dashboard(props) {
             salesCount={salesCount}
           />
         </div>
-        <div className="xl:block hidden w-5/12">
+        <div className="xl:block 2xl:w-[43%] hidden w-5/12">
           <DashboardInventory inventoryData={inventoryData} />
         </div>
       </div>

@@ -51,14 +51,14 @@ export default function ProductDetailBodyLeft(props) {
           </div>
         </div>
         <div className="my-8 border-l border-american-silver"></div>
-        <div className="w-[55%] mt-8 ml-6">
+        <div className="2xl:w-[64%] w-[55%] mt-8 ml-6">
           <h2>{props.productData[0].styleId}</h2>
           <span className="mt-2 text-lg">{props.productData[0].colorway}</span>
           <p className="text-lg text-granite-gray">
             {props.productData[0].brand}
           </p>
         </div>
-        <div className="w-[29%] flex items-center justify-center">
+        <div className="2xl:w-[20%] w-[29%] flex items-center justify-center">
           {props.productData[0].img === undefined ? (
             ""
           ) : (

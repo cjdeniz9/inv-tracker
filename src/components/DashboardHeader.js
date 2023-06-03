@@ -39,8 +39,6 @@ export default function DashboardHeader(props) {
   //         100
   //       ).toFixed(2);
 
-  console.log((currentProfit / currentTotal).toFixed(2));
-
   const adjustedProfitPercent =
     props.newDate.length === 0 || undefined
       ? 0

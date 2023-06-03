@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import Navbar from "../components/Navbar";
 import InventoryHeader from "../components/InventoryHeader";
 import AddItem from "../components/AddItem";
@@ -9,12 +10,35 @@ import StatusFilter from "../components/StatusFilter";
 import ProfitFilter from "../components/ProfitFilter";
 import InventoryTableHead from "../components/InventoryTableHead";
 import InventoryTable from "../components/InventoryTable";
+import prefillImg from "../img/jordan-1-retro-low-og-sp-travis-scott.webp";
+
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
+
 import "../index.css";
 
 export default function Inventory(props) {
   let inventoryContent;
+
+  const prefillInv = {
+    brand: "Nike",
+    colorway: "BLACK/DARK MOCHA-UNIVERSITY RED-SAIL",
+    condition: "New",
+    id: uuidv4(),
+    img: prefillImg,
+    name: "Travis Scott Jordan 1 Retro Low OG SP",
+    notes: "Item was sold through StockX",
+    orderNum: "29348402",
+    placeOfPurchase: "SNKRS",
+    price: "170",
+    purchasedDate: "May 31, 2023",
+    roi: "2000",
+    size: "12",
+    sizeTypeSelected: "Shoes",
+    soldDate: "May 31, 2023",
+    status: "Sold",
+    styleId: "CQ4277-001",
+  };
 
   const [inventory, setInventory] = useState(
     () => JSON.parse(localStorage.getItem("inventory")) || []
@@ -40,8 +64,13 @@ export default function Inventory(props) {
   ];
 
   useEffect(() => {
+    localStorage.setItem("prefillInv", JSON.stringify(prefillInv));
     localStorage.setItem("inventory", JSON.stringify(inventory));
   }, [inventory]);
+
+  if (inventory.length === 0) {
+    setInventory([prefillInv]);
+  }
 
   function addItem(
     name,
@@ -319,7 +348,7 @@ export default function Inventory(props) {
   return (
     <div className="App">
       <Navbar />
-      <div className="p-4 xl:ml-64">
+      <div className="p-4 tablet-screen:ml-64">
         <InventoryHeader />
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">

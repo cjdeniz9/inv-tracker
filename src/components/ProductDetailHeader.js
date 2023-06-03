@@ -26,7 +26,7 @@ export default function ProductDetailHeader(props) {
   return (
     <div className="pb-4">
       <div className="text-lg">
-        <Link to="/Inventory" className="no-underline text-tufts-blue">
+        <Link to="/" className="no-underline text-tufts-blue">
           <FontAwesomeIcon icon={faAngleLeft} /> Inventory
         </Link>
         <span className="text-granite-gray">
@@ -36,7 +36,9 @@ export default function ProductDetailHeader(props) {
       </div>
       <div className="flex justify-between pt-3">
         <div>
-          <h2>{props.activeProduct[0].name}</h2>
+          <h2 className="phone-screen:text-2xl tablet-screen:text-3xl">
+            {props.activeProduct[0].name}
+          </h2>
         </div>
         <div className="flex">
           {props.activeProduct[0].img === undefined ? (

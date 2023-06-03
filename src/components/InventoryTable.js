@@ -58,7 +58,9 @@ export default function InventoryTable(props) {
           {props.name}
         </Link>
       </td>
-      <td className="max-w-[5rem] pl-20 text-base">{props.brand}</td>
+      <td className="max-w-[15rem] pl-20 text-base whitespace-nowrap truncate">
+        {props.brand}
+      </td>
       <td className="max-w-[10rem] pl-16 text-base whitespace-nowrap">
         {props.size}
       </td>
