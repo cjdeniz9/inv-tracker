@@ -63,6 +63,12 @@ export default function Dashboard(props) {
     }, 0),
   };
 
+  const demoDefaultData = {
+    id: uuidv4(),
+    current: "June 1, 2023",
+    profit: 0,
+  };
+
   const [currentDate, setCurrentDate] = useState({
     id: uuidv4(),
     current: date,
@@ -102,7 +108,7 @@ export default function Dashboard(props) {
   });
 
   if (newDate.length === 0) {
-    setNewDate([defaultTableData]);
+    setNewDate([demoDefaultData]);
   }
 
   if (newDate.length !== 0 && newDate.slice(-1)[0].current !== date) {

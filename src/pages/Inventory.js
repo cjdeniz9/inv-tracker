@@ -20,6 +20,8 @@ import "../index.css";
 export default function Inventory(props) {
   let inventoryContent;
 
+  const date = moment().format("LL");
+
   const prefillInv = {
     brand: "Nike",
     colorway: "BLACK/DARK MOCHA-UNIVERSITY RED-SAIL",
@@ -31,11 +33,11 @@ export default function Inventory(props) {
     orderNum: "29348402",
     placeOfPurchase: "SNKRS",
     price: "170",
-    purchasedDate: "May 31, 2023",
+    purchasedDate: "June 1, 2023",
     roi: "2000",
     size: "12",
     sizeTypeSelected: "Shoes",
-    soldDate: "May 31, 2023",
+    soldDate: date,
     status: "Sold",
     styleId: "CQ4277-001",
   };
