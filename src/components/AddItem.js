@@ -388,7 +388,7 @@ export default function AddItem(props) {
                   {sizing}
                 </div>
               </div>
-              <div className="flex py-4">
+              <div className="flex pt-4">
                 <div className="w-5/12 mr-12">
                   <div className="w-full border-b mr-14">
                     <h2 className="text-sm text-raisin-black">Pricing Data</h2>
