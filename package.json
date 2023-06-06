@@ -25,6 +25,7 @@
     "react-scripts": "5.0.1",
     "react-time-ago": "^7.2.1",
     "react-uploader": "^3.23.0",
+    "shippo": "^1.7.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

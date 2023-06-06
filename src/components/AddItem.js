@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+
 import SizeTypeFilter from "./SizeTypeFilter";
+
+import { useWindowDimensions } from "react-native";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
@@ -20,6 +24,10 @@ export default function AddItem(props) {
   const [condition, setCondition] = useState("");
   const [notes, setNotes] = useState("");
   const [orderNum, setOrderNum] = useState("");
+
+  const { height } = useWindowDimensions();
+
+  const responsiveHeight = height < 848 ? "h-[90vh]" : "";
 
   const [sizeTypeSelected, setSizeTypeSelected] = useState("Shoes");
 
@@ -215,7 +223,7 @@ export default function AddItem(props) {
       >
         <div className="py-8 px-4">
           <h4>Product Details</h4>
-          <div className="phone-screen:max-h-none phone-screen:overflow-hidden py-8 max-h-[40rem] overflow-y-scroll">
+          <div className={`${responsiveHeight} py-8 overflow-auto`}>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -528,7 +536,7 @@ export default function AddItem(props) {
                   </div>
                 </div>
               </div>
-              <div className="fixed bottom-8 right-6 z-50">
+              <div className="phone-screen:mt-16 tablet-screen:mt-10 w-full mt-8 flex flex-row-reverse">
                 <input
                   className="bg-blue-ryb rounded py-2 px-3 text-white font-medium hover:bg-absolute-zero"
                   type="submit"

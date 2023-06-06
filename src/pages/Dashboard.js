@@ -180,7 +180,7 @@ export default function Dashboard(props) {
     <>
       <Navbar />
       <div className="tablet-screen:ml-64 flex">
-        <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4">
+        <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
           <DashboardHeader
             inventoryData={inventoryData}
             newDate={newDate}

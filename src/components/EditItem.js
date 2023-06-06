@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import SizeTypeFilter from "./SizeTypeFilter";
 
 import moment from "moment";
+import { useWindowDimensions } from "react-native";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +14,10 @@ export default function EditItem(props) {
   const [inventory, setInventory] = useState(
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
+
+  const { height } = useWindowDimensions();
+
+  const responsiveHeight = height < 848 ? "h-[90vh]" : "";
 
   useEffect(() => {
     localStorage.setItem("inventory", JSON.stringify(inventory));
@@ -287,7 +292,7 @@ export default function EditItem(props) {
       >
         <div className="py-8 px-4">
           <h4>Product Details</h4>
-          <div className="min-h-[85vh] py-8 overflow-auto">
+          <div className={`${responsiveHeight} py-8 overflow-auto`}>
             <form
               onSubmit={(e) => {
                 // e.preventDefault();

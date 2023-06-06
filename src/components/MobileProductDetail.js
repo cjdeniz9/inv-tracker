@@ -70,7 +70,7 @@ export default function MobileProductDetail(props) {
     <div className="w-full p-4">
       {/* Mobile Product Page Heading Start */}
       <div className="text-xl whitespace-nowrap truncate pb-4">
-        <Link to="/Inventory" className="no-underline text-tufts-blue">
+        <Link to="/" className="no-underline text-tufts-blue">
           <FontAwesomeIcon icon={faAngleLeft} /> Inventory
         </Link>
         <span className="text-granite-gray">
