@@ -1,3 +1,5 @@
+import { useReducer } from "react";
+
 import UploadImage from "./UploadImage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

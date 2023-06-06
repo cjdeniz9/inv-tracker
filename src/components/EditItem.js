@@ -315,7 +315,7 @@ export default function EditItem(props) {
                   orderNum
                 );
               }}
-              id="editmodal"
+              id="editform"
               className="w-full"
             >
               <div className="border-b">
@@ -598,17 +598,14 @@ export default function EditItem(props) {
                 <input
                   className="bg-blue-ryb rounded py-2 px-3 text-white font-medium hover:bg-absolute-zero"
                   type="submit"
-                  form="editmodal"
-                  // onClick={() => {
-                  //   if (name === "" || purchasedDate === "" || price === "") {
-                  //     setIsOpen(true);
-                  //   } else {
-                  //     setIsOpen(false);
-                  //   }
-                  // }}
-                  // onClick={() => {
-                  //   setIsOpen(false);
-                  // }}
+                  form="editform"
+                  onClick={() => {
+                    if (name === "" || purchasedDate === "" || price === "") {
+                      setIsOpen(true);
+                    } else {
+                      setIsOpen(false);
+                    }
+                  }}
                 />
               </div>
             </form>

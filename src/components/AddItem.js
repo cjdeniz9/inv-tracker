@@ -188,9 +188,9 @@ export default function AddItem(props) {
     });
   }
 
-  function onSubmit(event) {
-    event.preventDefault();
-  }
+  // function onSubmit(event) {
+  //   event.preventDefault();
+  // }
 
   return (
     <>
