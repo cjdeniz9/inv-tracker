@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export default function UploadImage(props) {
   const uploader = Uploader({
-    apiKey: "public_kW15bJA6pF2njid2LjYTVzHKNckd",
+    apiKey: "public_W142hy36kB1izTruKyEXxBayzhD4",
   });
   const uploaderOptions = {
     multi: false,

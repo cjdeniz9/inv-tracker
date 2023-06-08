@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Navbar from "../components/Navbar";
-import InventoryHeader from "../components/InventoryHeader";
+import InventoryHeader from "../components/Items/ItemsHeader";
 import AddItem from "../components/AddItem";
 import EditItem from "../components/EditItem";
 import DeleteItem from "../components/DeleteItem";
