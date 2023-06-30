@@ -20,7 +20,7 @@ For demo purposes, I permanently added the first item in your inventory to speed
 ![dashboard](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/d42aadac-b89f-4846-a886-ea757c938694)
 ![inventory](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/6c600c14-3985-4422-8c9d-b313beb40de2)
 ![addItem](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/cc9920c2-afae-4cd1-9ddd-d714775743e1)
-![productDetail](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/65906701-a54d-4f6f-a041-35fcf854fa26)
+![productDetail](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/5f3438e4-1878-4959-b117-7ce66246db28)
 ![uploadImg](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/f4b378f1-27e3-4877-983b-00ab5d756e82)
 ![editItem](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/535bb93f-f639-45b9-876e-93a0888f910f)
 ![deleteConfirmation](https://github.com/cjdeniz9/InventoryTracker/assets/78882801/e7b9b90d-1c87-4b6e-a1ff-bfc5ca951c83)
