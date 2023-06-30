@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-import ProductDetailHeader from "../components/ProductDetailHeader";
 import ProductDetailBody from "../components/ProductDetailBody";
-import MobileProductDetail from "../components/MobileProductDetail";
+import SalesProductDetailHeader from "../components/Items/SalesProductDetailHeader";
+import MobileSalesProductDetail from "../components/Items/MobileSalesProductDetail";
 
-export default function ProductDetail(props) {
+export default function SalesProductDatail() {
   const [inventory, setInventory] = useState(
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
@@ -25,7 +25,7 @@ export default function ProductDetail(props) {
     <>
       <Navbar />
       <div className="md:block tablet-screen:ml-56 hidden p-3 overflow-auto">
-        <ProductDetailHeader
+        <SalesProductDetailHeader
           activeProductId={activeProductId}
           activeProduct={activeProduct}
         />
@@ -35,7 +35,7 @@ export default function ProductDetail(props) {
         />
       </div>
       <div className="md:hidden">
-        <MobileProductDetail
+        <MobileSalesProductDetail
           activeProductId={activeProductId}
           activeProduct={activeProduct}
         />

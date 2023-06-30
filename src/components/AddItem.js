@@ -18,9 +18,9 @@ export default function AddItem(props) {
   const [colorway, setColorway] = useState("");
   const [placeOfPurchase, setPlaceOfPurchase] = useState("");
   const [purchasedDate, setPurchaseDate] = useState("");
-  const [soldDate, setSoldDate] = useState("");
   const [price, setPrice] = useState("");
-  const [roi, setRoi] = useState("");
+  const [tax, setTax] = useState("");
+  const [shippingPrice, setShippingPrice] = useState("");
   const [condition, setCondition] = useState("");
   const [notes, setNotes] = useState("");
   const [orderNum, setOrderNum] = useState("");
@@ -188,10 +188,6 @@ export default function AddItem(props) {
     });
   }
 
-  // function onSubmit(event) {
-  //   event.preventDefault();
-  // }
-
   return (
     <>
       {!isOpen ? (
@@ -236,9 +232,9 @@ export default function AddItem(props) {
                 setColorway("");
                 setPlaceOfPurchase("");
                 setPurchaseDate("");
-                setSoldDate("");
                 setPrice("");
-                setRoi("");
+                setTax("");
+                setShippingPrice("");
                 setCondition("");
                 setNotes("");
                 setOrderNum("");
@@ -252,9 +248,9 @@ export default function AddItem(props) {
                   colorway,
                   placeOfPurchase,
                   purchasedDate,
-                  soldDate,
                   price,
-                  roi,
+                  tax,
+                  shippingPrice,
                   condition,
                   notes,
                   orderNum
@@ -437,35 +433,36 @@ export default function AddItem(props) {
                     <div className="w-1/2 mr-4">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="roi"
+                        for="tax"
                       >
-                        Profit
+                        Tax
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         placeholder="0.00"
-                        type="text"
-                        id="roi"
-                        value={roi}
+                        type="number"
+                        id="tax"
+                        value={tax}
                         onChange={(e) => {
-                          setRoi(e.target.value);
+                          setTax(e.target.value);
                         }}
                       />
                     </div>
                     <div className="w-1/2">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="soldDate"
+                        for="shippingPrice"
                       >
-                        Sold Date
+                        Shipping Price
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        type="date"
-                        id="soldDate"
-                        value={soldDate}
+                        placeholder="0.00"
+                        type="number"
+                        id="shippingPrice"
+                        value={shippingPrice}
                         onChange={(e) => {
-                          setSoldDate(e.target.value);
+                          setShippingPrice(e.target.value);
                         }}
                       />
                     </div>

@@ -35,9 +35,11 @@ export default function EditItem(props) {
   const [purchasedDate, setPurchaseDate] = useState(
     props.activeProduct[0].purchasedDate
   );
-  const [soldDate, setSoldDate] = useState(props.activeProduct[0].soldDate);
   const [price, setPrice] = useState(props.activeProduct[0].price);
-  const [roi, setRoi] = useState(props.activeProduct[0].roi);
+  const [tax, setTax] = useState(props.activeProduct[0].tax);
+  const [shippingPrice, setShippingPrice] = useState(
+    props.activeProduct[0].shippingPrice
+  );
   const [condition, setCondition] = useState(props.activeProduct[0].condition);
   const [notes, setNotes] = useState(props.activeProduct[0].notes);
   const [orderNum, setOrderNum] = useState(props.activeProduct[0].orderNum);
@@ -214,25 +216,15 @@ export default function EditItem(props) {
     newColorway,
     newPlaceOfPurchase,
     newPurchasedDate,
-    newSoldDate,
     newPrice,
-    newRoi,
+    newTax,
+    newShippingPrice,
     newCondition,
     newNotes,
     newOrderNum
   ) {
     const updatedItem = inventory.map((item) => {
       if (id === item.id) {
-        let dateSold;
-
-        if (newSoldDate === "" && newRoi === "") {
-          dateSold = "";
-        } else if (newRoi !== "") {
-          dateSold = moment().format("LL");
-        } else {
-          dateSold = moment(newSoldDate).format("LL");
-        }
-
         return {
           ...item,
           name: newName,
@@ -247,9 +239,9 @@ export default function EditItem(props) {
             newPurchasedDate === ""
               ? ""
               : moment(newPurchasedDate).format("LL"),
-          soldDate: dateSold,
           price: newPrice,
-          roi: newRoi,
+          tax: newTax,
+          shippingPrice: newShippingPrice,
           condition: newCondition,
           notes: newNotes,
           orderNum: newOrderNum,
@@ -307,9 +299,9 @@ export default function EditItem(props) {
                   colorway,
                   placeOfPurchase,
                   purchasedDate,
-                  soldDate,
                   price,
-                  roi,
+                  tax,
+                  shippingPrice,
                   condition,
                   notes,
                   orderNum
@@ -462,7 +454,7 @@ export default function EditItem(props) {
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         placeholder="0.00"
-                        type="text"
+                        type="number"
                         id="price"
                         value={price}
                         onChange={(e) => {
@@ -495,35 +487,36 @@ export default function EditItem(props) {
                     <div className="w-1/2 mr-4">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="roi"
+                        for="tax"
                       >
-                        Profit
+                        Tax
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         placeholder="0.00"
-                        type="text"
-                        id="roi"
-                        value={roi}
+                        type="number"
+                        id="tax"
+                        value={tax}
                         onChange={(e) => {
-                          setRoi(e.target.value);
+                          setTax(e.target.value);
                         }}
                       />
                     </div>
                     <div className="w-1/2">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="soldDate"
+                        for="shippingPrice"
                       >
-                        Sold Date
+                        Shipping Price
                       </label>
                       <input
                         className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        type="date"
-                        id="soldDate"
-                        value={moment(soldDate).format("YYYY-MM-DD")}
+                        placeholder="0.00"
+                        type="number"
+                        id="shippingPrice"
+                        value={shippingPrice}
                         onChange={(e) => {
-                          setSoldDate(e.target.value);
+                          setShippingPrice(e.target.value);
                         }}
                       />
                     </div>

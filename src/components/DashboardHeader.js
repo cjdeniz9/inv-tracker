@@ -19,7 +19,7 @@ export default function DashboardHeader(props) {
 
   const currentTotal = inventory
     .filter((item) => {
-      return item.soldDate.includes(props.date);
+      return item.saleDate.includes(props.date);
     })
     .reduce(function (prev, current) {
       return prev + +current.price;

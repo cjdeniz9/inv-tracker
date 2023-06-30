@@ -52,13 +52,28 @@ export default function InventoryTableHead() {
     },
     {
       id: 11,
-      name: "Profit",
-      prNum: "pl-20",
+      name: "Listing Price",
+      prNum: "pl-24",
     },
     {
       id: 12,
+      name: "Sale Price",
+      prNum: "pl-20",
+    },
+    {
+      id: 13,
+      name: "Platform",
+      prNum: "pl-20",
+    },
+    {
+      id: 14,
       name: "Condition",
-      prNum: "px-20",
+      prNum: "pl-20",
+    },
+    {
+      id: 15,
+      name: "Notes",
+      prNum: "px-16",
     },
   ];
 

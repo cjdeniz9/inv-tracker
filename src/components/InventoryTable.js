@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
@@ -9,11 +9,13 @@ import {
 export default function InventoryTable(props) {
   let statusSymbol, statusTextColor;
 
+  let location = useLocation();
+
   const [inventory, setInventory] = useState(
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
 
-  const [selectedCheckbox, setSelectedCheckbox] = useState({});
+  // const [selectedCheckbox, setSelectedCheckbox] = useState({});
 
   if (props.status.toLowerCase() === "listed") {
     statusSymbol = <FontAwesomeIcon icon={faClipboardList} />;
@@ -24,7 +26,7 @@ export default function InventoryTable(props) {
   }
 
   function currencySymbol(value) {
-    return value === "" ? "" : "$";
+    return value === "" ? "" : "$" + value;
   }
 
   // const sizeText = props.sizeTypeSelected === "Shoes" ? "US M" : "";
@@ -54,7 +56,10 @@ export default function InventoryTable(props) {
         </div>
       </td>
       <td className="max-w-xs text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">
-        <Link to={`/productDetail/${props.id}`} className="no-underline">
+        <Link
+          to={location.pathname === "/" ? `/${props.id}` : `/sales/${props.id}`}
+          className="no-underline"
+        >
           {props.name}
         </Link>
       </td>
@@ -82,17 +87,40 @@ export default function InventoryTable(props) {
         {props.purchasedDate}
       </td>
       <td className="max-w-[10rem] pl-20 text-base whitespace-nowrap">
-        {props.soldDate}
+        {inventory.map((item) => {
+          if (props.id === item.id) {
+            return item.saleDate;
+          }
+        })}
       </td>
       <td className="max-w-[10rem] pl-24 text-base">
         {currencySymbol(props.price)}
-        {props.price}
       </td>
-      <td className={profitColor}>
-        {currencySymbol(props.roi)}
-        {props.roi}
+      <td className="max-w-[10rem] pl-24 text-base">
+        {inventory.map((item) => {
+          if (props.id === item.id) {
+            return currencySymbol(item.listingPrice);
+          }
+        })}
       </td>
-      <td className="max-w-[10rem] px-20 text-base">{props.condition}</td>
+      <td className="max-w-[10rem] pl-20 text-base">
+        {inventory.map((item) => {
+          if (props.id === item.id) {
+            return currencySymbol(item.salePrice);
+          }
+        })}
+      </td>
+      <td className="max-w-[10rem] pl-20 text-base">
+        {inventory.map((item) => {
+          if (props.id === item.id) {
+            return item.listedPlatform;
+          }
+        })}
+      </td>
+      <td className="max-w-[10rem] pl-20 text-base">{props.condition}</td>
+      <td className="max-w-[20rem] px-16 text-base whitespace-nowrap truncate">
+        {props.notes}
+      </td>
     </tr>
   );
 }

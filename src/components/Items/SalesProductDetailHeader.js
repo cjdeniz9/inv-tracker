@@ -1,12 +1,9 @@
-import { useState } from "react";
-
 import { Link } from "react-router-dom";
 
-import EditItem from "../components/EditItem";
-import DeleteItem from "../components/DeleteItem";
-import UploadImage from "./UploadImage";
-import ChangeImage from "./ChangeImage";
-import ConfirmDeleteItem from "./ProductDetail/ConfirmDeleteItem";
+import EditItem from "../EditItem";
+import DeleteItem from "../DeleteItem";
+import UploadImage from "../UploadImage";
+import ChangeImage from "../ChangeImage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,10 +12,8 @@ import {
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function ProductDetailHeader(props) {
+export default function SalesProductDetailHeader(props) {
   let statusSymbol, statusTextColor;
-
-  const [showConfirmDeleteItem, setShowConfirmDeleteItem] = useState(false);
 
   if (props.activeProduct[0].status.toLowerCase() === "listed") {
     statusSymbol = <FontAwesomeIcon icon={faClipboardList} />;
@@ -30,8 +25,8 @@ export default function ProductDetailHeader(props) {
   return (
     <div className="pb-4">
       <div className="text-lg">
-        <Link to="/" className="no-underline text-tufts-blue">
-          <FontAwesomeIcon icon={faAngleLeft} /> Inventory
+        <Link to="/sales" className="no-underline text-tufts-blue">
+          <FontAwesomeIcon icon={faAngleLeft} /> Sales
         </Link>
         <span className="text-granite-gray">
           {" "}
@@ -57,11 +52,7 @@ export default function ProductDetailHeader(props) {
             activeProductId={props.activeProductId}
             activeProduct={props.activeProduct}
           />
-          <DeleteItem
-            showConfirmDeleteItem={showConfirmDeleteItem}
-            setShowConfirmDeleteItem={setShowConfirmDeleteItem}
-            activeProductId={props.activeProductId}
-          />
+          <DeleteItem activeProductId={props.activeProductId} />
         </div>
       </div>
       <div>
@@ -69,15 +60,6 @@ export default function ProductDetailHeader(props) {
           {statusSymbol} {props.activeProduct[0].status}
         </span>
       </div>
-      {showConfirmDeleteItem ? (
-        <ConfirmDeleteItem
-          showConfirmDeleteItem={showConfirmDeleteItem}
-          setShowConfirmDeleteItem={setShowConfirmDeleteItem}
-          activeProductId={props.activeProductId}
-        />
-      ) : (
-        ""
-      )}
     </div>
   );
 }

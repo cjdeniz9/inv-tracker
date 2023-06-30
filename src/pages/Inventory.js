@@ -3,11 +3,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import InventoryHeader from "../components/Items/ItemsHeader";
 import AddItem from "../components/AddItem";
-import EditItem from "../components/EditItem";
-import DeleteItem from "../components/DeleteItem";
 import Search from "../components/Search";
 import StatusFilter from "../components/StatusFilter";
-import ProfitFilter from "../components/ProfitFilter";
 import InventoryTableHead from "../components/InventoryTableHead";
 import InventoryTable from "../components/InventoryTable";
 import prefillImg from "../img/jordan-1-retro-low-og-sp-travis-scott.webp";
@@ -28,18 +25,26 @@ export default function Inventory(props) {
     condition: "New",
     id: uuidv4(),
     img: prefillImg,
+    listingDate: date,
+    listedPlatform: "StockX",
+    listingPrice: 1700,
     name: "Travis Scott Jordan 1 Retro Low OG SP",
     notes: "Item was sold through StockX",
     orderNum: "29348402",
     placeOfPurchase: "SNKRS",
-    price: "170",
+    platformFees: 150,
+    price: 170,
     purchasedDate: "June 1, 2023",
-    roi: "2000",
+    saleDate: date,
+    salePrice: 1500,
+    saleShipping: 13,
+    shippingPrice: 10,
     size: "12",
     sizeTypeSelected: "Shoes",
-    soldDate: date,
+    soldPlatform: "StockX",
     status: "Sold",
     styleId: "CQ4277-001",
+    tax: 17.43,
   };
 
   const [inventory, setInventory] = useState(
@@ -123,83 +128,12 @@ export default function Inventory(props) {
     setInventory([...inventory, newItem]);
   }
 
-  // function updateItem(
-  //   id,
-  //   newName,
-  //   newBrand,
-  //   newSize,
-  //   newStyleId,
-  //   newStatus,
-  //   newPurchasedDate,
-  //   newSoldDate,
-  //   newPrice,
-  //   newRoi,
-  //   newCondition
-  // ) {
-  //   const updatedItem = inventory.map((item) => {
-  //     if (id === item.id) {
-  //       let dateSold;
-
-  //       if (newSoldDate === "" && newRoi === "") {
-  //         dateSold = "";
-  //       } else if (newRoi !== "") {
-  //         dateSold = moment().format("LL");
-  //       } else {
-  //         dateSold = moment(newSoldDate).format("LL");
-  //       }
-
-  //       return {
-  //         ...item,
-  //         name: newName,
-  //         brand: newBrand,
-  //         size: newSize,
-  //         styleId: newStyleId,
-  //         status: newStatus,
-  //         purchasedDate:
-  //           newPurchasedDate === ""
-  //             ? ""
-  //             : moment(newPurchasedDate).format("LL"),
-  //         soldDate: dateSold,
-  //         price: newPrice,
-  //         roi: newRoi,
-  //         condition: newCondition,
-  //       };
-  //     }
-
-  //     return item;
-  //   });
-  //   setInventory(updatedItem);
-  // }
-
-  // function deleteItem(event, itemId) {
-  //   event.stopPropagation();
-  //   setInventory((prevInv) =>
-  //     prevInv.filter((prevItem) => prevItem.id !== itemId)
-  //   );
-  // }
-
-  if (search.length >= 1) {
+  if (search.length > 0) {
     inventoryContent = inventory
       .filter((item) => {
         return item.name.toLowerCase().includes(search.toLowerCase());
       })
       .map((item) => {
-        const editItem = (
-          <EditItem
-            id={item.id}
-            name={item.name}
-            brand={item.brand}
-            size={item.size}
-            styleId={item.styleId}
-            status={item.status}
-            purchasedDate={item.purchasedDate}
-            soldDate={item.soldDate}
-            price={item.price}
-            roi={item.roi}
-            condition={item.condition}
-          />
-        );
-
         return (
           <InventoryTable
             key={item.id}
@@ -218,28 +152,12 @@ export default function Inventory(props) {
             roi={item.roi}
             condition={item.condition}
             notes={item.notes}
-            editItem={editItem}
           />
         );
       });
   } else if ((selectedStatus !== undefined) | (selectedStatus.length !== 0)) {
     selectedStatus.toString().toLowerCase() === "all"
       ? (inventoryContent = inventory.map((item) => {
-          const editItem = (
-            <EditItem
-              id={item.id}
-              name={item.name}
-              brand={item.brand}
-              size={item.size}
-              styleId={item.styleId}
-              status={item.status}
-              purchasedDate={item.purchasedDate}
-              soldDate={item.soldDate}
-              price={item.price}
-              roi={item.roi}
-              condition={item.condition}
-            />
-          );
           return (
             <InventoryTable
               key={item.id}
@@ -258,7 +176,6 @@ export default function Inventory(props) {
               roi={item.roi}
               condition={item.condition}
               notes={item.notes}
-              editItem={editItem}
             />
           );
         }))
@@ -269,21 +186,6 @@ export default function Inventory(props) {
               .includes(selectedStatus.toString().toLowerCase());
           })
           .map((item) => {
-            const editItem = (
-              <EditItem
-                id={item.id}
-                name={item.name}
-                brand={item.brand}
-                size={item.size}
-                styleId={item.styleId}
-                status={item.status}
-                purchasedDate={item.purchasedDate}
-                soldDate={item.soldDate}
-                price={item.price}
-                roi={item.roi}
-                condition={item.condition}
-              />
-            );
             return (
               <InventoryTable
                 key={item.id}
@@ -302,27 +204,11 @@ export default function Inventory(props) {
                 roi={item.roi}
                 condition={item.condition}
                 notes={item.notes}
-                editItem={editItem}
               />
             );
           }));
   } else {
     inventoryContent = inventory.map((item) => {
-      const editItem = (
-        <EditItem
-          id={item.id}
-          name={item.name}
-          brand={item.brand}
-          size={item.size}
-          styleId={item.styleId}
-          status={item.status}
-          purchasedDate={item.purchasedDate}
-          soldDate={item.soldDate}
-          price={item.price}
-          roi={item.roi}
-          condition={item.condition}
-        />
-      );
       return (
         <InventoryTable
           key={item.id}
@@ -341,7 +227,6 @@ export default function Inventory(props) {
           roi={item.roi}
           condition={item.condition}
           notes={item.notes}
-          editItem={editItem}
         />
       );
     });
@@ -350,7 +235,7 @@ export default function Inventory(props) {
   return (
     <div className="App">
       <Navbar />
-      <div className="tablet-screen:ml-64 h-[95vh] overflow-auto p-4">
+      <div className="tablet-screen:ml-56 h-[95vh] overflow-auto p-4">
         <InventoryHeader />
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">

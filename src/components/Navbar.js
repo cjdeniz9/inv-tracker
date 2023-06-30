@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import trackerLogo from "../img/trackerLogo.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTable, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTable,
+  faBoxOpen,
+  faSackDollar,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,13 +49,13 @@ export default function Navbar() {
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
+        className={`fixed top-0 left-0 z-40 w-56 h-screen transition-transform ${
           isOpen ? "-translate-x-0" : "-translate-x-full"
         } tablet-screen:translate-x-0`}
         aria-label="Sidebar"
       >
-        <div className="h-screen px-3 py-4 overflow-y-auto bg-gray-50">
-          <a href="#" className="flex items-center pl-2.5 mb-5 no-underline">
+        <div className="h-screen py-4 overflow-y-auto bg-gray-50">
+          <a href="#" className="flex items-center pl-8 mb-5 no-underline">
             <img
               src={trackerLogo}
               className="h-6 mr-3 sm:h-7"
@@ -61,12 +65,11 @@ export default function Navbar() {
               Tracker
             </span>
           </a>
-
-          <ul className="space-y-3">
+          <ul className="space-y-3 p-0 ml-5">
             <li>
               <Link
                 to="/dashboard"
-                className="flex no-underline items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
+                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon icon={faTable} style={{ color: "#181818" }} />
                 <span className="ml-4 text-[#242424]">Dashboard</span>
@@ -75,13 +78,25 @@ export default function Navbar() {
             <li>
               <Link
                 to="/"
-                className="flex no-underline items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
+                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon
                   icon={faBoxOpen}
                   style={{ color: "#181818" }}
                 />
                 <span className="ml-3 text-[#242424]">Inventory</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/sales"
+                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
+              >
+                <FontAwesomeIcon
+                  icon={faSackDollar}
+                  style={{ color: "#181818" }}
+                />
+                <span className="ml-4 text-[#242424]">Sales</span>
               </Link>
             </li>
           </ul>

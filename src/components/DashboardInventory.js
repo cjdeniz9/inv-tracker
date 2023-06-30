@@ -17,11 +17,12 @@ export default function DashboardInventory(props) {
       <div className="max-h-full overflow-auto p-4">
         <h4 className="pb-6">Your Inventory</h4>
         {props.inventoryData.map((item) => {
-          const itemProfit = item.roi === "" ? "$0" : "$" + item.roi;
+          const itemProfit =
+            item.salePrice === "" ? "$0" : "$" + item.salePrice;
           const itemProfitPercent =
-            item.roi === ""
+            item.salePrice === ""
               ? "0%"
-              : ((item.roi / item.price) * 100).toFixed(2) + "%";
+              : ((item.salePrice / item.price) * 100).toFixed(2) + "%";
           return (
             <div className="pb-3">
               <div className="w-full h-full bg-white rounded flex p-3 drop-shadow-sm">
@@ -36,7 +37,7 @@ export default function DashboardInventory(props) {
                 ) : (
                   <img
                     src={item.img}
-                    className="h-14 w-16 rounded drop-shadow-md"
+                    className="h-14 w-[4.25rem] rounded drop-shadow-md"
                   />
                 )}
                 <div className="w-full flex justify-between ml-6">

@@ -5,6 +5,9 @@ import UploadImage from "./UploadImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
 
+import PurchaseDetails from "./ProductDetail/PurchaseDetails";
+import ListingDetails from "./ProductDetail/ListingDetails";
+
 export default function ProductDetailBodyLeft(props) {
   const purchaseDetails = [
     {
@@ -14,31 +17,35 @@ export default function ProductDetailBodyLeft(props) {
     },
     {
       id: 2,
+      title: "Shipping",
+      value: "$" + props.productData[0].shippingPrice,
+    },
+    {
+      id: 3,
+      title: "Total",
+      value:
+        "$" +
+        (props.productData[0].price +
+          props.productData[0].tax +
+          props.productData[0].shippingPrice),
+    },
+    {
+      id: 4,
       title: "Place of purchase",
       value: props.productData[0].placeOfPurchase,
     },
     {
-      id: 3,
+      id: 5,
       title: "Purchase Date",
       value: props.productData[0].purchasedDate,
     },
     {
-      id: 4,
-      title: "Order Number",
+      id: 6,
+      title: "Order number",
       value:
         props.productData[0].orderNum === ""
-          ? ""
+          ? "None"
           : "#" + props.productData[0].orderNum,
-    },
-    {
-      id: 5,
-      title: "Condition",
-      value: props.productData[0].condition,
-    },
-    {
-      id: 6,
-      title: "Sold Date",
-      value: props.productData[0].soldDate,
     },
   ];
 
@@ -88,52 +95,16 @@ export default function ProductDetailBodyLeft(props) {
           </div>
         </div>
       </div>
-      <div className="py-3">
-        <div>
-          <h4>Purchase details</h4>
-          <div className="flex py-3">
-            <div className="flex pr-28">
-              <div>
-                {purchaseDetails.slice(0, 3).map((item, key) => {
-                  return (
-                    <p key={item.id} className="text-lg text-granite-gray">
-                      {item.title}
-                    </p>
-                  );
-                })}
-              </div>
-              <div className="pl-16">
-                {purchaseDetails.slice(0, 3).map((item, key) => {
-                  return (
-                    <p key={item.id} className="text-lg">
-                      {item.value} &nbsp;
-                    </p>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="flex">
-              <div>
-                {purchaseDetails.slice(3, 6).map((item, key) => {
-                  return (
-                    <p key={item.id} className="text-lg text-granite-gray">
-                      {item.title}
-                    </p>
-                  );
-                })}
-              </div>
-              <div className="pl-16">
-                {purchaseDetails.slice(3, 6).map((item, key) => {
-                  return (
-                    <p key={item.id} className="text-lg">
-                      {item.value} &nbsp;
-                    </p>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="w-full flex justify-between">
+        <ListingDetails
+          activeProductId={props.activeProductId}
+          productData={props.productData}
+          deleteSale={props.deleteSale}
+          deleteListing={props.deleteListing}
+          checkListing={props.checkListing}
+          setCheckListing={props.setCheckListing}
+        />
+        <PurchaseDetails purchaseDetails={purchaseDetails} />
       </div>
     </div>
   );

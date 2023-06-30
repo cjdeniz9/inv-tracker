@@ -44,22 +44,22 @@ export default function Dashboard(props) {
   );
 
   const netProfit = inventoryData.reduce(function (prev, current) {
-    return prev + +current.roi;
+    return prev + +current.salePrice;
   }, 0);
 
   const filterTableData = inventoryData
     .filter((item) => {
-      return item.soldDate.includes(date);
+      return item.saleDate.includes(date);
     })
     .reduce(function (prev, current) {
-      return prev + +current.roi;
+      return prev + +current.salePrice;
     }, 0);
 
   const defaultTableData = {
     id: uuidv4(),
     current: date,
     profit: inventoryData.reduce(function (prev, current) {
-      return prev + +current.roi;
+      return prev + +current.salePrice;
     }, 0),
   };
 
@@ -80,7 +80,7 @@ export default function Dashboard(props) {
       return item.status.toLowerCase().includes("sold");
     })
     .reduce(function (prev, current) {
-      return prev + +current.price + +current.roi;
+      return prev + +current.price + +current.salePrice;
     }, 0);
 
   const totalSpend = inventoryData.reduce(function (prev, current) {
@@ -96,10 +96,10 @@ export default function Dashboard(props) {
   const updateChartData = newDate.map((item) => {
     const updateProfit = inventoryData
       .filter((element) => {
-        return element.soldDate.includes(item.current);
+        return element.saleDate.includes(item.current);
       })
       .reduce(function (prev, current) {
-        return prev + +current.roi;
+        return prev + +current.salePrice;
       }, 0);
     return {
       ...item,
@@ -179,7 +179,7 @@ export default function Dashboard(props) {
   return (
     <>
       <Navbar />
-      <div className="tablet-screen:ml-64 flex">
+      <div className="tablet-screen:ml-56 flex">
         <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
           <DashboardHeader
             inventoryData={inventoryData}
