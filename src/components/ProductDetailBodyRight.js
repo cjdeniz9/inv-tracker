@@ -70,7 +70,7 @@ export default function ProductDetailBodyRight(props) {
               </span>
               <div>
                 <ReactTimeAgo
-                  date={props.productData[0].listingDate}
+                  date={props.checkListing[0].listingDate}
                   locale="en-US"
                   className="text-sm text-slate-gray"
                 />
@@ -94,7 +94,7 @@ export default function ProductDetailBodyRight(props) {
             <div>
               <span className="text-lg font-medium text-raisin-black">
                 Sold on {props.productData[0].soldPlatform} for $
-                {props.productData[0].salePrice}.00
+                {props.checkListing[0].salePrice}.00
               </span>
               <div>
                 <ReactTimeAgo
@@ -112,7 +112,9 @@ export default function ProductDetailBodyRight(props) {
           <span className="text-xl">
             Net Profit:{" "}
             <span className={profitTextColor}>
-              {props.productData[0].salePrice === ""
+              {props.checkListing.length > 0 &&
+              props.checkListing[0].hasOwnProperty("salePrice") &&
+              props.checkListing[0].salePrice === ""
                 ? "$0"
                 : "$" + props.productData[0].salePrice}
             </span>

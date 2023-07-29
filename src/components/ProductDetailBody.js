@@ -11,9 +11,9 @@ export default function ProductDetailBody(props) {
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
 
-  const [checkListing, setCheckListing] = useState({});
-
   const [render, setRender] = useState(false);
+
+  const [checkListing, setCheckListing] = useState({});
 
   const productData = props.activeProduct;
 
@@ -22,9 +22,10 @@ export default function ProductDetailBody(props) {
       if (item.id === props.activeProductId) {
         return {
           ...item,
+          status: item.listedPlatform === "" ? "Unlisted" : "Listed",
           soldPlatform: "",
           salePrice: "",
-          soldDate: "",
+          saleDate: "",
         };
       }
       return item;
@@ -38,6 +39,7 @@ export default function ProductDetailBody(props) {
       if (item.id === props.activeProductId) {
         return {
           ...item,
+          status: "Unlisted",
           listedPlatform: "",
           listingPrice: "",
           listingDate: "",
@@ -61,14 +63,20 @@ export default function ProductDetailBody(props) {
       {width < 991 ? (
         <div>
           <ProductDetailBodyRight
+            activeProductId={props.activeProductId}
             productData={productData}
-            render={render}
+            deleteSale={deleteSale}
             deleteListing={deleteListing}
+            checkListing={checkListing}
+            render={props.render}
           />
           <ProductDetailBodyLeft
             activeProductId={props.activeProductId}
             productData={productData}
+            deleteSale={deleteSale}
             deleteListing={deleteListing}
+            checkListing={checkListing}
+            setCheckListing={setCheckListing}
           />
         </div>
       ) : (
@@ -87,7 +95,7 @@ export default function ProductDetailBody(props) {
             deleteSale={deleteSale}
             deleteListing={deleteListing}
             checkListing={checkListing}
-            render={render}
+            render={props.render}
           />
         </div>
       )}

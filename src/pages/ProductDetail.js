@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import ProductDetailHeader from "../components/ProductDetailHeader";
 import ProductDetailBody from "../components/ProductDetailBody";
 import MobileProductDetail from "../components/MobileProductDetail";
+import { useEffect } from "react";
 
 export default function ProductDetail(props) {
   const [inventory, setInventory] = useState(
@@ -20,6 +21,10 @@ export default function ProductDetail(props) {
   );
 
   const [activeProduct, setActiveProduct] = useState(filterProductId);
+
+  useEffect(() => {
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+  }, [inventory]);
 
   return (
     <>

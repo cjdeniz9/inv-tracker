@@ -2,11 +2,62 @@ import { useState, useEffect } from "react";
 
 import Modal from "react-modal";
 import moment from "moment";
+import { useWindowDimensions } from "react-native";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const customStyles = {
+const customStylesMobile = {
+  overlay: {
+    position: "fixed",
+    zIndex: "50",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(36, 36, 36, .5)",
+  },
+  content: {
+    position: "absolute",
+    width: "80%",
+    margin: "auto",
+    top: "4rem",
+    bottom: "23rem",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    borderRadius: "6px",
+    outline: "none",
+    padding: "20px",
+  },
+};
+
+const customStylesTablet = {
+  overlay: {
+    position: "fixed",
+    zIndex: "50",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(36, 36, 36, .5)",
+  },
+  content: {
+    position: "absolute",
+    width: "60%",
+    margin: "auto",
+    top: "4rem",
+    bottom: "42rem",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    borderRadius: "6px",
+    outline: "none",
+    padding: "20px",
+  },
+};
+
+const customStylesLaptop = {
   overlay: {
     position: "fixed",
     zIndex: "50",
@@ -34,9 +85,21 @@ const customStyles = {
 Modal.setAppElement(document.getElementById("root"));
 
 export default function EditSoldForm(props) {
+  let customStyles;
+
   const [inventory, setInventory] = useState(
     () => JSON.parse(localStorage.getItem("inventory")) || []
   );
+
+  const { width } = useWindowDimensions();
+
+  if (width < 768) {
+    customStyles = customStylesMobile;
+  } else if (width < 992) {
+    customStyles = customStylesTablet;
+  } else {
+    customStyles = customStylesLaptop;
+  }
 
   useEffect(() => {
     localStorage.setItem("inventory", JSON.stringify(inventory));

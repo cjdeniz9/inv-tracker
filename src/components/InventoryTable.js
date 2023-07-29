@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBoxArchive,
   faCircleCheck,
   faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +24,9 @@ export default function InventoryTable(props) {
   } else if (props.status.toLowerCase() === "sold") {
     statusSymbol = <FontAwesomeIcon icon={faCircleCheck} />;
     statusTextColor = "text-salem-green";
+  } else {
+    statusSymbol = <FontAwesomeIcon icon={faBoxArchive} />;
+    statusTextColor = "text-granite-gray";
   }
 
   function currencySymbol(value) {
@@ -99,14 +103,18 @@ export default function InventoryTable(props) {
       <td className="max-w-[10rem] pl-24 text-base">
         {inventory.map((item) => {
           if (props.id === item.id) {
-            return currencySymbol(item.listingPrice);
+            return item.salePrice === "" || item.salePrice === undefined
+              ? ""
+              : currencySymbol(item.listingPrice);
           }
         })}
       </td>
       <td className="max-w-[10rem] pl-20 text-base">
         {inventory.map((item) => {
           if (props.id === item.id) {
-            return currencySymbol(item.salePrice);
+            return item.salePrice === "" || item.salePrice === undefined
+              ? ""
+              : currencySymbol(item.salePrice);
           }
         })}
       </td>

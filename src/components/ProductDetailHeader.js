@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -16,17 +16,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function ProductDetailHeader(props) {
-  let statusSymbol, statusTextColor;
-
   const [showConfirmDeleteItem, setShowConfirmDeleteItem] = useState(false);
 
-  if (props.activeProduct[0].status.toLowerCase() === "listed") {
-    statusSymbol = <FontAwesomeIcon icon={faClipboardList} />;
-    statusTextColor = "text-tufts-blue";
-  } else if (props.activeProduct[0].status.toLowerCase() === "sold") {
-    statusSymbol = <FontAwesomeIcon icon={faCircleCheck} />;
-    statusTextColor = "text-salem-green";
-  }
+  const [inventory, setInventory] = useState(
+    () => JSON.parse(localStorage.getItem("inventory")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+  }, [inventory]);
+
   return (
     <div className="pb-4">
       <div className="text-lg">
@@ -63,11 +62,6 @@ export default function ProductDetailHeader(props) {
             activeProductId={props.activeProductId}
           />
         </div>
-      </div>
-      <div>
-        <span className={statusTextColor}>
-          {statusSymbol} {props.activeProduct[0].status}
-        </span>
       </div>
       {showConfirmDeleteItem ? (
         <ConfirmDeleteItem

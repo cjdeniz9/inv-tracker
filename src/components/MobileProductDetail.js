@@ -1,7 +1,10 @@
+import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 
 import EditItem from "../components/EditItem";
 import DeleteItem from "../components/DeleteItem";
+import ListingDetails from "./ProductDetail/ListingDetails";
 import UploadImage from "./UploadImage";
 import ChangeImage from "./ChangeImage";
 
@@ -19,13 +22,53 @@ import {
 export default function MobileProductDetail(props) {
   let statusSymbol, statusTextColor;
 
-  if (props.activeProduct[0].status.toLowerCase() === "listed") {
-    statusSymbol = <FontAwesomeIcon icon={faClipboardList} />;
-    statusTextColor = "text-tufts-blue";
-  } else if (props.activeProduct[0].status.toLowerCase() === "sold") {
-    statusSymbol = <FontAwesomeIcon icon={faCircleCheck} />;
-    statusTextColor = "text-salem-green";
+  const [inventory, setInventory] = useState(
+    () => JSON.parse(localStorage.getItem("inventory")) || []
+  );
+
+  const [render, setRender] = useState(false);
+  const [checkListing, setCheckListing] = useState({});
+
+  function deleteSale() {
+    const removeSale = inventory.map((item) => {
+      if (item.id === props.activeProductId) {
+        return {
+          ...item,
+          status: item.listedPlatform === "" ? "Unlisted" : "Listed",
+          soldPlatform: "",
+          salePrice: "",
+          saleDate: "",
+        };
+      }
+      return item;
+    });
+    setInventory(removeSale);
+    setRender(!render);
   }
+
+  function deleteListing() {
+    const removeListing = inventory.map((item) => {
+      if (item.id === props.activeProductId) {
+        return {
+          ...item,
+          status: "Unlisted",
+          listedPlatform: "",
+          listingPrice: "",
+          listingDate: "",
+        };
+      }
+      return item;
+    });
+    setInventory(removeListing);
+    setRender(!render);
+  }
+
+  useEffect(() => {
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+    setCheckListing(
+      inventory.filter((item) => item.id.includes(props.activeProductId))
+    );
+  }, [inventory]);
 
   const profitTextColor =
     props.activeProduct[0].roi < 0 ? "text-cinnabar-red" : "text-salem-green";
@@ -88,9 +131,6 @@ export default function MobileProductDetail(props) {
         />
       )}
       <h1 className="pt-4">{props.activeProduct[0].name}</h1>
-      <span className={statusTextColor}>
-        {statusSymbol} {props.activeProduct[0].status}
-      </span>
       <div className="flex my-4">
         {props.activeProduct[0].img === undefined ? (
           <UploadImage activeProductId={props.activeProductId} />
@@ -133,9 +173,9 @@ export default function MobileProductDetail(props) {
         <span className="text-xl">
           Net Profit:{" "}
           <span className={profitTextColor}>
-            {props.activeProduct[0].roi === ""
+            {props.activeProduct[0].salePrice === ""
               ? "$0"
-              : "$" + props.activeProduct[0].roi}
+              : "$" + props.activeProduct[0].salePrice}
           </span>
         </span>
       </div>
@@ -196,6 +236,8 @@ export default function MobileProductDetail(props) {
           </div>
         </div>
       </div>
+      <div className="mb-8 border-t border-bright-gray"></div>
+      <ListingDetails checkListing={checkListing} />
       {/* Mobile Product Page Body End */}
     </div>
   );

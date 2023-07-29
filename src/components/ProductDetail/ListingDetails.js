@@ -7,13 +7,19 @@ import EditListedForm from "./EditListedForm";
 import { Menu } from "@headlessui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBoxArchive,
+  faCircleCheck,
+  faClipboardList,
+  faPencil,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import DeleteListing from "./DeleteListing";
 import DeleteSale from "./DeleteSale";
 import EditSoldForm from "./EditSoldForm";
 
 export default function ListingDetails(props) {
-  let currentStatus;
+  let bgColorStatus, colorStatus, iconStatus;
 
   const [showSoldForm, setShowSoldForm] = useState(false);
   const [showListedForm, setShowListedForm] = useState(false);
@@ -34,29 +40,49 @@ export default function ListingDetails(props) {
     props.checkListing[0].hasOwnProperty("soldPlatform") &&
     props.checkListing[0].soldPlatform !== ""
   ) {
-    currentStatus = "sold";
+    iconStatus = <FontAwesomeIcon icon={faCircleCheck} />;
+    colorStatus = "text-salem-green";
+    bgColorStatus = "bg-green-azureish-white";
   } else if (
     props.checkListing.length > 0 &&
     props.checkListing[0].hasOwnProperty("listedPlatform") &&
     props.checkListing[0].listedPlatform !== ""
   ) {
-    currentStatus = "listed";
+    iconStatus = <FontAwesomeIcon icon={faClipboardList} />;
+    colorStatus = "text-tufts-blue";
+    bgColorStatus = "bg-blue-azureish-white";
   } else {
-    currentStatus = "unlisted";
+    iconStatus = <FontAwesomeIcon icon={faBoxArchive} />;
+    colorStatus = "text-granite-gray";
+    bgColorStatus = "bg-bright-gray";
   }
 
   return (
-    <div className="w-[45%]">
-      <h4 className="pb-2">Listing details</h4>
-      <p className="mb-6 leading-[22px]">
+    <div className="sm:w-[45%]">
+      <div className="flex w-full justify-between items-end">
+        <h4 className="m-0">Listing details</h4>
+        <div
+          className={`w-fit ${bgColorStatus} rounded h-fit py-0.5 px-2 ${colorStatus} text-sm`}
+        >
+          <span className="mr-1.5">{iconStatus}</span>
+          {props.checkListing.length > 0 &&
+          props.checkListing[0].hasOwnProperty("status") &&
+          props.checkListing[0].status !== "" ? (
+            <span>{props.checkListing[0].status}</span>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      {/* <p className="mb-6 leading-[22px]">
         This item is currently {currentStatus}. When you list this item through
         Scout you can list accross multiple platforms to sell your items as
         quickly as possible.
-      </p>
+      </p> */}
       {props.checkListing.length > 0 &&
       props.checkListing[0].hasOwnProperty("soldPlatform") &&
       props.checkListing[0].soldPlatform !== "" ? (
-        <div className="border-[1px] border-bright-gray">
+        <div className="border-[1px] border-bright-gray mt-4">
           <div className="p-3">
             <div className="w-full flex justify-between -mb-2">
               <div className="w-[70%]">
@@ -88,7 +114,7 @@ export default function ListingDetails(props) {
       props.checkListing[0].hasOwnProperty("listedPlatform") &&
       props.checkListing[0].listedPlatform !== "" &&
       props.checkListing[0].soldPlatform === "" ? (
-        <div className="border-[1px] border-bright-gray">
+        <div className="border-[1px] border-bright-gray mt-4">
           <div className="p-3">
             <div className="w-full flex justify-between -mb-2">
               <div className="w-[70%]">

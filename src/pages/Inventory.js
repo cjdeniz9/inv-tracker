@@ -89,23 +89,14 @@ export default function Inventory(props) {
     colorway,
     placeOfPurchase,
     purchasedDate,
-    soldDate,
     price,
+    tax,
+    shippingPrice,
     roi,
     condition,
     notes,
     orderNum
   ) {
-    let dateSold;
-
-    if (soldDate === "" && roi === "") {
-      dateSold = "";
-    } else if (roi !== "") {
-      dateSold = moment().format("LL");
-    } else if (soldDate !== "") {
-      dateSold = moment(soldDate).format("LL");
-    }
-
     const newItem = {
       id: uuidv4(),
       name: name,
@@ -113,13 +104,14 @@ export default function Inventory(props) {
       size: size,
       sizeTypeSelected: sizeTypeSelected,
       styleId: styleId,
-      status: status,
+      status: status !== "" ? status : "Unlisted",
       colorway: colorway,
       placeOfPurchase: placeOfPurchase,
       purchasedDate:
         purchasedDate === "" ? "" : moment(purchasedDate).format("LL"),
-      soldDate: dateSold,
       price: price,
+      tax: tax,
+      shippingPrice: shippingPrice,
       roi: roi,
       condition: condition,
       notes: notes,

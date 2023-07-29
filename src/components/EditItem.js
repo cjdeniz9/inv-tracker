@@ -336,7 +336,7 @@ export default function EditItem(props) {
                 <div className="w-2/12 mr-4">
                   <label
                     className="block text-xs text-raisin-black mb-2"
-                    for="brand"
+                    htmlFor="brand"
                   >
                     Brand
                   </label>
@@ -354,7 +354,7 @@ export default function EditItem(props) {
                 <div className="w-3/12">
                   <label
                     className="block text-xs text-raisin-black mb-2"
-                    for="styleId"
+                    htmlFor="styleId"
                   >
                     Style ID
                   </label>
@@ -374,7 +374,7 @@ export default function EditItem(props) {
                 <div className="w-5/12 mr-4">
                   <label
                     className="block text-xs text-raisin-black mb-2"
-                    for="colorway"
+                    htmlFor="colorway"
                   >
                     Colorway
                   </label>
@@ -392,7 +392,7 @@ export default function EditItem(props) {
                 <div className="w-2/12 mr-4">
                   <label
                     className="block text-xs text-raisin-black mb-2 whitespace-nowrap text-clip overflow-hidden"
-                    for="placeOfPurchase"
+                    htmlFor="placeOfPurchase"
                   >
                     Place of Purchase
                   </label>
@@ -410,7 +410,7 @@ export default function EditItem(props) {
                 <div className="w-3/12 mr-4">
                   <label
                     className="block text-xs text-raisin-black mb-2"
-                    for="orderNum"
+                    htmlFor="orderNum"
                   >
                     Order Number
                   </label>
@@ -447,7 +447,7 @@ export default function EditItem(props) {
                     <div className="w-1/2 mr-4">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="price"
+                        htmlFor="price"
                       >
                         Price <span className="text-cinnabar-red">*</span>
                       </label>
@@ -466,7 +466,7 @@ export default function EditItem(props) {
                     <div className="w-1/2">
                       <label
                         className="block text-xs text-raisin-black mb-2 whitespace-nowrap text-clip overflow-hidden"
-                        for="purchaseDate"
+                        htmlFor="purchaseDate"
                       >
                         Purchase Date{" "}
                         <span className="text-cinnabar-red">*</span>
@@ -487,7 +487,7 @@ export default function EditItem(props) {
                     <div className="w-1/2 mr-4">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="tax"
+                        htmlFor="tax"
                       >
                         Tax
                       </label>
@@ -505,7 +505,7 @@ export default function EditItem(props) {
                     <div className="w-1/2">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="shippingPrice"
+                        htmlFor="shippingPrice"
                       >
                         Shipping Price
                       </label>
@@ -532,7 +532,7 @@ export default function EditItem(props) {
                     <div className="w-1/2 mr-4">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="condition"
+                        htmlFor="condition"
                       >
                         Condition
                       </label>
@@ -550,7 +550,7 @@ export default function EditItem(props) {
                     <div className="w-1/2">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="status"
+                        htmlFor="status"
                       >
                         Status
                       </label>
@@ -570,7 +570,7 @@ export default function EditItem(props) {
                     <div className="w-full">
                       <label
                         className="block text-xs text-raisin-black mb-2"
-                        for="notes"
+                        htmlFor="notes"
                       >
                         Notes
                       </label>

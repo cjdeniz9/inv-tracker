@@ -18,7 +18,10 @@ export default function ProductDetailBodyLeft(props) {
     {
       id: 2,
       title: "Shipping",
-      value: "$" + props.productData[0].shippingPrice,
+      value:
+        props.productData[0].shippingPrice === ""
+          ? ""
+          : "$" + props.productData[0].shippingPrice,
     },
     {
       id: 3,
@@ -43,12 +46,12 @@ export default function ProductDetailBodyLeft(props) {
       id: 6,
       title: "Order number",
       value:
-        props.productData[0].orderNum === ""
+        props.productData[0].orderNum === "" ||
+        props.productData[0].orderNum === undefined
           ? "None"
           : "#" + props.productData[0].orderNum,
     },
   ];
-
   return (
     <div className="tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
       <div className="w-full h-48 flex bg-anti-flash-white rounded">
@@ -99,6 +102,7 @@ export default function ProductDetailBodyLeft(props) {
         <ListingDetails
           activeProductId={props.activeProductId}
           productData={props.productData}
+          render={props.render}
           deleteSale={props.deleteSale}
           deleteListing={props.deleteListing}
           checkListing={props.checkListing}
