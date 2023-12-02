@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import InventoryTable from "../components/InventoryTable";
+import InventoryTable from "../components/Inventory/InventoryTable";
 import Navbar from "../components/Navbar";
 import InventoryHeader from "../components/Items/ItemsHeader";
-import Search from "../components/Search";
-import InventoryTableHead from "../components/InventoryTableHead";
+import Search from "../components/Inventory/Search";
+import InventoryTableHead from "../components/Inventory/InventoryTableHead";
 
 export default function Sales() {
   let salesInv;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
-import ProductDetailBody from "../components/ProductDetailBody";
+import Body from "../components/ProductDetail/Body";
 import SalesProductDetailHeader from "../components/Items/SalesProductDetailHeader";
 import MobileSalesProductDetail from "../components/Items/MobileSalesProductDetail";
 
@@ -29,10 +29,7 @@ export default function SalesProductDatail() {
           activeProductId={activeProductId}
           activeProduct={activeProduct}
         />
-        <ProductDetailBody
-          activeProductId={activeProductId}
-          activeProduct={activeProduct}
-        />
+        <Body activeProductId={activeProductId} activeProduct={activeProduct} />
       </div>
       <div className="md:hidden">
         <MobileSalesProductDetail

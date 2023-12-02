@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://pkge.net/css/externalwidget.min.css" />
+<div class="widget-pkge-net">
+  <div class="widget-pkge-net-search">
+    <!--The field to enter the tracking number.-->
+    <input
+      type="text"
+      class="widget-pkge-net-textfield"
+      id="track-number"
+      maxlength="40"
+    />
+    <!-- Button to call the script method and start the tracking process.-->
+    <input
+      type="button"
+      class="widget-pkge-net-button"
+      value="Track"
+      onclick="widgetTrack()"
+    />
+  </div>
+  <!-- Container in which the package tracking result will be displayed.-->
+  <div class="widget-pkge-net-result" id="widget-container"></div>
+  <div class="widget-pkge-net-help">
+    For example:
+    <span
+      onclick="document.getElementById('track-number').value = this.innerText"
+      >Y0084838637</span
+    >
+  </div>
+</div>
+<!--The script needed for the widget to work. It can be inserted at the end of the page.-->
+<script
+  type="text/javascript"
+  src="https://pkge.net/externalwidget.min.js"
+></script>
+<script type="text/javascript">
+  function widgetTrack() {
+    var trackNumber = document.getElementById("track-number").value;
+    if (!trackNumber) {
+      alert("Enter the tracking number!");
+      return false;
+    }
+    PKGEExtWidget.trackBlockIntegrated({
+      //Required. Your personal widget token
+      token: "PWLAi19NYH-J8ziTBj6QV885dbj1NF5q",
+      //Required. Tracking number.
+      trackNumber: trackNumber,
+      //Required. ID for the container that will display the package tracking result.
+      containerId: "widget-container",
+      //Optional. Width of the frame in which package tracking results will be displayed. The default value extends to the container's entire width.
+      width: 970,
+      //Optional. Height of the frame in which package tracking results will be displayed. The default value is 370.
+      height: 370,
+      //Optional. User interface language. If not set, it will be determined by the user's browser settings.
+      language: "en",
+    });
+  }
+</script>

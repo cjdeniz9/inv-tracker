@@ -1,6 +1,21 @@
+import { useEffect, useState } from "react";
+
+import { db } from "../firebase";
+import {
+  query,
+  collection,
+  onSnapshot,
+  addDoc,
+  serverTimestamp,
+  orderBy,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+
+import Inventory from "../components/Dashboard/Inventory";
+import Header from "../components/Dashboard/Header";
 import Navbar from "../components/Navbar";
-import DashboardHeader from "../components/DashboardHeader";
-import Reports from "../components/Reports";
+import Reports from "../components/Dashboard/Reports";
 
 import {
   Chart as ChartJS,
@@ -14,13 +29,9 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
-import { useEffect, useState } from "react";
-
-import { v4 as uuidv4 } from "uuid";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar } from "@fortawesome/free-solid-svg-icons";
-import DashboardInventory from "../components/DashboardInventory";
 
 ChartJS.register(
   CategoryScale,
@@ -33,49 +44,38 @@ ChartJS.register(
 );
 
 export default function Dashboard(props) {
-  const [inventoryData, setInventoryData] = useState(
-    () => JSON.parse(localStorage.getItem("inventory")) || []
-  );
-
   const date = moment().format("LL");
 
-  const [newDate, setNewDate] = useState(
-    () => JSON.parse(localStorage.getItem("newDate")) || []
-  );
+  const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const netProfit = inventoryData.reduce(function (prev, current) {
+  useEffect(() => {
+    const q = query(collection(db, "dashboard"), orderBy("timestamp", "asc"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let chartArr = [];
+      querySnapshot.forEach((item) => {
+        chartArr.push({ ...item.data(), id: item.id });
+      });
+      setChartData(chartArr);
+      setLoading(true);
+    });
+    return () => unsubscribe;
+  }, []);
+
+  const netProfit = props.inventory.reduce(function (prev, current) {
     return prev + +current.salePrice;
   }, 0);
 
-  const filterTableData = inventoryData
+  const filterTableData = props.inventory
     .filter((item) => {
-      return item.saleDate.includes(date);
+      const formattedDate = moment(item.saleDate).format("l");
+      return formattedDate.includes(moment().format("l"));
     })
     .reduce(function (prev, current) {
       return prev + +current.salePrice;
     }, 0);
 
-  const defaultTableData = {
-    id: uuidv4(),
-    current: date,
-    profit: inventoryData.reduce(function (prev, current) {
-      return prev + +current.salePrice;
-    }, 0),
-  };
-
-  const demoDefaultData = {
-    id: uuidv4(),
-    current: "June 1, 2023",
-    profit: 0,
-  };
-
-  const [currentDate, setCurrentDate] = useState({
-    id: uuidv4(),
-    current: date,
-    profit: filterTableData,
-  });
-
-  const salesIncome = inventoryData
+  const salesIncome = props.inventory
     .filter((item) => {
       return item.status.toLowerCase().includes("sold");
     })
@@ -83,43 +83,41 @@ export default function Dashboard(props) {
       return prev + +current.price + +current.salePrice;
     }, 0);
 
-  const totalSpend = inventoryData.reduce(function (prev, current) {
+  const totalSpend = props.inventory.reduce(function (prev, current) {
     return prev + +current.price;
   }, 0);
 
-  const itemPurchased = inventoryData.length;
+  const itemPurchased = props.inventory.length;
 
-  const salesCount = inventoryData.filter((item) => {
+  const salesCount = props.inventory.filter((item) => {
     return item.status.toLowerCase().includes("sold");
   }).length;
 
-  const updateChartData = newDate.map((item) => {
-    const updateProfit = inventoryData
-      .filter((element) => {
-        return element.saleDate.includes(item.current);
-      })
-      .reduce(function (prev, current) {
-        return prev + +current.salePrice;
-      }, 0);
-    return {
-      ...item,
-      profit: updateProfit,
-    };
-  });
-
-  if (newDate.length === 0) {
-    setNewDate([demoDefaultData]);
+  // Set first doc for chart
+  if (loading && !chartData.length) {
+    addDoc(collection(db, "dashboard"), {
+      date: date,
+      profit: filterTableData,
+      timestamp: serverTimestamp(),
+    });
   }
 
-  if (newDate.length !== 0 && newDate.slice(-1)[0].current !== date) {
-    setNewDate([...newDate, currentDate]);
+  // Checks if current day exist, if not creates new doc for chart
+  if (loading && chartData.length && chartData.slice(-1)[0].date !== date) {
+    addDoc(collection(db, "dashboard"), {
+      date: date,
+      profit: filterTableData,
+      timestamp: serverTimestamp(),
+    });
   }
 
-  useEffect(() => {
-    localStorage.setItem("newDate", JSON.stringify(newDate));
-
-    setNewDate(updateChartData);
-  }, []);
+  // Checks for updated profit for current day
+  if (loading && chartData.length && chartData.slice(-1)[0].date === date) {
+    const id = chartData.slice(-1)[0].id;
+    updateDoc(doc(db, "dashboard", id), {
+      profit: filterTableData,
+    });
+  }
 
   const options = {
     responsive: true,
@@ -157,8 +155,8 @@ export default function Dashboard(props) {
     },
   };
 
-  const labels = newDate.map((item) => {
-    return item.current;
+  const labels = chartData.map((item) => {
+    return item.date;
   });
 
   const data = {
@@ -168,7 +166,7 @@ export default function Dashboard(props) {
         label: "\uf81d",
         // <FontAwesomeIcon icon={faSackDollar} style={{ color: "#393939" }} />
         // "Tets",
-        data: newDate.map((item) => item.profit),
+        data: chartData.map((item) => item.profit),
         borderColor: "rgba(72, 187, 120, 1)",
         pointRadius: 3,
         pointHoverRadius: 0,
@@ -181,9 +179,9 @@ export default function Dashboard(props) {
       <Navbar />
       <div className="tablet-screen:ml-56 flex">
         <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
-          <DashboardHeader
-            inventoryData={inventoryData}
-            newDate={newDate}
+          <Header
+            inventory={props.inventory}
+            chartData={chartData}
             salesCount={salesCount}
             totalSpend={totalSpend}
             netProfit={netProfit}
@@ -199,7 +197,7 @@ export default function Dashboard(props) {
           />
         </div>
         <div className="xl:block 2xl:w-[43%] hidden w-5/12">
-          <DashboardInventory inventoryData={inventoryData} />
+          <Inventory inventory={props.inventory} />
         </div>
       </div>
     </>

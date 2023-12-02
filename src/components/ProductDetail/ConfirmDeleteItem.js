@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import { doc, deleteDoc } from "firebase/firestore";
 
 import { Link } from "react-router-dom";
 
@@ -32,18 +33,9 @@ const customStyles = {
 Modal.setAppElement(document.getElementById("root"));
 
 export default function ConfirmDeleteItem(props) {
-  const [inventory, setInventory] = useState(
-    () => JSON.parse(localStorage.getItem("inventory")) || []
-  );
-
-  useEffect(() => {
-    localStorage.setItem("inventory", JSON.stringify(inventory));
-  }, [inventory]);
-
-  function deleteItem(event, id) {
-    event.stopPropagation();
-    setInventory((prevInv) => prevInv.filter((prevItem) => prevItem.id !== id));
-  }
+  const deleteItem = async (id) => {
+    await deleteDoc(doc(db, "inventory", id));
+  };
 
   return (
     <div>
@@ -61,7 +53,8 @@ export default function ConfirmDeleteItem(props) {
           </button>
           <Link to="/">
             <button
-              onClick={(event) => deleteItem(event, props.activeProductId)}
+              // onClick={(event) => deleteItem(event, props.activeProductId)}
+              onClick={() => deleteItem(props.activeProductId)}
               className="bg-cinnabar-red border ml-2 py-2 px-3 rounded text-white font-medium"
             >
               Delete

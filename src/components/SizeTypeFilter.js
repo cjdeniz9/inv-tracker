@@ -1,7 +1,13 @@
 import { useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 export default function SizeTypeFilter(props) {
-  const [sizeType, setSizeType] = useState(["Shoes", "Apparel", "Other"]);
+  const [sizeType, setSizeType] = useState([
+    { id: uuidv4(), type: "Shoes" },
+    { id: uuidv4(), type: "Apparel" },
+    { id: uuidv4(), type: "Other" },
+  ]);
 
   const handleSizeTypeChange = (e) =>
     props.setSizeTypeSelected(sizeType[e.target.value]);
@@ -14,8 +20,8 @@ export default function SizeTypeFilter(props) {
       {sizeType.map((item, key) => {
         const selectedType = props.sizeTypeSelected === item ? "selected" : "";
         return (
-          <option value={key} defaultValue={selectedType}>
-            {item}
+          <option key={item.id} value={key} defaultValue={selectedType}>
+            {item.type}
           </option>
         );
       })}

@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import EditItem from "../components/EditItem";
-import DeleteItem from "../components/DeleteItem";
-import ListingDetails from "./ProductDetail/ListingDetails";
-import UploadImage from "./UploadImage";
-import ChangeImage from "./ChangeImage";
+import { db } from "../firebase";
+import { query, collection, onSnapshot } from "firebase/firestore";
+
+import EditItem from "../components/ProductDetail/EditItem";
+import DeleteItem from "../components/ProductDetail/DeleteItem";
+import UploadImage from "../components/ProductDetail/UploadImage";
+import ChangeImage from "../components/ProductDetail/ChangeImage";
 
 import ReactTimeAgo from "react-time-ago";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -22,12 +22,22 @@ import {
 export default function MobileProductDetail(props) {
   let statusSymbol, statusTextColor;
 
-  const [inventory, setInventory] = useState(
-    () => JSON.parse(localStorage.getItem("inventory")) || []
-  );
+  const [inventory, setInventory] = useState([]);
 
   const [render, setRender] = useState(false);
   const [checkListing, setCheckListing] = useState({});
+
+  useEffect(() => {
+    const q = query(collection(db, "inventory"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let inventoryArr = [];
+      querySnapshot.forEach((item) => {
+        inventoryArr.push({ ...item.data(), id: item.id });
+      });
+      setInventory(inventoryArr);
+    });
+    return () => unsubscribe;
+  }, []);
 
   function deleteSale() {
     const removeSale = inventory.map((item) => {
@@ -237,7 +247,7 @@ export default function MobileProductDetail(props) {
         </div>
       </div>
       <div className="mb-8 border-t border-bright-gray"></div>
-      <ListingDetails checkListing={checkListing} />
+      {/* <ListingDetails checkListing={checkListing} /> */}
       {/* Mobile Product Page Body End */}
     </div>
   );
