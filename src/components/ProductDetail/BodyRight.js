@@ -1,10 +1,13 @@
 import ReactTimeAgo from "react-time-ago";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBox,
   faCreditCard,
   faSackDollar,
 } from "@fortawesome/free-solid-svg-icons";
+
+import TrackShipment from "./TrackShipment";
 
 export default function BodyRight(props) {
   const profitTextColor =
@@ -100,6 +103,11 @@ export default function BodyRight(props) {
         ) : (
           ""
         )}
+        <TrackShipment
+          activeProduct={props.activeProduct}
+          activeProductId={props.activeProductId}
+          forceRender={props.forceRender}
+        />
         <div className="mt-12">
           <span className="text-xl">
             Net Profit:{" "}

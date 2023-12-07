@@ -23,8 +23,6 @@ export default function EditItem(props) {
 
   const [name, setName] = useState(props.activeProduct[0].name);
   const [brand, setBrand] = useState(props.activeProduct[0].brand);
-  const [saleDate, setSaleDate] = useState("");
-  const [salePrice, setSalePrice] = useState("");
   const [size, setSize] = useState(props.activeProduct[0].size);
   const [styleId, setStyleId] = useState(props.activeProduct[0].styleId);
   const [status, setStatus] = useState(props.activeProduct[0].status);
@@ -253,8 +251,6 @@ export default function EditItem(props) {
       placeOfPurchase: placeOfPurchase,
       purchasedDate: purchasedDate,
       price: parseFloat(price),
-      saleDate: saleDate,
-      salePrice: salePrice,
       shippingPrice: shippingPrice !== "" ? parseFloat(shippingPrice) : "",
       size: size,
       sizeTypeSelected: sizeTypeSelected,
@@ -262,7 +258,7 @@ export default function EditItem(props) {
       styleId: styleId,
       tax: tax !== "" ? parseFloat(tax) : "",
     });
-    props.setRender(!props.render);
+    props.forceRender();
   };
 
   return (

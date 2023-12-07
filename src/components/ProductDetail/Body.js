@@ -30,6 +30,7 @@ export default function Body(props) {
           <BodyRight
             activeProduct={props.activeProduct}
             activeProductId={props.activeProductId}
+            forceRender={props.forceRender}
           />
         </div>
       )}

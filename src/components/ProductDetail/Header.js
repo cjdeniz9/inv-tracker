@@ -8,11 +8,7 @@ import EditItem from "../ProductDetail/EditItem";
 import UploadImage from "./UploadImage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleLeft,
-  faClipboardList,
-  faCircleCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header(props) {
   const [showConfirmDeleteItem, setShowConfirmDeleteItem] = useState(false);
@@ -50,8 +46,7 @@ export default function Header(props) {
           <EditItem
             activeProductId={props.activeProductId}
             activeProduct={props.activeProduct}
-            render={props.render}
-            setRender={props.setRender}
+            forceRender={props.forceRender}
           />
           <DeleteItem
             showConfirmDeleteItem={showConfirmDeleteItem}
