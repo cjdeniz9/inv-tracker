@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import TrackShipment from "./TrackShipment";
+import PackageMap from "./PackageMap";
 
 export default function BodyRight(props) {
   const profitTextColor =
@@ -108,7 +109,13 @@ export default function BodyRight(props) {
           activeProductId={props.activeProductId}
           forceRender={props.forceRender}
         />
-        <div className="mt-12">
+        {props.activeProduct[0].hasOwnProperty("shippingInfo") &&
+        props.activeProduct[0].shippingInfo.hasOwnProperty("trackingNum") ? (
+          <PackageMap activeProduct={props.activeProduct} />
+        ) : (
+          ""
+        )}
+        {/* <div className="mt-12">
           <span className="text-xl">
             Net Profit:{" "}
             <span className={profitTextColor}>
@@ -118,7 +125,7 @@ export default function BodyRight(props) {
                 : "$0"}
             </span>
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
