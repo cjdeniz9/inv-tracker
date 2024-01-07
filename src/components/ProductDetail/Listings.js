@@ -17,6 +17,7 @@ import moment from "moment";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Paper from "@mui/material/Paper";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,7 +31,7 @@ import {
 const style = {
   border: 1,
   borderColor: "#CFCFCF",
-  borderRadius: 2,
+  borderRadius: 1,
   color: "#242424",
   fontWeight: 600,
   py: 1,
@@ -152,7 +153,7 @@ export default function Listings(props) {
       <div className="flex w-full justify-between items-end">
         <h4 className="m-0">Listing details</h4>
         <div
-          className={`w-fit ${bgColorStatus} rounded h-fit py-0.5 px-2 ${colorStatus} text-sm`}
+          className={`w-fit ${bgColorStatus} rounded h-fit py-1 px-2 ${colorStatus} text-sm`}
         >
           <span className="mr-1.5">{iconStatus}</span>
           {props.activeProduct.length > 0 &&
@@ -192,9 +193,8 @@ export default function Listings(props) {
         ""
       )}
       {props.activeProduct.length > 0 &&
-      props.activeProduct[0].hasOwnProperty("listedPlatform") &&
-      props.activeProduct[0].listedPlatform !== "" &&
-      props.activeProduct[0].soldPlatform === "" ? (
+      props.activeProduct[0].hasOwnProperty("status") &&
+      props.activeProduct[0].status === "Listed" ? (
         <div className="border-[1px] border-bright-gray mt-4">
           <div className="p-3">
             <div className="w-full flex justify-between -mb-2">
@@ -223,19 +223,51 @@ export default function Listings(props) {
       (props.activeProduct[0].soldPlatform === undefined ||
         props.activeProduct[0].soldPlatform === "") ? (
         <div className="mt-6">
-          <Button onClick={handleMenu} sx={style}>
+          <Button
+            onClick={handleMenu}
+            sx={{
+              border: 1,
+              borderColor: "#CFCFCF",
+              borderRadius: 1,
+              color: anchorEl ? "#A1A5A4" : "#242424",
+              fontWeight: 600,
+              py: 1,
+              px: 2,
+              textTransform: "none",
+              "&:hover": {
+                bgcolor: "transparent",
+                color: "#A1A5A4",
+              },
+            }}
+          >
             Mark as
           </Button>
           <Menu
             anchorEl={anchorEl}
             open={openMenu}
             onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
+            sx={{
+              "& .MuiMenu-paper": {
+                width: "17%",
+                border: 1,
+                borderColor: "#EDEDED",
+                marginTop: 1,
+                boxShadow: 0,
+              },
             }}
           >
-            <MenuItem onClick={handleOpenSold}>Mark Sold</MenuItem>
-            <MenuItem onClick={handleOpenListed}>Mark Listed</MenuItem>
+            <MenuItem
+              onClick={handleOpenSold}
+              sx={{ fontSize: 14, paddingY: "4px" }}
+            >
+              Mark Sold
+            </MenuItem>
+            <MenuItem
+              onClick={handleOpenListed}
+              sx={{ fontSize: 14, paddingY: "4px" }}
+            >
+              Mark Listed
+            </MenuItem>
           </Menu>
           {/* <Menu>
             <Menu.Button className="border-[1px] border-american-silver rounded py-2 px-3 text-raisin-black font-semibold hover:text-quick-silver">

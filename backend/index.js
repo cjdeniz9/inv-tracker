@@ -1,24 +1,25 @@
 const express = require("express");
 const cors = require("cors");
+
 require("dotenv").config({ path: "../.env.local" });
-// const SneaksAPI = require("sneaks-api");
+
+const SneaksAPI = require("sneaks-api");
+const sneaks = new SneaksAPI();
 
 const PORT = 8000;
 
 const app = express();
 app.use(cors());
 
-// const sneaks = new SneaksAPI();
-
 // const storedId = localStorage.getItem("id");
 
 // console.log(storedId);
 
-// app.get("/results", (req, res) => {
-//   sneaks.getProductPrices("CQ4277-001", function (err, product) {
-//     res.json(product);
-//   });
-// });
+app.get("/product/:id", (req, res) => {
+  sneaks.getProductPrices(req.params.id, function (err, product) {
+    res.json(product);
+  });
+});
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
 

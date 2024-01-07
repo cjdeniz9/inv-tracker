@@ -13,38 +13,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditItem(props) {
+  let imgEmpty, resellPriceEmpty, sizing;
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { height } = useWindowDimensions();
+  const _ = require("lodash");
 
-  const responsiveHeight = height < 848 ? "h-[90vh]" : "";
+  const responsiveHeight = height < 848 ? "h-[91vh]" : "";
 
   const id = props.activeProductId;
 
-  const [name, setName] = useState(props.activeProduct[0].name);
   const [brand, setBrand] = useState(props.activeProduct[0].brand);
-  const [size, setSize] = useState(props.activeProduct[0].size);
-  const [styleId, setStyleId] = useState(props.activeProduct[0].styleId);
-  const [status, setStatus] = useState(props.activeProduct[0].status);
   const [colorway, setColorway] = useState(props.activeProduct[0].colorway);
+  const [condition, setCondition] = useState(props.activeProduct[0].condition);
+  const [img, setImg] = useState(props.activeProduct[0].img);
+  const [name, setName] = useState(props.activeProduct[0].name);
+  const [notes, setNotes] = useState(props.activeProduct[0].notes);
+  const [orderNum, setOrderNum] = useState(props.activeProduct[0].orderNum);
   const [placeOfPurchase, setPlaceOfPurchase] = useState(
     props.activeProduct[0].placeOfPurchase
   );
+  const [price, setPrice] = useState(props.activeProduct[0].price);
   const [purchasedDate, setPurchaseDate] = useState(
     props.activeProduct[0].purchasedDate
   );
-  const [price, setPrice] = useState(props.activeProduct[0].price);
-  const [tax, setTax] = useState(props.activeProduct[0].tax);
+  const [resellPrice, setResellPrice] = useState(
+    props.activeProduct[0].resellPrice
+  );
   const [shippingPrice, setShippingPrice] = useState(
     props.activeProduct[0].shippingPrice
   );
-  const [condition, setCondition] = useState(props.activeProduct[0].condition);
-  const [notes, setNotes] = useState(props.activeProduct[0].notes);
-  const [orderNum, setOrderNum] = useState(props.activeProduct[0].orderNum);
-
+  const [size, setSize] = useState(props.activeProduct[0].size);
   const [sizeTypeSelected, setSizeTypeSelected] = useState(
     props.activeProduct[0].sizeTypeSelected
   );
+  const [status, setStatus] = useState(props.activeProduct[0].status);
+  const [styleId, setStyleId] = useState(props.activeProduct[0].styleId);
+  const [tax, setTax] = useState(props.activeProduct[0].tax);
+
+  const [product, setProduct] = useState([]);
 
   const shoeSizeNum = [
     {
@@ -183,8 +191,6 @@ export default function EditItem(props) {
     },
   ];
 
-  let sizing;
-
   if (sizeTypeSelected === "Apparel") {
     sizing = apparelSize.map((item) => {
       const selectedColor =
@@ -238,19 +244,52 @@ export default function EditItem(props) {
     });
   }
 
+  // if (styleId !== "") {
+  //   props.getProduct(styleId);
+  //   console.log(props.product);
+  //   console.log(styleId);
+  // }
+
+  // const getProduct = async (id) => {
+  //   let data = await fetch(`http://localhost:8000/product/429659-501`);
+  //   data = await data.json();
+  //   if (data) {
+  //     setProduct(data);
+  //   }
+  // };
+
+  // getProduct(styleId);
+  // console.log(product);
+
   const updateItem = async (e) => {
     e.preventDefault(e);
+
+    imgEmpty = img === "" ? "" : img;
+    resellPriceEmpty =
+      resellPrice.goat === "" && resellPrice.stockX === ""
+        ? {
+            goat: "",
+            stockX: "",
+          }
+        : resellPrice;
 
     await updateDoc(doc(db, "inventory", id), {
       brand: brand,
       colorway: colorway,
       condition: condition,
+      img: _.isEmpty(product) ? "" : product.thumbnail,
       name: name,
       notes: notes,
       orderNum: orderNum,
       placeOfPurchase: placeOfPurchase,
-      purchasedDate: purchasedDate,
       price: parseFloat(price),
+      purchasedDate: purchasedDate,
+      resellPrice: _.isEmpty(product)
+        ? ""
+        : {
+            goat: product.lowestResellPrice.goat,
+            stockX: product.lowestResellPrice.stockX,
+          },
       shippingPrice: shippingPrice !== "" ? parseFloat(shippingPrice) : "",
       size: size,
       sizeTypeSelected: sizeTypeSelected,
@@ -571,7 +610,7 @@ export default function EditItem(props) {
                   </div>
                 </div>
               </div>
-              <div className="phone-screen:mt-16 tablet-screen:mt-10 w-full mt-8 flex flex-row-reverse">
+              <div className="phone-screen:mt-16 tablet-screen:mt-10 w-full mt-2 flex flex-row-reverse">
                 <input
                   className="bg-blue-ryb rounded py-2 px-3 text-white font-medium hover:bg-absolute-zero"
                   type="submit"

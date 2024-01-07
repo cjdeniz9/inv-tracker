@@ -36,7 +36,7 @@ export default function PackageMap(props) {
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-      <div className="mt-3 h-[48vh] w-full">
+      <div className="mt-4 h-[48vh] w-full">
         <Map zoom={13} center={position}></Map>
       </div>
     </APIProvider>

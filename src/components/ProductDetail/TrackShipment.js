@@ -108,7 +108,7 @@ export default function TrackShipment(props) {
           </form>
         </div>
       ) : (
-        <div className="flex mt-6 py-3 px-4 bg-anti-flash-white rounded">
+        <div className="flex mt-6 py-3 px-4 bg-gray-98 rounded">
           <div className="py-2 pr-6">
             <FontAwesomeIcon icon={faBox} className="text-3xl text-blue-ryb" />
           </div>

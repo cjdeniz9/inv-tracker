@@ -55,6 +55,9 @@ export default function ProductDetail(props) {
             activeProduct={activeProduct}
             activeProductId={activeProductId}
             forceRender={forceRender}
+            getProduct={props.getProduct}
+            product={props.product}
+            setProduct={props.setProduct}
           />
           <Body
             activeProduct={activeProduct}

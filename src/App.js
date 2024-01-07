@@ -13,6 +13,7 @@ import SalesProductDatail from "./pages/SalesProductDetail";
 export default function App() {
   const [profitData, setProfitData] = useState({});
   const [inventory, setInventory] = useState([]);
+  const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -27,6 +28,14 @@ export default function App() {
     });
     return () => unsubscribe;
   }, []);
+
+  const getProduct = async (id) => {
+    let data = await fetch(`http://localhost:8000/product/${id}`);
+    data = await data.json();
+    if (data) {
+      setProduct(data);
+    }
+  };
 
   return (
     <BrowserRouter>
@@ -46,8 +55,11 @@ export default function App() {
           path="/"
           element={
             <Inventory
+              getProduct={getProduct}
               inventory={inventory}
+              product={product}
               setInventory={setInventory}
+              setProduct={setProduct}
               setProfitData={setProfitData}
             />
           }
@@ -57,9 +69,12 @@ export default function App() {
           path="/:productId"
           element={
             <ProductDetail
+              getProduct={getProduct}
               inventory={inventory}
-              setInventory={setInventory}
               loading={loading}
+              product={product}
+              setInventory={setInventory}
+              setProduct={setProduct}
             />
           }
         />

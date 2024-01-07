@@ -27,13 +27,7 @@ export default function BodyRight(props) {
     <div className="tablet-screen:w-4/12 w-full">
       <div id="feed" className="tablet-screen:px-7">
         <h4>Timeline</h4>
-        <div className="flex mt-6 py-3 px-4 bg-anti-flash-white rounded">
-          <div className="py-2 pr-6">
-            <FontAwesomeIcon
-              icon={faCreditCard}
-              className="text-3xl text-outer-space"
-            />
-          </div>
+        <div className="flex mt-6 py-3 px-4 bg-gray-98 rounded">
           <div>
             <span className="text-lg font-medium text-raisin-black">
               Purchased for ${props.activeProduct[0].price}.00
@@ -50,14 +44,7 @@ export default function BodyRight(props) {
         {props.activeProduct.length > 0 &&
         props.activeProduct[0].hasOwnProperty("listedPlatform") &&
         props.activeProduct[0].listedPlatform !== "" ? (
-          <div className="flex mt-4 py-3 px-4 bg-anti-flash-white rounded">
-            <div className="py-2 pr-6">
-              <FontAwesomeIcon
-                icon={faBox}
-                className={`text-3xl ${timelineIconColor}`}
-              />
-            </div>
-
+          <div className="flex mt-4 py-3 px-4 bg-gray-98 rounded">
             <div>
               <span className="text-lg font-medium text-raisin-black">
                 Listed on {props.activeProduct[0].listedPlatform} for $
@@ -79,14 +66,7 @@ export default function BodyRight(props) {
         props.activeProduct[0].hasOwnProperty("soldPlatform") &&
         props.activeProduct[0].soldPlatform !== "" &&
         props.activeProduct[0].saleDate !== "" ? (
-          <div className="flex mt-4 py-3 px-4 bg-anti-flash-white rounded">
-            <div className="py-2 pr-6">
-              <FontAwesomeIcon
-                icon={faSackDollar}
-                className="text-3xl text-ultramarine-blue"
-              />
-            </div>
-
+          <div className="flex mt-4 py-3 px-4 bg-gray-98 rounded">
             <div>
               <span className="text-lg font-medium text-raisin-black">
                 Sold on {props.activeProduct[0].soldPlatform} for $

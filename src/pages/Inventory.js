@@ -169,7 +169,11 @@ export default function Inventory(props) {
             </div> */}
           </div>
           <div className="w-1/5 flex justify-end">
-            <AddItem />
+            <AddItem
+              getProduct={props.getProduct}
+              product={props.product}
+              setProduct={props.setProduct}
+            />
           </div>
         </div>
         <div className="relative overflow-x-auto max-h-[39rem]">

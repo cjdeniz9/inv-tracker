@@ -15,20 +15,18 @@ export default function Header(props) {
 
   return (
     <div className="pb-4">
-      <div className="text-lg">
-        <Link to="/" className="no-underline text-tufts-blue">
-          <FontAwesomeIcon icon={faAngleLeft} /> Inventory
-        </Link>
-        <span className="text-granite-gray">
-          {" "}
-          / Item #{props.activeProductId}
-        </span>
-      </div>
+      <Link to="/" className="no-underline text-blue-ryb">
+        <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Inventory
+      </Link>
+      <span className="text-granite-gray">
+        {" "}
+        / Item #{props.activeProductId}
+      </span>
       <div className="flex justify-between pt-3">
         <div>
-          <h2 className="phone-screen:text-2xl tablet-screen:text-3xl">
+          <h1 className="phone-screen:text-2xl tablet-screen:text-3xl xl:text-3xl">
             {props.activeProduct[0].name}
-          </h2>
+          </h1>
         </div>
         <div className="flex">
           {props.activeProduct[0].img === undefined ? (
@@ -44,9 +42,12 @@ export default function Header(props) {
             />
           )}
           <EditItem
-            activeProductId={props.activeProductId}
             activeProduct={props.activeProduct}
+            activeProductId={props.activeProductId}
             forceRender={props.forceRender}
+            getProduct={props.getProduct}
+            product={props.product}
+            setProduct={props.setProduct}
           />
           <DeleteItem
             showConfirmDeleteItem={showConfirmDeleteItem}

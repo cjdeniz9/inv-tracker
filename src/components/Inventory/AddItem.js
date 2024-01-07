@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddItem(props) {
+  const _ = require("lodash");
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [name, setName] = useState("");
@@ -32,26 +34,42 @@ export default function AddItem(props) {
 
   const createItem = async (e) => {
     e.preventDefault(e);
+
+    if (styleId !== "") {
+      props.getProduct(styleId);
+    }
+
     await addDoc(collection(db, "inventory"), {
-      name: name,
       brand: brand,
-      saleDate: "",
-      salePrice: 0,
-      size: size,
-      sizeTypeSelected: sizeTypeSelected,
-      styleId: styleId,
-      status: status !== "" ? status : "Unlisted",
       colorway: colorway,
-      placeOfPurchase: placeOfPurchase,
-      purchasedDate: purchasedDate,
-      price: parseFloat(price),
-      tax: tax !== "" ? parseFloat(tax) : "",
-      shippingPrice: shippingPrice !== "" ? parseFloat(shippingPrice) : "",
       condition: condition,
+      img: _.isEmpty(props.product) ? "" : props.product.thumbnail,
+      name: name,
       notes: notes,
       orderNum: orderNum,
+      placeOfPurchase: placeOfPurchase,
+      price: parseFloat(price),
+      purchasedDate: purchasedDate,
+      resellPrice: _.isEmpty(props.product)
+        ? {
+            goat: "",
+            stockX: "",
+          }
+        : {
+            goat: props.product.lowestResellPrice.goat,
+            stockX: props.product.lowestResellPrice.stockX,
+          },
+      saleDate: "",
+      salePrice: 0,
+      shippingPrice: shippingPrice !== "" ? parseFloat(shippingPrice) : "",
+      size: size,
+      sizeTypeSelected: sizeTypeSelected,
+      status: status !== "" ? status : "Unlisted",
+      styleId: styleId,
+      tax: tax !== "" ? parseFloat(tax) : "",
       timestamp: serverTimestamp(),
     });
+    props.setProduct([]);
     setName("");
     setBrand("");
     setSaleDate("");

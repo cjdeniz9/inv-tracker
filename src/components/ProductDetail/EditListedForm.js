@@ -12,105 +12,42 @@ import { useWindowDimensions } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-// const customStylesMobile = {
-//   overlay: {
-//     position: "fixed",
-//     zIndex: "50",
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//     backgroundColor: "rgba(36, 36, 36, .5)",
-//   },
-//   content: {
-//     position: "absolute",
-//     width: "80%",
-//     margin: "auto",
-//     top: "4rem",
-//     bottom: "28.5rem",
-//     border: "1px solid #ccc",
-//     background: "#fff",
-//     overflow: "auto",
-//     borderRadius: "6px",
-//     outline: "none",
-//     padding: "20px",
-//   },
-// };
-
-// const customStylesTablet = {
-//   overlay: {
-//     position: "fixed",
-//     zIndex: "50",
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//     backgroundColor: "rgba(36, 36, 36, .5)",
-//   },
-//   content: {
-//     position: "absolute",
-//     width: "60%",
-//     margin: "auto",
-//     top: "4rem",
-//     bottom: "47.5rem",
-//     border: "1px solid #ccc",
-//     background: "#fff",
-//     overflow: "auto",
-//     borderRadius: "6px",
-//     outline: "none",
-//     padding: "20px",
-//   },
-// };
-
-// const customStylesLaptop = {
-//   overlay: {
-//     position: "fixed",
-//     zIndex: "50",
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//     backgroundColor: "rgba(36, 36, 36, .5)",
-//   },
-//   content: {
-//     position: "absolute",
-//     width: "35%",
-//     margin: "auto",
-//     top: "4rem",
-//     bottom: "28.5rem",
-//     border: "1px solid #ccc",
-//     background: "#fff",
-//     overflow: "auto",
-//     borderRadius: "6px",
-//     outline: "none",
-//     padding: "20px",
-//   },
-// };
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 export default function EditListedForm(props) {
-  // let customStyles;
+  let transform;
 
-  // const { width } = useWindowDimensions();
+  const styleTransform = {
+    sm: "translate(-50%, -110%)",
+    md: "translate(-50%, -145%)",
+    lg: "translate(-50%, -180%)",
+    xl: "translate(-50%, -107%)",
+    xxl: "translate(-50%, -115%)",
+  };
 
-  // if (width < 768) {
-  //   customStyles = customStylesMobile;
-  // } else if (width < 992) {
-  //   customStyles = customStylesTablet;
-  // } else {
-  //   customStyles = customStylesLaptop;
-  // }
+  const { width } = useWindowDimensions();
+
+  if (width >= 768 && width <= 1023) {
+    transform = styleTransform.md;
+  } else if (width >= 1024 && width <= 1279) {
+    transform = styleTransform.lg;
+  } else if (width >= 1280 && width <= 1535) {
+    transform = styleTransform.xl;
+  } else if (width >= 1536) {
+    transform = styleTransform.xxl;
+  } else {
+    transform = styleTransform.sm;
+  }
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: `${transform}`,
+    width: 550,
+    bgcolor: "background.paper",
+    borderRadius: "8px",
+    boxShadow: 2,
+    p: 3,
+  };
 
   const [listedPlatform, setListedPlatform] = useState(
     props.activeProduct[0].listedPlatform

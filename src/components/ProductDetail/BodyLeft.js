@@ -53,53 +53,54 @@ export default function BodyLeft(props) {
 
   return (
     <div className="tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
-      <div className="w-full h-48 flex bg-anti-flash-white rounded">
+      <div className="w-full h-48 flex bg-gray-98 rounded">
         <div className="w-[16%]">
           <div className="min-h-full flex items-center justify-center">
-            <h1>{props.activeProduct[0].size}</h1>
+            <h2>{props.activeProduct[0].size}</h2>
             {/* <span className="text-xl">US</span>
             <p className="text-xl">M</p> */}
           </div>
         </div>
         <div className="my-8 border-l border-american-silver"></div>
-        <div className="2xl:w-[64%] w-[55%] mt-8 ml-6">
-          <h2>{props.activeProduct[0].styleId}</h2>
-          <span className="mt-2 text-lg">
-            {props.activeProduct[0].colorway}
-          </span>
-          <p className="text-lg text-granite-gray">
-            {props.activeProduct[0].brand}
-          </p>
+        <div className="2xl:w-[64%] w-[55%] m-auto">
+          {/* <h2>{props.activeProduct[0].styleId}</h2> */}
+          <div className="ml-6">
+            <span className="font-medium">
+              {props.activeProduct[0].colorway}
+            </span>
+            <br />
+            <span className="text-granite-gray">
+              {props.activeProduct[0].brand}
+            </span>
+          </div>
         </div>
-        <div className="2xl:w-[20%] w-[29%] flex items-center justify-center">
+        <div className="2xl:w-[20%] w-[29%] flex flex-row-reverse py-3 pr-5">
           {props.activeProduct[0].img === undefined ? (
             ""
           ) : (
-            <img
-              src={props.activeProduct[0].img}
-              alt="Product Image"
-              className="h-[90%] w-[92.5%] rounded"
-            />
+            <div className="bg-white w-[70%] border border-[1px] border-bright-gray rounded flex items-center justify-center">
+              <img
+                src={props.activeProduct[0].img}
+                alt="Product Image"
+                className="w-[70%]"
+              />
+            </div>
           )}
         </div>
       </div>
-      <div className="py-8">
-        <div className="w-full bg-white drop-shadow-md rounded">
+      <div className="mt-8">
+        <div className="w-full bg-gray-98 drop-shadow-md rounded">
           <div className="p-4">
             <div className="flex py-2">
-              <FontAwesomeIcon
-                icon={faNoteSticky}
-                className="w-5 h-5 text-quick-silver pr-3"
-              />
               <h5 className="text-raisin-black">Notes</h5>
             </div>
-            <div className="w-full flex text-sm text-onyx-gray pt-2 pl-4 bg-anti-flash-white h-24 border-bright-gray rounded">
+            <div className="w-full flex text-[15px] text-onyx-gray pt-2 pl-4 bg-white h-24 border rounded">
               <p>{props.activeProduct[0].notes}</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between mt-8">
         <Listings
           activeProduct={props.activeProduct}
           activeProductId={props.activeProductId}
