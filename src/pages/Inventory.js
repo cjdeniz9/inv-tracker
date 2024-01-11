@@ -148,7 +148,7 @@ export default function Inventory(props) {
   return (
     <div className="App">
       <Navbar />
-      <div className="tablet-screen:ml-56 h-[95vh] overflow-auto p-4">
+      <div className="tablet-screen:ml-52 h-[95vh] overflow-auto p-4">
         <InventoryHeader />
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">

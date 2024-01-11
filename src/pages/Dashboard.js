@@ -119,6 +119,10 @@ export default function Dashboard(props) {
     });
   }
 
+  function formatLabel(val) {
+    return `$${val}`;
+  }
+
   const options = {
     responsive: true,
     plugins: {
@@ -131,7 +135,7 @@ export default function Dashboard(props) {
       },
       tooltip: {
         displayColors: false,
-        backgroundColor: "rgba(243, 243, 243, 0.5)",
+        backgroundColor: "#FAFAFA",
         borderWidth: 1,
         borderColor: "rgb(237, 237, 237)",
         padding: 12,
@@ -139,10 +143,13 @@ export default function Dashboard(props) {
           weight: 300,
         },
         titleColor: "#393939",
-        bodyFont: {
-          family: "'FontAwesome', sans-serif",
-        },
         bodyColor: "#393939",
+        callbacks: {
+          // title: (xDatapoint) => {return formatXValue(xDatapoint.raw)},
+          label: (profit) => {
+            return formatLabel(profit.raw);
+          },
+        },
       },
     },
     scales: {
@@ -163,13 +170,9 @@ export default function Dashboard(props) {
     labels,
     datasets: [
       {
-        label: "\uf81d",
-        // <FontAwesomeIcon icon={faSackDollar} style={{ color: "#393939" }} />
-        // "Tets",
         data: chartData.map((item) => item.profit),
         borderColor: "rgba(72, 187, 120, 1)",
-        pointRadius: 3,
-        pointHoverRadius: 0,
+        pointStyle: false,
       },
     ],
   };
@@ -177,7 +180,7 @@ export default function Dashboard(props) {
   return (
     <>
       <Navbar />
-      <div className="tablet-screen:ml-56 flex">
+      <div className="tablet-screen:ml-52 flex">
         <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
           <Header
             inventory={props.inventory}

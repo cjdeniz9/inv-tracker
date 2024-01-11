@@ -318,6 +318,7 @@ export default function EditItem(props) {
         </button>
       )}
       <div
+        onClick={() => setIsOpen(!isOpen)}
         className={`${
           isOpen
             ? "translate-x-0 fixed overflow-hidden w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"

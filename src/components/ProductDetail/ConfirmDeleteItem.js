@@ -3,34 +3,20 @@ import { doc, deleteDoc } from "firebase/firestore";
 
 import { Link } from "react-router-dom";
 
-import Modal from "react-modal";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
-const customStyles = {
-  overlay: {
-    position: "fixed",
-    zIndex: "50",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(36, 36, 36, .5)",
-  },
-  content: {
-    position: "absolute",
-    width: "35%",
-    margin: "auto",
-    top: "20rem",
-    bottom: "23rem",
-    border: "1px solid #ccc",
-    background: "#fff",
-    overflow: "auto",
-    borderRadius: "6px",
-    outline: "none",
-    padding: "20px",
-  },
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -84%)",
+  width: 550,
+  bgcolor: "background.paper",
+  borderRadius: "8px",
+  boxShadow: 2,
+  p: 3,
 };
-
-Modal.setAppElement(document.getElementById("root"));
 
 export default function ConfirmDeleteItem(props) {
   const deleteItem = async (id) => {
@@ -38,8 +24,15 @@ export default function ConfirmDeleteItem(props) {
   };
 
   return (
-    <div>
-      <Modal isOpen={props.showConfirmDeleteItem} style={customStyles}>
+    <Modal
+      open={props.setShowConfirmDeleteItem}
+      onClose={() => {
+        props.setShowConfirmDeleteItem(false);
+      }}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
         <h5 className="font-bold">Delete item</h5>
         <p className="mt-4">Are you sure you want to delete this item?</p>
         <div className="flex float-right">
@@ -61,7 +54,7 @@ export default function ConfirmDeleteItem(props) {
             </button>
           </Link>
         </div>
-      </Modal>
-    </div>
+      </Box>
+    </Modal>
   );
 }

@@ -166,8 +166,8 @@ export default function Listings(props) {
         </div>
       </div>
       {props.activeProduct.length > 0 &&
-      props.activeProduct[0].hasOwnProperty("soldPlatform") &&
-      props.activeProduct[0].soldPlatform !== "" ? (
+      props.activeProduct[0].hasOwnProperty("status") &&
+      props.activeProduct[0].status === "Sold" ? (
         <div className="border-[1px] border-bright-gray mt-4">
           <div className="p-3">
             <div className="w-full flex justify-between -mb-2">
@@ -269,33 +269,6 @@ export default function Listings(props) {
               Mark Listed
             </MenuItem>
           </Menu>
-          {/* <Menu>
-            <Menu.Button className="border-[1px] border-american-silver rounded py-2 px-3 text-raisin-black font-semibold hover:text-quick-silver">
-              Mark As
-            </Menu.Button>
-            <Menu.Items className="w-[60%] mt-2 border-[1px] border-anti-flash-white rounded">
-              <Menu.Item className="w-full mt-2 hover:bg-anti-flash-white">
-                <button
-                  onClick={() => {
-                    setShowSoldForm(true);
-                  }}
-                  className="text-left pl-4 py-1 text-sm text-raisin-black"
-                >
-                  Mark Sold
-                </button>
-              </Menu.Item>
-              <Menu.Item className="w-full mb-2 hover:bg-anti-flash-white">
-                <button
-                  onClick={() => {
-                    setShowListedForm(true);
-                  }}
-                  className="text-left pl-4 py-1 text-sm text-raisin-black"
-                >
-                  Mark Listed
-                </button>
-              </Menu.Item>
-            </Menu.Items>
-          </Menu> */}
         </div>
       ) : (
         ""

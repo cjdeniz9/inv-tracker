@@ -63,7 +63,6 @@ export default function BodyLeft(props) {
         </div>
         <div className="my-8 border-l border-american-silver"></div>
         <div className="2xl:w-[64%] w-[55%] m-auto">
-          {/* <h2>{props.activeProduct[0].styleId}</h2> */}
           <div className="ml-6">
             <span className="font-medium">
               {props.activeProduct[0].colorway}
@@ -75,7 +74,7 @@ export default function BodyLeft(props) {
           </div>
         </div>
         <div className="2xl:w-[20%] w-[29%] flex flex-row-reverse py-3 pr-5">
-          {props.activeProduct[0].img === undefined ? (
+          {props.activeProduct[0].img === "" ? (
             ""
           ) : (
             <div className="bg-white w-[70%] border border-[1px] border-bright-gray rounded flex items-center justify-center">

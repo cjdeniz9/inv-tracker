@@ -71,7 +71,7 @@ export default function Navbar() {
                 to="/dashboard"
                 className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
-                <FontAwesomeIcon icon={faTable} style={{ color: "#181818" }} />
+                <FontAwesomeIcon icon={faTable} className="text-granite-gray" />
                 <span className="ml-4 text-[#242424]">Dashboard</span>
               </Link>
             </li>
@@ -82,7 +82,7 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon
                   icon={faBoxOpen}
-                  style={{ color: "#181818" }}
+                  className="text-granite-gray"
                 />
                 <span className="ml-3 text-[#242424]">Inventory</span>
               </Link>
@@ -94,7 +94,7 @@ export default function Navbar() {
               >
                 <FontAwesomeIcon
                   icon={faSackDollar}
-                  style={{ color: "#181818" }}
+                  className="text-granite-gray"
                 />
                 <span className="ml-4 text-[#242424]">Sales</span>
               </Link>

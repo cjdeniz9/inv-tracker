@@ -91,7 +91,7 @@ export default function AddItem(props) {
 
   const { height } = useWindowDimensions();
 
-  const responsiveHeight = height < 848 ? "h-[90vh]" : "";
+  const responsiveHeight = height < 848 ? "h-[91vh]" : "";
 
   const [sizeTypeSelected, setSizeTypeSelected] = useState("Shoes");
 
@@ -270,6 +270,7 @@ export default function AddItem(props) {
         </button>
       )}
       <div
+        onClick={() => setIsOpen(!isOpen)}
         className={`${
           isOpen
             ? "translate-x-0 absolute w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
@@ -559,7 +560,7 @@ export default function AddItem(props) {
                   </div>
                 </div>
               </div>
-              <div className="phone-screen:mt-16 tablet-screen:mt-10 w-full mt-8 flex flex-row-reverse">
+              <div className="phone-screen:mt-16 tablet-screen:mt-10 w-full mt-2 flex flex-row-reverse">
                 <input
                   className="bg-blue-ryb rounded py-2 px-3 text-white font-medium hover:bg-absolute-zero"
                   type="submit"

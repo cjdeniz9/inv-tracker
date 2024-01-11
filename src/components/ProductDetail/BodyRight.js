@@ -42,8 +42,8 @@ export default function BodyRight(props) {
           </div>
         </div>
         {props.activeProduct.length > 0 &&
-        props.activeProduct[0].hasOwnProperty("listedPlatform") &&
-        props.activeProduct[0].listedPlatform !== "" ? (
+        props.activeProduct[0].hasOwnProperty("status") &&
+        props.activeProduct[0].status === "Listed" ? (
           <div className="flex mt-4 py-3 px-4 bg-gray-98 rounded">
             <div>
               <span className="text-lg font-medium text-raisin-black">
@@ -63,9 +63,8 @@ export default function BodyRight(props) {
           ""
         )}
         {props.activeProduct.length > 0 &&
-        props.activeProduct[0].hasOwnProperty("soldPlatform") &&
-        props.activeProduct[0].soldPlatform !== "" &&
-        props.activeProduct[0].saleDate !== "" ? (
+        props.activeProduct[0].hasOwnProperty("status") &&
+        props.activeProduct[0].status === "Sold" ? (
           <div className="flex mt-4 py-3 px-4 bg-gray-98 rounded">
             <div>
               <span className="text-lg font-medium text-raisin-black">

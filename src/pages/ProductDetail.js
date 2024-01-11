@@ -50,7 +50,7 @@ export default function ProductDetail(props) {
     activeProduct.length && (
       <>
         <Navbar />
-        <div className="md:block tablet-screen:ml-56 hidden p-3 overflow-auto">
+        <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
           <Header
             activeProduct={activeProduct}
             activeProductId={activeProductId}
