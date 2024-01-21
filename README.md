@@ -1,15 +1,18 @@
 # Tracker
 
-This project was built using React and Tailwind to create a more efficient workflow and provide financial insights when keeping track of your inventory.
+This project was built using React, Node.js, Express.js, Firebase and Tailwind to create a more efficient workflow and provide financial insights when managing your inventory.
 
 ### [Live](https://inv-tracker.netlify.app/)
 
 # Features
 
-  - Perform CRUD operations when using Upload.io API to manage the product's image
-  - Perform CRUD operations on items in your inventory
-  - Gain financial insight on your inventory's value through the dashboard with a graph and reports of the finance
-  - Search, filter, and sort your items
+  - Perform CRUD operations on items stored in Firebase
+  - Recieve shipping information when providing item's tracking code handled by EasyPost API
+  - Observe the package's current location through a map provided by Google Map API
+  - Gain financial insight of your inventory's value through the dashboard, utilized by a finance report and graph(Chart.js)
+  - Customize item's image when using Upload.io API
+  - Keep track of item's status on where it's been listed or sold through
+  - Search, filter, and sort your inventory
 
 # Note 
 
