@@ -6,9 +6,11 @@ import { query, collection, onSnapshot, orderBy } from "firebase/firestore";
 
 import Dashboard from "./pages/Dashboard";
 import Inventory from "./pages/Inventory";
-import Sales from "./pages/Sales";
+import Packages from "./pages/Packages";
 import ProductDetail from "./pages/ProductDetail";
 import SalesProductDatail from "./pages/SalesProductDetail";
+import Sales from "./pages/Sales";
+import ProductPackage from "./pages/ProductPackage";
 
 export default function App() {
   const [profitData, setProfitData] = useState({});
@@ -64,7 +66,7 @@ export default function App() {
             />
           }
         />
-        <Route path="/sales" element={<Sales />} />
+        <Route path="/packages" element={<Packages inventory={inventory} />} />
         <Route
           path="/:productId"
           element={
@@ -78,6 +80,11 @@ export default function App() {
             />
           }
         />
+        <Route
+          path="/packages/:productId"
+          element={<ProductPackage inventory={inventory} />}
+        />
+        <Route path="/sales" element={<Sales />} />
         <Route path="/sales/:productId" element={<SalesProductDatail />} />
       </Routes>
       {/* </Header> */}

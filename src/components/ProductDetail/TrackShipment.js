@@ -14,37 +14,6 @@ export default function TrackShipment(props) {
 
   const id = props.activeProductId;
 
-  // useEffect(() => {
-  //   fetch("http://localhost:8000/results")
-  //     .then((response) => response.json())
-  //     .then((data) => setBackendData(data));
-  // }, []);
-
-  // const addShipment = async (e) => {
-  //   e.preventDefault(e);
-
-  //   await updateDoc(doc(db, "inventory", id), {
-  //     shippingInfo: {
-  //       trackingNum: trackingNum,
-  //     },
-  //   });
-  // };
-
-  // async function trackShipment() {
-  //   let num =
-  //     props.activeProduct[0].shippingInfo.trackingNum === undefined
-  //       ? ""
-  //       : props.activeProduct[0].shippingInfo.trackingNum;
-
-  //   if (num) {
-  //     let data = await fetch(`http://localhost:8000/trackingNumber/${num}`);
-  //     data = await data.json();
-  //     if (data) {
-  //       setShipmentData(data);
-  //     }
-  //   }
-  // }
-
   const addShipment = async (e) => {
     e.preventDefault(e);
 
@@ -64,6 +33,12 @@ export default function TrackShipment(props) {
     updateDoc(doc(db, "inventory", id), {
       shippingInfo: {
         carrier: shipmentDetails.carrier,
+        createdAt: shipmentDetails.created_at,
+        destinationLocation:
+          shipmentDetails.carrier_detail.destination_location,
+        estDeliveryDate: shipmentDetails.est_delivery_date,
+        originLocation: shipmentDetails.carrier_detail.origin_location,
+        service: shipmentDetails.carrier_detail.service,
         trackingDetails: shipmentDetails.tracking_details,
         trackingNum: trackingNum,
       },

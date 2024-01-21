@@ -93,7 +93,7 @@ export default function BodyLeft(props) {
             <div className="flex py-2">
               <h5 className="text-raisin-black">Notes</h5>
             </div>
-            <div className="w-full flex text-[15px] text-onyx-gray pt-2 pl-4 bg-white h-24 border rounded">
+            <div className="w-full flex text-[15px] text-onyx-gray pt-2 pl-3 bg-white h-24 border rounded">
               <p>{props.activeProduct[0].notes}</p>
             </div>
           </div>

@@ -6,6 +6,7 @@ import trackerLogo from "../img/trackerLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTable,
+  faBox,
   faBoxOpen,
   faSackDollar,
 } from "@fortawesome/free-solid-svg-icons";
@@ -97,6 +98,15 @@ export default function Navbar() {
                   className="text-granite-gray"
                 />
                 <span className="ml-4 text-[#242424]">Sales</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/packages"
+                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
+              >
+                <FontAwesomeIcon icon={faBox} className="text-granite-gray" />
+                <span className="ml-4 text-[#242424]">Packages</span>
               </Link>
             </li>
           </ul>

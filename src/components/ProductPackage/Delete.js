@@ -1,5 +1,5 @@
 import { db } from "../../firebase";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 
 import { Link } from "react-router-dom";
 
@@ -18,35 +18,38 @@ const style = {
   p: 3,
 };
 
-export default function ConfirmDeleteItem(props) {
-  const deleteItem = async (id) => {
-    await deleteDoc(doc(db, "inventory", id));
-  };
+export default function Delete(props) {
+  const id = props.activeProduct[0].id;
 
+  const deletePackage = async () => {
+    await updateDoc(doc(db, "inventory", id), {
+      shippingInfo: deleteField(),
+    });
+  };
   return (
     <Modal
-      open={props.setShowConfirmDeleteItem}
+      open={props.isOpenDelete}
       onClose={() => {
-        props.setShowConfirmDeleteItem(false);
+        props.setIsOpenDelete(false);
       }}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <h5 className="font-bold">Delete item</h5>
-        <p className="mt-4">Are you sure you want to delete this item?</p>
+        <h5 className="font-bold">Delete package</h5>
+        <p className="mt-4">Are you sure you want to package?</p>
         <div className="flex float-right">
           <button
             onClick={() => {
-              props.setShowConfirmDeleteItem(false);
+              props.setIsOpenDelete(false);
             }}
             className="border py-2 px-3 rounded font-medium"
           >
             Cancel
           </button>
-          <Link to="/">
+          <Link to="/packages">
             <button
-              onClick={() => deleteItem(props.activeProductId)}
+              onClick={() => deletePackage()}
               className="bg-cinnabar-red border ml-2 py-2 px-3 rounded text-white font-medium"
             >
               Delete
