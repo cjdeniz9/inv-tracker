@@ -12,7 +12,7 @@ import SalesProductDatail from "./pages/SalesProductDetail";
 import Sales from "./pages/Sales";
 import ProductPackage from "./pages/ProductPackage";
 
-export default function App() {
+export default function App({ urlname }) {
   const [profitData, setProfitData] = useState({});
   const [inventory, setInventory] = useState([]);
   const [product, setProduct] = useState([]);
@@ -21,11 +21,11 @@ export default function App() {
   useEffect(() => {
     const q = query(collection(db, "inventory"), orderBy("timestamp", "asc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let inventoryArr = [];
+      let inv = [];
       querySnapshot.forEach((item) => {
-        inventoryArr.push({ ...item.data(), id: item.id });
+        inv.push({ ...item.data(), id: item.id });
       });
-      setInventory(inventoryArr);
+      setInventory(inv);
       setLoading(true);
     });
     return () => unsubscribe;
@@ -41,7 +41,6 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {/* <Header> */}
       <Routes>
         <Route
           path="/dashboard"
@@ -76,6 +75,7 @@ export default function App() {
               loading={loading}
               product={product}
               setInventory={setInventory}
+              setLoading={setLoading}
               setProduct={setProduct}
             />
           }
@@ -87,7 +87,6 @@ export default function App() {
         <Route path="/sales" element={<Sales />} />
         <Route path="/sales/:productId" element={<SalesProductDatail />} />
       </Routes>
-      {/* </Header> */}
     </BrowserRouter>
   );
 }

@@ -103,7 +103,6 @@ export default function BodyLeft(props) {
         <Listings
           activeProduct={props.activeProduct}
           activeProductId={props.activeProductId}
-          forceRender={props.forceRender}
         />
         <PurchaseDetails purchaseDetails={purchaseDetails} />
       </div>

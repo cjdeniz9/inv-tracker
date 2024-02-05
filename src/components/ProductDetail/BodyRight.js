@@ -86,7 +86,6 @@ export default function BodyRight(props) {
         <TrackShipment
           activeProduct={props.activeProduct}
           activeProductId={props.activeProductId}
-          forceRender={props.forceRender}
         />
         {props.activeProduct[0].hasOwnProperty("shippingInfo") &&
         props.activeProduct[0].shippingInfo.hasOwnProperty("trackingNum") ? (

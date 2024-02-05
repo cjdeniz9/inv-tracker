@@ -1,6 +1,9 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
+import { db } from "../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 

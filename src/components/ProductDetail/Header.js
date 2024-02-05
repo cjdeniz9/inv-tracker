@@ -30,21 +30,16 @@ export default function Header(props) {
         </div>
         <div className="flex">
           {props.activeProduct[0].img === undefined ? (
-            <UploadImage
-              activeProductId={props.activeProductId}
-              forceRender={props.forceRender}
-            />
+            <UploadImage activeProductId={props.activeProductId} />
           ) : (
             <ChangeImage
               activeProductId={props.activeProductId}
               activeProduct={props.activeProduct}
-              // forceRender={props.forceRender}
             />
           )}
           <EditItem
             activeProduct={props.activeProduct}
             activeProductId={props.activeProductId}
-            forceRender={props.forceRender}
             getProduct={props.getProduct}
             product={props.product}
             setProduct={props.setProduct}

@@ -46,7 +46,6 @@ export default function ChangeImage(props) {
     await updateDoc(doc(db, "inventory", id), {
       img: files[0].fileUrl,
     });
-    props.forceRender();
   }
 
   useEffect(() => {

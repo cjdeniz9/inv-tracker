@@ -1,32 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
+
+import { db } from "../firebase";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 import Body from "../components/ProductPackage/Body";
 import Header from "../components/ProductPackage/Header";
 import Navbar from "../components/Navbar";
 
-export default function ProductPackage(props) {
+export default function ProductPackage() {
+  const [inventory, setInventory] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const q = query(collection(db, "inventory"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let inv = [];
+      querySnapshot.forEach((doc) => {
+        inv.push({ ...doc.data(), id: doc.id });
+      });
+      setInventory(inv);
+      setLoading(true);
+    });
+    return () => unsubscribe();
+  }, []);
+
   let { productId } = useParams;
 
-  const activeId = useParams().productId;
+  const activeProductId = useParams().productId;
 
-  const filterId = props.inventory.filter((item) => item.id.includes(activeId));
+  const [activeProduct, setActiveProduct] = useState([]);
 
-  const [activeProduct, setActiveProduct] = useState(filterId);
-  const [render, setRender] = useState(0);
-
-  function forceRender() {
-    setRender((i) => i + 1);
+  if (loading) {
+    const filterProductId = inventory.filter((item) =>
+      item.id.includes(activeProductId)
+    );
+    setActiveProduct(filterProductId);
+    setLoading(false);
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
-        <Header activeProduct={activeProduct} forceRender={forceRender} />
-        <Body activeProduct={activeProduct} />
-      </div>
-    </>
+    activeProduct.length && (
+      <>
+        <Navbar />
+        <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
+          <Header activeProduct={activeProduct} />
+          <Body activeProduct={activeProduct} />
+        </div>
+      </>
+    )
   );
 }

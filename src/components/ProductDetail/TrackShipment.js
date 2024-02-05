@@ -26,7 +26,6 @@ export default function TrackShipment(props) {
         setShipmentDetails(data);
       }
     }
-    props.forceRender();
   };
 
   if (Object.keys(shipmentDetails).length !== 0) {
@@ -102,10 +101,7 @@ export default function TrackShipment(props) {
               </span>
             </div>
             <div>
-              <DeletePackage
-                activeProductId={props.activeProductId}
-                forceRender={props.forceRender}
-              />
+              <DeletePackage activeProductId={props.activeProductId} />
             </div>
           </div>
         </div>

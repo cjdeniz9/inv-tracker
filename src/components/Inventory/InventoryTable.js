@@ -92,7 +92,7 @@ export default function InventoryTable(props) {
         {currencySymbol(props.price)}
       </td>
       <td className="max-w-[10rem] pl-24 text-base">
-        {props.salePrice === "" || props.salePrice === undefined
+        {props.listingPrice === "" || props.listingPrice === undefined
           ? ""
           : currencySymbol(props.listingPrice)}
       </td>

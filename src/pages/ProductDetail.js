@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 import Navbar from "../components/Navbar";
 import Header from "../components/ProductDetail/Header";
@@ -12,17 +12,19 @@ import MobileProductDetail from "../components/MobileProductDetail";
 export default function ProductDetail(props) {
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [render, setRender] = useState(0);
 
-  const getInventory = async () => {
-    const querySnapshot = await getDocs(collection(db, "inventory"));
-    const items = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setInventory(items);
-    setLoading(true);
-  };
+  useEffect(() => {
+    const q = query(collection(db, "inventory"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let inv = [];
+      querySnapshot.forEach((doc) => {
+        inv.push({ ...doc.data(), id: doc.id });
+      });
+      setInventory(inv);
+      setLoading(true);
+    });
+    return () => unsubscribe();
+  }, []);
 
   let { productId } = useParams;
 
@@ -30,20 +32,12 @@ export default function ProductDetail(props) {
 
   const [activeProduct, setActiveProduct] = useState([]);
 
-  useEffect(() => {
-    getInventory();
-  }, [render]);
-
   if (loading) {
     const filterProductId = inventory.filter((item) =>
       item.id.includes(activeProductId)
     );
     setActiveProduct(filterProductId);
     setLoading(false);
-  }
-
-  function forceRender() {
-    setRender((i) => i + 1);
   }
 
   return (
@@ -54,7 +48,6 @@ export default function ProductDetail(props) {
           <Header
             activeProduct={activeProduct}
             activeProductId={activeProductId}
-            forceRender={forceRender}
             getProduct={props.getProduct}
             product={props.product}
             setProduct={props.setProduct}
@@ -62,7 +55,6 @@ export default function ProductDetail(props) {
           <Body
             activeProduct={activeProduct}
             activeProductId={activeProductId}
-            forceRender={forceRender}
           />
         </div>
         <div className="md:hidden">

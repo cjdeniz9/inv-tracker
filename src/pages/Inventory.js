@@ -110,7 +110,8 @@ export default function Inventory(props) {
                 colorway={item.colorway}
                 placeOfPurchase={item.placeOfPurchase}
                 purchasedDate={item.purchasedDate}
-                soldDate={item.soldDate}
+                saleDate={item.saleDate}
+                salePrice={item.salePrice}
                 price={item.price}
                 roi={item.roi}
                 condition={item.condition}

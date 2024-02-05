@@ -297,7 +297,6 @@ export default function EditItem(props) {
       styleId: styleId,
       tax: tax !== "" ? parseFloat(tax) : "",
     });
-    props.forceRender();
   };
 
   return (

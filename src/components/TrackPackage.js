@@ -23,7 +23,7 @@ export default function TrackPackage(props) {
         setShipmentDetails(data);
       }
     }
-    props.forceRender();
+    props.setIsOpenEdit(false);
   };
 
   if (Object.keys(shipmentDetails).length !== 0) {
@@ -46,6 +46,7 @@ export default function TrackPackage(props) {
 
   return (
     <Edit
+      activeProduct={props.activeProduct}
       addShipment={addShipment}
       isOpenEdit={props.isOpenEdit}
       setIsOpenEdit={props.setIsOpenEdit}

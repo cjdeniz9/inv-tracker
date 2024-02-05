@@ -30,14 +30,16 @@ export default function Header(props) {
           </h1>
         </div>
         <div className="flex w-[12%] justify-between">
-          <BtnEdit setIsOpenEdit={setIsOpenEdit} />
+          <BtnEdit
+            getGeocoding={props.getGeocoding}
+            setIsOpenEdit={setIsOpenEdit}
+          />
           <BtnDelete setIsOpenDelete={setIsOpenDelete} />
         </div>
       </div>
       <TrackPackage
         activeProduct={props.activeProduct}
         isOpenEdit={isOpenEdit}
-        forceRender={props.forceRender}
         setIsOpenEdit={setIsOpenEdit}
       />
       <Delete

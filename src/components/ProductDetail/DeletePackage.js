@@ -11,7 +11,6 @@ export default function DeletePackage(props) {
     await updateDoc(doc(db, "inventory", id), {
       shippingInfo: deleteField(),
     });
-    props.forceRender();
   };
 
   return (

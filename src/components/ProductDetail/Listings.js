@@ -71,7 +71,6 @@ export default function Listings(props) {
           ? "Listed"
           : "Unlisted",
     });
-    props.forceRender();
   };
 
   const deleteListing = async () => {
@@ -85,7 +84,6 @@ export default function Listings(props) {
           ? "Sold"
           : "Unlisted",
     });
-    props.forceRender();
   };
 
   function dateFormat(date) {
@@ -118,12 +116,10 @@ export default function Listings(props) {
     setShowEditSoldForm(false);
     setShowEditListedForm(false);
     setAnchorEl(null);
-    props.forceRender();
   };
 
   const handleSubmit = () => {
     handleClose();
-    props.forceRender();
   };
 
   if (
