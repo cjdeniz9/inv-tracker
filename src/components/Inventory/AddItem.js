@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -31,6 +31,15 @@ export default function AddItem(props) {
   const [condition, setCondition] = useState("");
   const [notes, setNotes] = useState("");
   const [orderNum, setOrderNum] = useState("");
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch(`http://localhost:8000/product/${name}`);
+      const data = await response.json();
+      console.log(data);
+    };
+    fetchProduct();
+  }, [name]);
 
   const createItem = async (e) => {
     e.preventDefault(e);

@@ -87,7 +87,7 @@ export default function InventoryTableHead() {
               type="checkbox"
               className="focus:ring-0 focus:ring-transparent w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm"
             />
-            <label for="checkbox-all-search" className="sr-only">
+            <label htmlFor="checkbox-all-search" className="sr-only">
               checkbox
             </label>
           </div>

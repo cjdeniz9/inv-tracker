@@ -47,7 +47,7 @@ export default function InventoryTable(props) {
             // onClick={selectedRow(props.id)}
             className="focus:ring-0 focus:ring-transparent w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm"
           />
-          <label for="checkbox-table-search-1" className="sr-only">
+          <label htmlFor="checkbox-table-search-1" className="sr-only">
             checkbox
           </label>
         </div>

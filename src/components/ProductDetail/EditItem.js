@@ -52,7 +52,7 @@ export default function EditItem(props) {
   const [styleId, setStyleId] = useState(props.activeProduct[0].styleId);
   const [tax, setTax] = useState(props.activeProduct[0].tax);
 
-  const [product, setProduct] = useState([]);
+  // const [product, setProduct] = useState([]);
 
   const shoeSizeNum = [
     {
@@ -244,51 +244,45 @@ export default function EditItem(props) {
     });
   }
 
-  // if (styleId !== "") {
-  //   props.getProduct(styleId);
-  //   console.log(props.product);
-  //   console.log(styleId);
-  // }
-
   // const getProduct = async (id) => {
-  //   let data = await fetch(`http://localhost:8000/product/429659-501`);
-  //   data = await data.json();
-  //   if (data) {
-  //     setProduct(data);
-  //   }
+  //   const response = await fetch(`http://localhost:8000/product/${id}`);
+  //   const data = await response.json();
+  //   setProduct(data);
   // };
-
-  // getProduct(styleId);
-  // console.log(product);
 
   const updateItem = async (e) => {
     e.preventDefault(e);
 
-    imgEmpty = img === "" ? "" : img;
-    resellPriceEmpty =
-      resellPrice.goat === "" && resellPrice.stockX === ""
-        ? {
-            goat: "",
-            stockX: "",
-          }
-        : resellPrice;
+    if (styleId !== "") {
+      props.getProduct(styleId);
+      // console.log("passed");
+    }
+
+    // imgEmpty = img === "" ? "" : img;
+    // resellPriceEmpty =
+    //   resellPrice.goat === "" && resellPrice.stockX === ""
+    //     ? {
+    //         goat: "",
+    //         stockX: "",
+    //       }
+    //     : resellPrice;
 
     await updateDoc(doc(db, "inventory", id), {
       brand: brand,
       colorway: colorway,
       condition: condition,
-      img: _.isEmpty(product) ? "" : product.thumbnail,
+      img: _.isEmpty(props.product) ? "" : props.product.thumbnail,
       name: name,
       notes: notes,
       orderNum: orderNum,
       placeOfPurchase: placeOfPurchase,
       price: parseFloat(price),
       purchasedDate: purchasedDate,
-      resellPrice: _.isEmpty(product)
+      resellPrice: _.isEmpty(props.product)
         ? ""
         : {
-            goat: product.lowestResellPrice.goat,
-            stockX: product.lowestResellPrice.stockX,
+            goat: props.product.lowestResellPrice.goat,
+            stockX: props.product.lowestResellPrice.stockX,
           },
       shippingPrice: shippingPrice !== "" ? parseFloat(shippingPrice) : "",
       size: size,

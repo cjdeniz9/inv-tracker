@@ -15,6 +15,12 @@ app.use(cors());
 
 // console.log(storedId);
 
+app.get("/product/:keyword", (req, res) => {
+  sneaks.getProducts(req.params.keyword, 9, function (err, products) {
+    res.json(products);
+  });
+});
+
 app.get("/product/:id", (req, res) => {
   sneaks.getProductPrices(req.params.id, function (err, product) {
     res.json(product);

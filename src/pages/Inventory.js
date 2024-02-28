@@ -9,6 +9,8 @@ import InventoryTableHead from "../components/Inventory/InventoryTableHead";
 import InventoryTable from "../components/Inventory/InventoryTable";
 
 import "../index.css";
+import CreateInventory from "../components/Inventory/CreateItem/CreateInventory/CreateInventory";
+import CreateItem from "../components/Inventory/CreateItem/CreateItem";
 
 // npm uninstall sneaks-api?
 // import { collection } from "sneaks-api/models/Sneaker";
@@ -170,11 +172,7 @@ export default function Inventory(props) {
             </div> */}
           </div>
           <div className="w-1/5 flex justify-end">
-            <AddItem
-              getProduct={props.getProduct}
-              product={props.product}
-              setProduct={props.setProduct}
-            />
+            <CreateItem />
           </div>
         </div>
         <div className="relative overflow-x-auto max-h-[39rem]">

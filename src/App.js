@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { db } from "./firebase";
@@ -13,10 +13,13 @@ import Sales from "./pages/Sales";
 import ProductPackage from "./pages/ProductPackage";
 
 export default function App({ urlname }) {
+  const [error, setError] = useState();
   const [profitData, setProfitData] = useState({});
   const [inventory, setInventory] = useState([]);
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const abortControllerRef = (useRef < AbortController) | (null > null);
 
   useEffect(() => {
     const q = query(collection(db, "inventory"), orderBy("timestamp", "asc"));
@@ -32,12 +35,14 @@ export default function App({ urlname }) {
   }, []);
 
   const getProduct = async (id) => {
-    let data = await fetch(`http://localhost:8000/product/${id}`);
-    data = await data.json();
-    if (data) {
-      setProduct(data);
-    }
+    const response = await fetch(`http://localhost:8000/product/${id}`);
+    const data = await response.json();
+    setProduct(data);
   };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <BrowserRouter>
