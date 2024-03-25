@@ -87,8 +87,7 @@ export default function BodyRight(props) {
           activeProduct={props.activeProduct}
           activeProductId={props.activeProductId}
         />
-        {props.activeProduct[0].hasOwnProperty("shippingInfo") &&
-        props.activeProduct[0].shippingInfo.hasOwnProperty("trackingNum") ? (
+        {props.activeProduct[0].hasOwnProperty("geometry") ? (
           <PackageMap activeProduct={props.activeProduct} />
         ) : (
           ""

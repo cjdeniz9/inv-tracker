@@ -10,6 +10,7 @@ export default function DeletePackage(props) {
   const deleteNum = async () => {
     await updateDoc(doc(db, "inventory", id), {
       shippingInfo: deleteField(),
+      geometry: deleteField(),
     });
   };
 

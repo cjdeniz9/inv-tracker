@@ -11,7 +11,7 @@ export default function PurchaseDetails(props) {
   const createItem = async (e) => {
     e.preventDefault(e);
 
-    if (props.name === "") {
+    if (props.name === "" && props.selected.shoeName === "") {
       return props.setNameError(true);
     }
 
@@ -79,6 +79,7 @@ export default function PurchaseDetails(props) {
     props.setTax("");
     props.setSelected([]);
     props.setToggle(false);
+    //If name is not present, then ignore field
   };
 
   return (

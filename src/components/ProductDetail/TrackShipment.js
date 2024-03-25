@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
@@ -20,7 +20,9 @@ export default function TrackShipment(props) {
     let num = trackingNum === "" ? "" : trackingNum;
 
     if (num) {
-      let data = await fetch(`http://localhost:8000/trackingNumber/${num}`);
+      let data = await fetch(
+        `https://inv-tracker.onrender.com/trackingNumber/${num}`
+      );
       data = await data.json();
       if (data) {
         setShipmentDetails(data);
@@ -46,9 +48,29 @@ export default function TrackShipment(props) {
     setShipmentDetails([]);
   }
 
-  // useEffect(() => {
-  //   trackShipment();
-  // }, []);
+  useEffect(() => {
+    async function getGeocoding() {
+      const zipcode =
+        props.activeProduct[0].shippingInfo.trackingDetails.slice(-1)[0]
+          .tracking_location.zip;
+      const res = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${zipcode}&key=${process.env.REACT_APP_GOOGLE_GEOCODING_API_KEY}`
+      );
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log(zipcode);
+      await updateDoc(doc(db, "inventory", props.activeProduct[0].id), {
+        geometry: {
+          lat: data.results[0].geometry.location.lat,
+          lng: data.results[0].geometry.location.lng,
+        },
+      });
+    }
+    //Zipcode doesn't update
+    getGeocoding();
+  }, [props.activeProduct]);
 
   return (
     <div className="mt-6">

@@ -24,7 +24,7 @@ export default function Search(props) {
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await fetch(
-        `http://localhost:8000/product/${props.keyword}`
+        `https://inv-tracker.onrender.com/product/${props.keyword}`
       );
       const data = await response.json();
       props.setResults(data);
