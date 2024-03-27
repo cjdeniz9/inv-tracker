@@ -12,10 +12,10 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-import Inventory from "../components/Dashboard/Inventory";
-import Header from "../components/Dashboard/Header";
-import Navbar from "../components/Navbar";
-import Reports from "../components/Dashboard/Reports";
+import Inventory from "../features/dashboard/components/Inventory";
+import Header from "../features/dashboard/components/Header";
+import Navbar from "../layouts/Navbar";
+import Reports from "../features/dashboard/components/Reports";
 
 import {
   Chart as ChartJS,

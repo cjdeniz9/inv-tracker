@@ -1,16 +1,15 @@
-import InventoryTable from "../components/Inventory/InventoryTable";
-import Navbar from "../components/Navbar";
-import InventoryHeader from "../components/Items/ItemsHeader";
-import Search from "../components/Inventory/Search";
-import TableHeader from "../components/Packages/TableHeader";
-import PackageTable from "../components/Packages/PackageTable";
+import Header from "../components/Header";
+import Navbar from "../layouts/Navbar";
+import Search from "../features/inventoryTable/components/Search";
+import TableHeader from "../features/packageTable/components/TableHeader";
+import PackageTable from "../features/packageTable/components/PackageTable";
 
 export default function Packages(props) {
   return (
     <>
       <Navbar />
       <div className="tablet-screen:ml-52 h-[95vh] overflow-auto p-4">
-        <InventoryHeader />
+        <Header />
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">
             {/* <Search setSearch={setSearch} /> */}

@@ -1,19 +1,13 @@
 import { useState } from "react";
 
-import Navbar from "../components/Navbar";
-import InventoryHeader from "../components/Items/ItemsHeader";
-import AddItem from "../components/Inventory/AddItem";
-import Search from "../components/Inventory/Search";
-import StatusFilter from "../components/Inventory/StatusFilter";
-import InventoryTableHead from "../components/Inventory/InventoryTableHead";
-import InventoryTable from "../components/Inventory/InventoryTable";
+import Navbar from "../layouts/Navbar";
+import Header from "../components/Header";
+import Search from "../features/inventoryTable/components/Search";
+import StatusFilter from "../features/inventoryTable/components/StatusFilter";
+import InventoryTableHead from "../features/inventoryTable/components/InventoryTableHead";
+import InventoryTable from "../features/inventoryTable/components/InventoryTable";
 
-import "../index.css";
-import CreateInventory from "../components/Inventory/CreateItem/CreateInventory/CreateInventory";
-import CreateItem from "../components/Inventory/CreateItem/CreateItem";
-
-// npm uninstall sneaks-api?
-// import { collection } from "sneaks-api/models/Sneaker";
+import CreateItem from "../features/createItem/index";
 
 export default function Inventory(props) {
   let inventoryContent;
@@ -152,7 +146,7 @@ export default function Inventory(props) {
     <div className="App">
       <Navbar />
       <div className="tablet-screen:ml-52 h-[95vh] overflow-auto p-4">
-        <InventoryHeader />
+        <Header />
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">
             <Search setSearch={setSearch} />

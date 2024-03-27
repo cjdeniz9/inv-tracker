@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import InventoryTable from "../components/Inventory/InventoryTable";
-import Navbar from "../components/Navbar";
-import InventoryHeader from "../components/Items/ItemsHeader";
-import Search from "../components/Inventory/Search";
-import InventoryTableHead from "../components/Inventory/InventoryTableHead";
+import Header from "../components/Header";
+import InventoryTable from "../features/inventoryTable/components/InventoryTable";
+import Navbar from "../layouts/Navbar";
+import Search from "../features/inventoryTable/components/Search";
+import InventoryTableHead from "../features/inventoryTable/components/InventoryTableHead";
 
 export default function Sales() {
   let salesInv;
@@ -75,7 +75,7 @@ export default function Sales() {
     <>
       <Navbar />
       <div className="tablet-screen:ml-52 h-[95vh] overflow-auto p-4">
-        <InventoryHeader />
+        <Header />
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">
             <Search setSearch={setSearch} />
