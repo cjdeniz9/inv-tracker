@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
+import { getInventory } from "../../context/inventorySlice";
+
 import ChangeImage from "./components/ChangeImage";
 import ConfirmDeleteItem from "./components/ConfirmDeleteItem";
 import DeleteItem from "./components/DeleteItem";
@@ -12,6 +16,8 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function ProductHeader(props) {
   const [showConfirmDeleteItem, setShowConfirmDeleteItem] = useState(false);
+
+  const data = useSelector(getInventory);
 
   return (
     <div className="pb-4">
@@ -25,10 +31,10 @@ export default function ProductHeader(props) {
       <div className="flex justify-between pt-3">
         <div>
           <h1 className="phone-screen:text-2xl tablet-screen:text-3xl xl:text-3xl">
-            {props.activeProduct[0].name}
+            {data[0][0].name}
           </h1>
         </div>
-        <div className="flex">
+        {/* <div className="flex">
           {props.activeProduct[0].img === undefined ? (
             <UploadImage activeProductId={props.activeProductId} />
           ) : (
@@ -49,9 +55,9 @@ export default function ProductHeader(props) {
             setShowConfirmDeleteItem={setShowConfirmDeleteItem}
             activeProductId={props.activeProductId}
           />
-        </div>
+        </div> */}
       </div>
-      {showConfirmDeleteItem ? (
+      {/* {showConfirmDeleteItem ? (
         <ConfirmDeleteItem
           showConfirmDeleteItem={showConfirmDeleteItem}
           setShowConfirmDeleteItem={setShowConfirmDeleteItem}
@@ -59,7 +65,7 @@ export default function ProductHeader(props) {
         />
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 }

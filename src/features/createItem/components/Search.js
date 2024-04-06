@@ -1,7 +1,21 @@
 import { useEffect, useRef } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { getKeyword, setKeyword } from "../../../context/keywordSlice";
+import { setResults } from "../context/resultsSlice";
+
 import SearchList from "./SearchList";
 
 export default function Search(props) {
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    dispatch(setKeyword(e.target.value));
+  };
+
+  const keyword = useSelector(getKeyword);
+
   function useOutsideAlerter(ref) {
     useEffect(() => {
       if (props.isOpen === false) return;
@@ -24,13 +38,14 @@ export default function Search(props) {
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await fetch(
-        `https://inv-tracker.onrender.com/product/${props.keyword}`
+        `https://inv-tracker.onrender.com/product/${keyword}`
       );
       const data = await response.json();
-      props.setResults(data);
+      dispatch(setResults(data));
     };
+
     fetchProduct();
-  }, [props.keyword]);
+  }, [keyword]);
 
   return (
     <div className="w-full flex justify-center">
@@ -50,27 +65,11 @@ export default function Search(props) {
             type="text"
             autoComplete="off"
             id="keyword"
-            value={props.keyword}
-            onClick={() => {
-              props.setInputOpen(true);
-            }}
-            onChange={(e) => {
-              props.setKeyword(e.target.value);
-            }}
+            value={keyword}
+            onChange={handleChange}
             required
           />
-          {props.keyword.length !== 0 && (
-            <SearchList
-              inputOpen={props.inputOpen}
-              results={props.results}
-              selected={props.selected}
-              setInputOpen={props.setInputOpen}
-              setKeyword={props.setKeyword}
-              setOpenCustom={props.setOpenCustom}
-              setSelected={props.setSelected}
-              setToggle={props.setToggle}
-            />
-          )}
+          {keyword.length !== 0 && <SearchList />}
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ export default function App({ urlname }) {
   const abortControllerRef = (useRef < AbortController) | (null > null);
 
   useEffect(() => {
-    const q = query(collection(db, "inventory"), orderBy("timestamp", "asc"));
+    const q = query(collection(db, "inventory"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let inv = [];
       querySnapshot.forEach((item) => {

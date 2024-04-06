@@ -1,111 +1,119 @@
-import { Link, useLocation } from "react-router-dom";
-
-import moment from "moment";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  faBoxArchive,
-  faCircleCheck,
-  faClipboardList,
-} from "@fortawesome/free-solid-svg-icons";
+  fetchInventory,
+  getInventory,
+  getInventoryStatus,
+  getInventoryError,
+} from "../../../context/inventorySlice";
+import { useEffect } from "react";
+import InventoryRow from "./InventoryRow";
 
-export default function InventoryTable(props) {
-  let statusSymbol, statusTextColor;
+export default function InventoryTable() {
+  const data = useSelector(getInventory);
+  const inventoryStatus = useSelector(getInventoryStatus);
+  const error = useSelector(getInventoryError);
 
-  let location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (inventoryStatus === "idle") {
+      dispatch(fetchInventory());
+    }
+  }, [inventoryStatus, dispatch]);
+  //   return (
+  //     <tr key={data.id} className="hover:bg-[#FAFAFA]">
+  //       <td className="py-2.5 px-3">
+  //         <div className="flex items-center">
+  //           <input
+  //             id="checkbox-table-search-1"
+  //             type="checkbox"
+  //             // onClick={selectedRow(data.item.id)}
+  //             className="focus:ring-0 focus:ring-transparent w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm"
+  //           />
+  //           <label htmlFor="checkbox-table-search-1" className="sr-only">
+  //             checkbox
+  //           </label>
+  //         </div>
+  //       </td>
+  //       <td className="max-w-xs text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">
+  //         <Link
+  //           to={location.pathname === "/" ? `/${data.id}` : `/sales/${data.id}`}
+  //           className="no-underline"
+  //         >
+  //           {data.item.name}
+  //         </Link>
+  //       </td>
+  //       <td className="max-w-[15rem] pl-20 text-base whitespace-nowrap truncate">
+  //         {data.item.brand}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-16 text-base whitespace-nowrap">
+  //         {data.item.size}
+  //       </td>
+  //       <td className="max-w-[15rem] pl-20 text-base whitespace-nowrap truncate">
+  //         {data.item.sku}
+  //       </td>
+  //       <td
+  //         className={`max-w-[10rem] pl-20 text-base ${statusColor(
+  //           data.item.status
+  //         )} whitespace-nowrap`}
+  //       >
+  //         <span className="pr-1">{statusIcon(data.item.status)}</span>{" "}
+  //         {data.item.status}
+  //       </td>
+  //       <td className="max-w-[15rem] pl-16 text-base whitespace-nowrap truncate">
+  //         {data.item.color}
+  //       </td>
+  //       <td className="max-w-[15rem] pl-16 text-base whitespace-nowrap text-clip overflow-hidden">
+  //         {data.item.placeOfPurchase}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-20 text-base whitespace-nowrap">
+  //         {formatDate(data.item.purchasedDate)}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-20 text-base whitespace-nowrap">
+  //         {data.item.saleDate === "" || data.item.saleDate === undefined
+  //           ? ""
+  //           : formatDate(data.item.saleDate)}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-24 text-base">
+  //         {formatCurrency(data.item.price)}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-24 text-base">
+  //         {data.item.listingPrice === "" || data.item.listingPrice === undefined
+  //           ? ""
+  //           : formatCurrency(data.item.listingPrice)}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-20 text-base">
+  //         {data.item.salePrice === "" || data.item.salePrice === undefined
+  //           ? ""
+  //           : formatCurrency(data.item.salePrice)}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-20 text-base">
+  //         {data.item.listedPlatform}
+  //       </td>
+  //       <td className="max-w-[10rem] pl-20 text-base">{data.item.condition}</td>
+  //       <td className="max-w-[20rem] px-16 text-base whitespace-nowrap truncate">
+  //         {data.item.notes}
+  //       </td>
+  //     </tr>
+  //   );
+  // });
+
+  let content;
+  if (inventoryStatus === "loading") {
+    content = "";
+  } else if (inventoryStatus === "succeeded") {
+    content = data.map((row) => <InventoryRow key={row.id} row={row.item} />);
+  } else if (inventoryStatus === "failed") {
+    content = <p>{error}</p>;
+  }
 
   // const [selectedCheckbox, setSelectedCheckbox] = useState({});
 
-  if (props.status.toLowerCase() === "listed") {
-    statusSymbol = <FontAwesomeIcon icon={faClipboardList} />;
-    statusTextColor = "text-tufts-blue";
-  } else if (props.status.toLowerCase() === "sold") {
-    statusSymbol = <FontAwesomeIcon icon={faCircleCheck} />;
-    statusTextColor = "text-salem-green";
-  } else {
-    statusSymbol = <FontAwesomeIcon icon={faBoxArchive} />;
-    statusTextColor = "text-granite-gray";
-  }
+  // const sizeText = data.item.sizeTypeSelected === "Shoes" ? "US M" : "";
 
-  function currencySymbol(value) {
-    return value === "" ? "" : "$" + value;
-  }
-
-  // const sizeText = props.sizeTypeSelected === "Shoes" ? "US M" : "";
-
-  // function selectedRow(item) {
-  //   setSelectedCheckbox((prevChecked) => (prevSelected) => item);
+  // function selectedRow(data.item) {
+  //   setSelectedCheckbox((prevChecked) => (prevSelected) => data.item);
   // }
 
-  return (
-    <tr className="hover:bg-[#FAFAFA]">
-      <td className="py-2.5 px-3">
-        <div className="flex items-center">
-          <input
-            id="checkbox-table-search-1"
-            type="checkbox"
-            // onClick={selectedRow(props.id)}
-            className="focus:ring-0 focus:ring-transparent w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm"
-          />
-          <label htmlFor="checkbox-table-search-1" className="sr-only">
-            checkbox
-          </label>
-        </div>
-      </td>
-      <td className="max-w-xs text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">
-        <Link
-          to={location.pathname === "/" ? `/${props.id}` : `/sales/${props.id}`}
-          className="no-underline"
-        >
-          {props.name}
-        </Link>
-      </td>
-      <td className="max-w-[15rem] pl-20 text-base whitespace-nowrap truncate">
-        {props.brand}
-      </td>
-      <td className="max-w-[10rem] pl-16 text-base whitespace-nowrap">
-        {props.size}
-      </td>
-      <td className="max-w-[15rem] pl-20 text-base whitespace-nowrap truncate">
-        {props.styleId}
-      </td>
-      <td
-        className={`max-w-[10rem] pl-20 text-base ${statusTextColor} whitespace-nowrap`}
-      >
-        <span className="pr-1">{statusSymbol}</span> {props.status}
-      </td>
-      <td className="max-w-[15rem] pl-16 text-base whitespace-nowrap truncate">
-        {props.colorway}
-      </td>
-      <td className="max-w-[15rem] pl-16 text-base whitespace-nowrap text-clip overflow-hidden">
-        {props.placeOfPurchase}
-      </td>
-      <td className="max-w-[10rem] pl-20 text-base whitespace-nowrap">
-        {moment(props.purchasedDate).format("LL")}
-      </td>
-      <td className="max-w-[10rem] pl-20 text-base whitespace-nowrap">
-        {props.saleDate === "" || props.saleDate === undefined
-          ? ""
-          : moment(props.saleDate).format("LL")}
-      </td>
-      <td className="max-w-[10rem] pl-24 text-base">
-        {currencySymbol(props.price)}
-      </td>
-      <td className="max-w-[10rem] pl-24 text-base">
-        {props.listingPrice === "" || props.listingPrice === undefined
-          ? ""
-          : currencySymbol(props.listingPrice)}
-      </td>
-      <td className="max-w-[10rem] pl-20 text-base">
-        {props.salePrice === "" || props.salePrice === undefined
-          ? ""
-          : currencySymbol(props.salePrice)}
-      </td>
-      <td className="max-w-[10rem] pl-20 text-base">{props.listedPlatform}</td>
-      <td className="max-w-[10rem] pl-20 text-base">{props.condition}</td>
-      <td className="max-w-[20rem] px-16 text-base whitespace-nowrap truncate">
-        {props.notes}
-      </td>
-    </tr>
-  );
+  return <tbody>{content}</tbody>;
 }

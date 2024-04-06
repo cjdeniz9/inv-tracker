@@ -1,4 +1,13 @@
-export default function SizeChart(props) {
+import { useDispatch, useSelector } from "react-redux";
+
+import { sizeError } from "../../context/errorSlice";
+import { addSize, getSize } from "../../context/sizeSlice";
+
+export default function SizeChart() {
+  const dispatch = useDispatch();
+
+  const sizing = useSelector(getSize);
+
   const shoeSizeNum = [
     {
       size: "3.5",
@@ -84,7 +93,7 @@ export default function SizeChart(props) {
       <div className="lg:grid-cols-6 grid grid-cols-9 gap-2 pt-4">
         {shoeSizeNum.map((item) => {
           const selectedColor =
-            item.size === props.size
+            item.size === sizing
               ? "border-blue-ryb text-blue-ryb hover:border-absolute-zero hover:text-absolute-zero"
               : "";
           return (
@@ -94,18 +103,12 @@ export default function SizeChart(props) {
               id="size"
               value={item.size}
               onClick={() => {
-                if (props.size === item.size) {
-                  props.setSize("");
+                if (sizing === item.size) {
+                  dispatch(addSize(""));
                 } else {
-                  props.setSize(item.size);
-                  props.setSizeError(false);
+                  dispatch(addSize(item.size));
+                  dispatch(sizeError(false));
                 }
-                props.setSelected((prevState) => {
-                  return {
-                    ...prevState,
-                    size: item.size,
-                  };
-                });
               }}
             />
           );

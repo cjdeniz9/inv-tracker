@@ -1,85 +1,94 @@
 import { useState } from "react";
 
-import { db } from "../../../firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { serverTimestamp } from "firebase/firestore";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@mui/material/Button";
 
-export default function PurchaseDetails(props) {
-  const _ = require("lodash");
+import {
+  addCondition,
+  addNotes,
+  addOrderNum,
+  addPlaceOfPurchase,
+  addPrice,
+  addPurchasedDate,
+  addShippingPrice,
+  addTax,
+  deleteProduct,
+  getProduct,
+} from "../context/productSlice";
+import { deleteResults } from "../context/resultsSlice";
+import { deleteSelected, getSelected } from "../context/selectedSlice";
+import { resetShow, toggleCreate } from "../context/showSlice";
+import { resetTabValue } from "../context/tabSlice";
+import { nameError, resetError } from "../../../context/errorSlice";
+import { addItemToFirestore } from "../../../context/inventorySlice";
+import { deleteSize, getSize } from "../../../context/sizeSlice";
+
+export default function PurchaseDetails() {
+  const dispatch = useDispatch();
+
+  const product = useSelector(getProduct);
+  const selected = useSelector(getSelected);
+  const size = useSelector(getSize);
+
+  const brand = Boolean(selected.selectedArray)
+    ? product.brand
+    : selected.brand;
+  const color = Boolean(selected.selectedArray)
+    ? product.color
+    : selected.colorway;
+  const img = Boolean(selected.selectedArray) ? "" : selected.thumbnail;
+  const name = Boolean(selected.selectedArray)
+    ? product.name
+    : selected.shoeName;
+  const resellPrices = Boolean(selected.selectedArray)
+    ? ""
+    : {
+        goat: selected.lowestResellPrice.goat,
+        stockX: selected.lowestResellPrice.stockX,
+      };
+  const sku = Boolean(selected.selectedArray) ? product.sku : selected.styleID;
 
   const createItem = async (e) => {
     e.preventDefault(e);
 
-    if (props.name === "" && props.selected.shoeName === "") {
-      return props.setNameError(true);
+    if (name === "") {
+      return dispatch(nameError(true));
     }
 
-    props.setIsOpen(false);
+    dispatch(toggleCreate());
 
-    await addDoc(collection(db, "inventory"), {
-      brand:
-        Object.hasOwn(props.selected, "thumbnail") === true
-          ? props.selected.brand
-          : props.brand,
-      colorway:
-        Object.hasOwn(props.selected, "thumbnail") === true
-          ? props.selected.colorway
-          : props.color,
-      condition: props.condition,
-      img:
-        Object.hasOwn(props.selected, "thumbnail") === true
-          ? props.selected.thumbnail
-          : "",
-      name:
-        Object.hasOwn(props.selected, "shoeName") === true
-          ? props.selected.shoeName
-          : props.name,
-      notes: props.notes,
-      orderNum: props.orderNum,
-      placeOfPurchase: props.placeOfPurchase,
-      price: parseFloat(props.price),
-      purchasedDate: props.purchasedDate,
-      resellPrice:
-        Object.hasOwn(props.selected, "lowestResellPrice") === true
-          ? {
-              goat: props.selected.lowestResellPrice.goat,
-              stockX: props.selected.lowestResellPrice.stockX,
-            }
-          : {
-              goat: "",
-              stockX: "",
-            },
-      saleDate: "",
-      salePrice: "",
-      shippingPrice:
-        props.shippingPrice !== "" ? parseFloat(props.shippingPrice) : "",
-      size: props.size,
-      status: props.status !== "" ? props.status : "Unlisted",
-      styleId:
-        Object.hasOwn(props.selected, "thumbnail") === true
-          ? props.selected.styleID
-          : props.sku,
-      tax: props.tax !== "" ? parseFloat(props.tax) : "",
+    let item = {
+      brand: brand,
+      color: color,
+      condition: product.condition,
+      img: img,
+      name: name,
+      notes: product.notes,
+      orderNum: product.orderNum,
+      placeOfPurchase: product.placeOfPurchase,
+      price: product.price,
+      purchasedDate: product.purchasedDate,
+      resellPrices: resellPrices,
+      shippingPrice: product.shippingPrice,
+      size: size,
+      sku: sku,
+      status: "Unlisted",
+      tax: product.tax,
       timestamp: serverTimestamp(),
-    });
-    props.setBrand("");
-    props.setCondition("");
-    props.setColor("");
-    props.setKeyword("");
-    props.setName("");
-    props.setNotes("");
-    props.setOrderNum("");
-    props.setPlaceOfPurchase("");
-    props.setPurchasedDate("");
-    props.setPrice("");
-    props.setSize("");
-    props.setShippingPrice("");
-    props.setSku("");
-    props.setTax("");
-    props.setSelected([]);
-    props.setToggle(false);
-    //If name is not present, then ignore field
+    };
+
+    dispatch(addItemToFirestore(item));
+
+    dispatch(deleteProduct());
+    dispatch(deleteResults());
+    dispatch(deleteSelected());
+    dispatch(deleteSize());
+    dispatch(resetError());
+    dispatch(resetShow());
+    dispatch(resetTabValue());
   };
 
   return (
@@ -96,15 +105,9 @@ export default function PurchaseDetails(props) {
             placeholder="0.00"
             type="number"
             id="price"
-            value={props.price}
+            value={product.price}
             onChange={(e) => {
-              props.setPrice(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  price: e.target.value,
-                };
-              });
+              dispatch(addPrice(e.target.value));
             }}
             required
           />
@@ -116,15 +119,9 @@ export default function PurchaseDetails(props) {
             placeholder="0.00"
             type="number"
             id="tax"
-            value={props.tax}
+            value={product.tax}
             onChange={(e) => {
-              props.setTax(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  tax: e.target.value,
-                };
-              });
+              dispatch(addTax(e.target.value));
             }}
           />
         </div>
@@ -135,15 +132,9 @@ export default function PurchaseDetails(props) {
             placeholder="0.00"
             type="number"
             id="shippingPrice"
-            value={props.shippingPrice}
+            value={product.shippingPrice}
             onChange={(e) => {
-              props.setShippingPrice(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  shippingPrice: e.target.value,
-                };
-              });
+              dispatch(addShippingPrice(e.target.value));
             }}
           />
         </div>
@@ -156,15 +147,9 @@ export default function PurchaseDetails(props) {
             placeholder="SNKRS"
             type="text"
             id="placeOfPurchase"
-            value={props.placeOfPurchase}
+            value={product.placeOfPurchase}
             onChange={(e) => {
-              props.setPlaceOfPurchase(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  placeOfPurchase: e.target.value,
-                };
-              });
+              dispatch(addPlaceOfPurchase(e.target.value));
             }}
           />
         </div>
@@ -177,15 +162,9 @@ export default function PurchaseDetails(props) {
             placeholder="mm/dd/yyyy"
             type="date"
             id="purchasedDate"
-            value={props.purchasedDate}
+            value={product.purchasedDate}
             onChange={(e) => {
-              props.setPurchasedDate(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  purchasedDate: e.target.value,
-                };
-              });
+              dispatch(addPurchasedDate(e.target.value));
             }}
             required
           />
@@ -195,17 +174,11 @@ export default function PurchaseDetails(props) {
           <input
             className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             placeholder="#12345"
-            type="number"
+            type="text"
             id="orderNum"
-            value={props.orderNum}
+            value={product.orderNum}
             onChange={(e) => {
-              props.setOrderNum(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  orderNum: e.target.value,
-                };
-              });
+              dispatch(addOrderNum(e.target.value));
             }}
           />
         </div>
@@ -220,15 +193,9 @@ export default function PurchaseDetails(props) {
             type="textarea"
             rows="4"
             id="notes"
-            value={props.notes}
+            value={product.notes}
             onChange={(e) => {
-              props.setNotes(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  notes: e.target.value,
-                };
-              });
+              dispatch(addNotes(e.target.value));
             }}
           />
         </div>
@@ -239,15 +206,9 @@ export default function PurchaseDetails(props) {
             placeholder="New"
             type="text"
             id="condition"
-            value={props.condition}
+            value={product.condition}
             onChange={(e) => {
-              props.setCondition(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  condition: e.target.value,
-                };
-              });
+              dispatch(addCondition(e.target.value));
             }}
           />
         </div>

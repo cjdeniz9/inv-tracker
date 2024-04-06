@@ -1,3 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
+
+import { deleteProduct, getProduct } from "../context/productSlice";
+import { deleteSelected, getSelected } from "../context/selectedSlice";
+import { deleteResults } from "../context/resultsSlice";
+import { toggleProduct } from "../context/showSlice";
+import { deleteKeyword } from "../../../context/keywordSlice";
+import { deleteSize, getSize } from "../../../context/sizeSlice";
+
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
@@ -7,25 +16,19 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-export default function Edit(props) {
+export default function Edit() {
+  const dispatch = useDispatch();
+
+  const product = useSelector(getProduct);
+  const selected = useSelector(getSelected);
+  const sizing = useSelector(getSize);
+
   function handleDelete() {
-    props.setKeyword("");
-    props.setBrand("");
-    props.setColor("");
-    props.setCondition("");
-    props.setName("");
-    props.setNotes("");
-    props.setOpenCustom(false);
-    props.setOrderNum("");
-    props.setPlaceOfPurchase("");
-    props.setPrice("");
-    props.setPurchasedDate("");
-    props.setResults([]);
-    props.setSelected("");
-    props.setSize("");
-    props.setShippingPrice("");
-    props.setSku("");
-    props.setTax("");
+    dispatch(deleteKeyword());
+    dispatch(deleteProduct());
+    dispatch(deleteResults());
+    dispatch(deleteSelected());
+    dispatch(deleteSize());
   }
 
   return (
@@ -35,38 +38,33 @@ export default function Edit(props) {
         <div className="flex w-1/2 items-center">
           <div
             className={
-              Object.hasOwn(props.selected, "thumbnail") === true
-                ? "w-1/6 mr-6"
-                : "w-1/12 mr-6"
+              Boolean(selected.selectedArray) ? "w-1/12 mr-6" : "w-1/6 mr-6"
             }
           >
             <img
               src={
-                Object.hasOwn(props.selected, "thumbnail") === true
-                  ? props.selected.thumbnail
-                  : "https://app.scoutapp.ai/assets/images/scout-fallback.png"
+                Boolean(selected.selectedArray)
+                  ? "https://app.scoutapp.ai/assets/images/scout-fallback.png"
+                  : selected.thumbnail
               }
               alt="edit-img"
             />
           </div>
           <div className="text-sm">
             <span className="block font-semibold">
-              {console.log(props.selected)}
-              {Object.hasOwn(props.selected, "shoeName") === true
-                ? props.selected.shoeName
-                : props.name}
+              {Boolean(selected.selectedArray)
+                ? product.name
+                : selected.shoeName}
             </span>
             <span>
-              {Object.hasOwn(props.selected, "styleID") === true
-                ? props.selected.styleID
-                : props.sku}
+              {Boolean(selected.selectedArray) ? product.sku : selected.styleID}
             </span>
           </div>
         </div>
         <div className="flex w-1/2 justify-end">
           <Button
             variant="outlined"
-            onClick={() => props.setToggle(true)}
+            onClick={() => dispatch(toggleProduct())}
             sx={{
               borderColor: "#CFCFCF",
               color: "#242424",
@@ -155,25 +153,16 @@ export default function Edit(props) {
               align="left"
               sx={{ paddingX: 0, marginRight: "2rem" }}
             >
-              {props.selected.size} US M
+              {sizing} US M
             </TableCell>
             <TableCell align="left" sx={{ paddingX: 0 }}>
-              {Object.hasOwn(props.selected, "price") === true &&
-              props.selected.price !== ""
-                ? props.selected.price
-                : "-"}
+              {product.price !== 0 ? product.price : "-"}
             </TableCell>
             <TableCell align="left" sx={{ paddingX: 0 }}>
-              {Object.hasOwn(props.selected, "tax") === true &&
-              props.selected.tax !== ""
-                ? props.selected.tax
-                : "-"}
+              {product.tax !== 0 ? product.tax : "-"}
             </TableCell>
             <TableCell align="left" sx={{ paddingX: 0 }}>
-              {Object.hasOwn(props.selected, "shippingPrice") === true &&
-              props.selected.shippingPrice !== ""
-                ? props.selected.shippingPrice
-                : "-"}
+              {product.shippingPrice !== 0 ? product.shippingPrice : "-"}
             </TableCell>
             <TableCell align="left" sx={{ paddingX: 0 }}>
               <IconButton onClick={handleDelete} size="small">

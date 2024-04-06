@@ -1,14 +1,32 @@
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  addBrand,
+  addColor,
+  addName,
+  addSku,
+  getProduct,
+} from "../context/productSlice";
+import { tabValue } from "../context/tabSlice";
+import { nameError, sizeError } from "../../../context/errorSlice";
+import { getSize } from "../../../context/sizeSlice";
+
 import Button from "@mui/material/Button";
 
 export default function CustomItem(props) {
-  const tabChange = (e) => {
-    e.preventDefault(e);
+  const dispatch = useDispatch();
 
-    if (props.size === "") {
-      props.setSizeError(true);
+  const product = useSelector(getProduct);
+  const sizing = useSelector(getSize);
+
+  const tabChange = (e) => {
+    e.preventDefault();
+
+    if (sizing === "") {
+      dispatch(sizeError(true));
     } else {
-      props.setSizeError(false);
-      props.setValue("2");
+      dispatch(sizeError(false));
+      dispatch(tabValue("2"));
     }
   };
 
@@ -24,15 +42,10 @@ export default function CustomItem(props) {
             placeholder="Product name"
             type="text"
             id="name"
-            value={props.name}
+            value={product.name}
             onChange={(e) => {
-              props.setName(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  name: e.target.value,
-                };
-              });
+              dispatch(addName(e.target.value));
+              dispatch(nameError(false));
             }}
             className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           />
@@ -41,17 +54,11 @@ export default function CustomItem(props) {
           <label className="inline-block mb-2 text-xs">SKU</label>
           <input
             placeholder="12345678"
-            type="number"
+            type="text"
             id="sku"
-            value={props.sku}
+            value={product.sku}
             onChange={(e) => {
-              props.setSku(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  styleID: e.target.value,
-                };
-              });
+              dispatch(addSku(e.target.value));
             }}
             className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           />
@@ -64,15 +71,9 @@ export default function CustomItem(props) {
             placeholder="Jordan, Nike..."
             type="text"
             id="brand"
-            value={props.brand}
+            value={product.brand}
             onChange={(e) => {
-              props.setBrand(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  brand: e.target.value,
-                };
-              });
+              dispatch(addBrand(e.target.value));
             }}
             className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           />
@@ -83,15 +84,9 @@ export default function CustomItem(props) {
             placeholder="Product color"
             type="text"
             id="color"
-            value={props.color}
+            value={product.color}
             onChange={(e) => {
-              props.setColor(e.target.value);
-              props.setSelected((prevState) => {
-                return {
-                  ...prevState,
-                  color: e.target.value,
-                };
-              });
+              dispatch(addColor(e.target.value));
             }}
             className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           />

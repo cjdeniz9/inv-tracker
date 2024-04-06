@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 
 import Listings from "../features/listings/index";
 import Navbar from "../layouts/Navbar";
-import MobileSalesProductDetail from "../components/Items/MobileSalesProductDetail";
+// import MobileSalesProductDetail from "../components/Items/MobileSalesProductDetail";
 import PurchaseDetail from "../features/purchaseDetail/index";
 import Product from "../features/product/index";
 import ProductTimeline from "../features/productTimeline/index";
 import TrackShipment from "../features/trackShipment/components/TrackShipment";
 import PackageMap from "../features/trackShipment/components/PackageMap";
-import SalesProductDetailHeader from "../components/Items/SalesProductDetailHeader";
+import SalesProductDetailHeader from "../components/_tests_/SalesProductDetailHeader";
 
 export default function SalesProductDatail() {
   const [inventory, setInventory] = useState(

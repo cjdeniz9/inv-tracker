@@ -4,17 +4,26 @@ import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 import { collection, onSnapshot, query } from "firebase/firestore";
 
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+import { getInventory } from "../context/inventorySlice";
+import { activeItem } from "../context/inventorySlice";
 import Navbar from "../layouts/Navbar";
-import Listings from "../features/listings/index";
-import PurchaseDetail from "../features/purchaseDetail/index";
-import Product from "../features/product/index";
-import ProductTimeline from "../features/productTimeline/index";
-import TrackShipment from "../features/trackShipment/components/TrackShipment";
-import PackageMap from "../features/trackShipment/components/PackageMap";
+// import Listings from "../features/listings/index";
+// import PurchaseDetail from "../features/purchaseDetail/index";
+// import Product from "../features/product/index";
+// import ProductTimeline from "../features/productTimeline/index";
+// import TrackShipment from "../features/trackShipment/components/TrackShipment";
+// import PackageMap from "../features/trackShipment/components/PackageMap";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
 import ProductHeader from "../features/productHeader/index";
 
 export default function ProductDetail(props) {
+  const dispatch = useDispatch();
+
+  const data = useSelector(getInventory);
+
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -35,29 +44,29 @@ export default function ProductDetail(props) {
 
   const activeProductId = useParams().productId;
 
-  const [activeProduct, setActiveProduct] = useState([]);
+  // const [activeProduct, setActiveProduct] = useState([]);
 
   if (loading) {
-    const filterProductId = inventory.filter((item) =>
-      item.id.includes(activeProductId)
+    const filterProductId = inventory.filter((data) =>
+      data.id.includes(activeProductId)
     );
-    setActiveProduct(filterProductId);
+    dispatch(activeItem(filterProductId));
+    // setActiveProduct(filterProductId);
     setLoading(false);
   }
 
   return (
-    activeProduct.length && (
+    data.length && (
       <>
         <Navbar />
         <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
           <ProductHeader
-            activeProduct={activeProduct}
             activeProductId={activeProductId}
             getProduct={props.getProduct}
             product={props.product}
             setProduct={props.setProduct}
           />
-          <main className="lg:w-full lg:flex ">
+          {/* <main className="lg:w-full lg:flex ">
             <div className="tablet-screen:w-4/12 w-full">
               <div id="feed" className="tablet-screen:px-7">
                 <ProductTimeline activeProduct={activeProduct} />
@@ -70,17 +79,6 @@ export default function ProductDetail(props) {
                 ) : (
                   ""
                 )}
-                {/* <div className="mt-12">
-          <span className="text-xl">
-            Net Profit:{" "}
-            <span className={profitTextColor}>
-              {props.activeProduct.length > 0 &&
-              props.activeProduct[0].hasOwnProperty("salePrice")
-                ? "$" + props.activeProduct[0].salePrice
-                : "$0"}
-            </span>
-          </span>
-        </div> */}
               </div>
             </div>
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
@@ -93,7 +91,7 @@ export default function ProductDetail(props) {
                 <PurchaseDetail activeProduct={activeProduct} />
               </div>
             </div>
-          </main>
+          </main> */}
         </div>
         <div className="md:hidden">
           {/* <MobileProductDetail

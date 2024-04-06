@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,48 +12,42 @@ import TabPanel from "@mui/lab/TabPanel";
 
 import Header from "./Header";
 import PurchaseDetails from "./PurchaseDetails";
-import SizeChart from "./SizeChart";
+import SizeChart from "../../../components/form/SizeChart";
 
-export default function ProductDetails(props) {
-  const [nameError, setNameError] = useState(false);
-  const [sizeError, setSizeError] = useState(false);
-  const [value, setValue] = useState("1");
+import { getProduct } from "../context/productSlice";
+import { getCustom } from "../context/showSlice";
+import { getTabValue, tabValue } from "../context/tabSlice";
+import {
+  getNameError,
+  getSizeError,
+  sizeError,
+} from "../../../context/errorSlice";
+
+export default function ProductDetails() {
+  const dispatch = useDispatch();
+
+  const customForm = useSelector(getCustom);
+  const errorName = useSelector(getNameError);
+  const errorSize = useSelector(getSizeError);
+  const product = useSelector(getProduct);
+  const value = useSelector(getTabValue);
 
   const tabChange = () => {
-    if (props.size === "") {
-      setSizeError(true);
+    if (product.size === "") {
+      dispatch(sizeError(true));
     } else {
-      setSizeError(false);
-      setValue("2");
+      dispatch(sizeError(false));
+      dispatch(tabValue("2"));
     }
   };
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    dispatch(tabValue(newValue));
   };
 
   return (
     <div className="py-8 px-4">
-      <Header
-        brand={props.brand}
-        color={props.color}
-        name={props.name}
-        openCustom={props.openCustom}
-        selected={props.selected}
-        setBrand={props.setBrand}
-        setColor={props.setColor}
-        setIsOpen={props.setIsOpen}
-        setName={props.setName}
-        setSelected={props.setSelected}
-        setSizeError={setSizeError}
-        setSku={props.setSku}
-        setToggle={props.setToggle}
-        setValue={setValue}
-        size={props.size}
-        sku={props.sku}
-        toggle={props.toggle}
-        value={value}
-      />
+      <Header />
       <main className="mb-52">
         <Box sx={{ width: "100%" }}>
           <TabContext value={value}>
@@ -82,7 +78,7 @@ export default function ProductDetails(props) {
                     },
                   }}
                 />
-                {props.size === "" ? (
+                {product.size === "" ? (
                   <Tab
                     label="Purchase details"
                     value="2"
@@ -104,7 +100,7 @@ export default function ProductDetails(props) {
                 )}
               </TabList>
             </Box>
-            {sizeError === true ? (
+            {errorSize === true ? (
               <Alert
                 variant="outlined"
                 severity="error"
@@ -119,15 +115,7 @@ export default function ProductDetails(props) {
             ) : (
               ""
             )}
-            <TabPanel value="1" sx={{ padding: 0 }}>
-              <SizeChart
-                size={props.size}
-                setSize={props.setSize}
-                setSizeError={setSizeError}
-                setSelected={props.setSelected}
-              />
-            </TabPanel>
-            {nameError === true ? (
+            {errorName === true ? (
               <Alert
                 variant="outlined"
                 severity="error"
@@ -142,49 +130,16 @@ export default function ProductDetails(props) {
             ) : (
               ""
             )}
+            <TabPanel value="1" sx={{ padding: 0 }}>
+              <SizeChart />
+            </TabPanel>
             <TabPanel value="2" sx={{ padding: 0 }}>
-              <PurchaseDetails
-                brand={props.brand}
-                condition={props.condition}
-                color={props.color}
-                name={props.name}
-                notes={props.notes}
-                orderNum={props.orderNum}
-                placeOfPurchase={props.placeOfPurchase}
-                price={props.price}
-                purchasedDate={props.purchasedDate}
-                selected={props.selected}
-                setBrand={props.setBrand}
-                setCondition={props.setCondition}
-                setColor={props.setColor}
-                setIsOpen={props.setIsOpen}
-                setKeyword={props.setKeyword}
-                setName={props.setName}
-                setNameError={setNameError}
-                setNotes={props.setNotes}
-                setOrderNum={props.setOrderNum}
-                setPlaceOfPurchase={props.setPlaceOfPurchase}
-                setPrice={props.setPrice}
-                setPurchasedDate={props.setPurchasedDate}
-                setSelected={props.setSelected}
-                setSize={props.setSize}
-                setShippingPrice={props.setShippingPrice}
-                setSku={props.setSku}
-                setStatus={props.setStatus}
-                setTax={props.setTax}
-                setToggle={props.setToggle}
-                size={props.size}
-                shippingPrice={props.shippingPrice}
-                sku={props.sku}
-                status={props.status}
-                tax={props.tax}
-                toggle={props.toggle}
-              />
+              <PurchaseDetails />
             </TabPanel>
           </TabContext>
         </Box>
       </main>
-      {value === "1" && props.openCustom === false ? (
+      {value === "1" && customForm === false ? (
         <Button
           onClick={tabChange}
           variant="contained"
