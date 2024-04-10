@@ -72,7 +72,7 @@ export default function App({ urlname }) {
         />
         <Route path="/packages" element={<Packages inventory={inventory} />} />
         <Route
-          path="/:productId"
+          path="/:id"
           element={
             <ProductDetail
               getProduct={getProduct}

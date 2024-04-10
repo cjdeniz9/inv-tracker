@@ -102,7 +102,9 @@ export default function InventoryTable() {
   if (inventoryStatus === "loading") {
     content = "";
   } else if (inventoryStatus === "succeeded") {
-    content = data.map((row) => <InventoryRow key={row.id} row={row.item} />);
+    content = data.map((row) => (
+      <InventoryRow key={row.id} id={row.id} row={row.item} />
+    ));
   } else if (inventoryStatus === "failed") {
     content = <p>{error}</p>;
   }

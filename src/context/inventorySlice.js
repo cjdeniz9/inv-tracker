@@ -1,7 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { db } from "../firebase";
-import { addDoc, getDocs, collection, orderBy } from "firebase/firestore";
+import {
+  addDoc,
+  getDocs,
+  collection,
+  doc,
+  orderBy,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const initialState = {
   inventoryArray: [],
@@ -15,6 +23,37 @@ export const addItemToFirestore = createAsyncThunk(
     const addItemRef = await addDoc(collection(db, "inventory"), item);
     const newItem = { id: addItemRef.id, item };
     return newItem;
+  }
+);
+
+export const updateItemToFirestore = createAsyncThunk(
+  "inventory/updateItemToFirestore",
+  async (data) => {
+    const id = data.id;
+    const item = data.item;
+    return await updateDoc(doc(db, "inventory", id), {
+      brand: item.brand,
+      color: item.color,
+      condition: item.condition,
+      name: item.name,
+      notes: item.notes,
+      orderNum: item.orderNum,
+      placeOfPurchase: item.placeOfPurchase,
+      price: parseFloat(item.price),
+      purchasedDate: item.purchasedDate,
+      shippingPrice:
+        item.shippingPrice !== "" ? parseFloat(item.shippingPrice) : "",
+      size: item.size,
+      sku: item.sku,
+      tax: item.tax !== "" ? parseFloat(item.tax) : "",
+    });
+  }
+);
+
+export const deleteItemFromFirestore = createAsyncThunk(
+  "inventory/deleteItemFromFirestore",
+  async (id) => {
+    return await deleteDoc(doc(db, "inventory", id));
   }
 );
 
@@ -36,6 +75,14 @@ export const fetchInventory = createAsyncThunk(
 export const inventorySlice = createSlice({
   name: "Inventory",
   initialState,
+  reducers: {
+    setFilteredItem: (state, action) => {
+      state.filteredItem = action.payload;
+    },
+    updateStatus: (state, action) => {
+      state.status = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchInventory.fulfilled, (state, action) => {
@@ -59,10 +106,12 @@ export const getInventoryStatus = (state) => state.inventory.status;
 export const getInventoryError = (state) => state.inventory.error;
 
 export const getInventory = (state) => state.inventory.inventoryArray;
+// export const getFilteredId = (state) => state.inventory.filteredItem[0].id;
+// export const getFilteredItem = (state) => state.inventory.filteredItem[0].item;
 
-export const selectItemId = (state, itemId) =>
-  state.item.find((item) => item.id === itemId);
+// export const selectItemId = (state, itemId) =>
+//   state.item.find((item) => item.id === itemId);
 
-export const { activeItem } = inventorySlice.actions;
+export const { setFilteredItem, updateStatus } = inventorySlice.actions;
 
 export default inventorySlice.reducer;

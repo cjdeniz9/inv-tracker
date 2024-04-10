@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-import { db } from "../firebase";
-import { collection, onSnapshot, query } from "firebase/firestore";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-import { getInventory } from "../context/inventorySlice";
-import { activeItem } from "../context/inventorySlice";
+import { setFilteredItem } from "../context/filteredItemSlice";
+import {
+  getInventory,
+  getInventoryStatus,
+  fetchInventory,
+  updateStatus,
+} from "../context/inventorySlice";
+
 import Navbar from "../layouts/Navbar";
 // import Listings from "../features/listings/index";
 // import PurchaseDetail from "../features/purchaseDetail/index";
@@ -22,46 +25,29 @@ import ProductHeader from "../features/productHeader/index";
 export default function ProductDetail(props) {
   const dispatch = useDispatch();
 
-  const data = useSelector(getInventory);
+  const inv = useSelector(getInventory);
+  const inventoryStatus = useSelector(getInventoryStatus);
 
-  const [inventory, setInventory] = useState([]);
-  const [loading, setLoading] = useState(false);
+  let { id } = useParams;
+
+  const itemId = useParams().id;
 
   useEffect(() => {
-    const q = query(collection(db, "inventory"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let inv = [];
-      querySnapshot.forEach((doc) => {
-        inv.push({ ...doc.data(), id: doc.id });
-      });
-      setInventory(inv);
-      setLoading(true);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  let { productId } = useParams;
-
-  const activeProductId = useParams().productId;
-
-  // const [activeProduct, setActiveProduct] = useState([]);
-
-  if (loading) {
-    const filterProductId = inventory.filter((data) =>
-      data.id.includes(activeProductId)
-    );
-    dispatch(activeItem(filterProductId));
-    // setActiveProduct(filterProductId);
-    setLoading(false);
-  }
+    if (inventoryStatus === "idle") {
+      dispatch(fetchInventory());
+    } else if (inventoryStatus === "succeeded") {
+      const filteredId = inv.filter((item) => item.id.includes(itemId));
+      dispatch(setFilteredItem(filteredId));
+      dispatch(updateStatus("complete"));
+    }
+  }, [inventoryStatus, dispatch]);
 
   return (
-    data.length && (
+    inventoryStatus === "complete" && (
       <>
         <Navbar />
         <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
           <ProductHeader
-            activeProductId={activeProductId}
             getProduct={props.getProduct}
             product={props.product}
             setProduct={props.setProduct}

@@ -4,8 +4,11 @@ import "../src/assets/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import { store } from "./context/store";
 import { Provider } from "react-redux";
+
+import { ChakraProvider } from "@chakra-ui/react";
 
 import TimeAgo from "javascript-time-ago";
 
@@ -19,7 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
     <Provider store={store}>
-      <App />
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
     </Provider>
   </>
 );

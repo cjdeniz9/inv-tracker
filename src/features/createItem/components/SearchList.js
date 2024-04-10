@@ -1,5 +1,6 @@
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
+// import List from "@mui/material/List";
+// import ListItem from "@mui/material/ListItem";
+
 import ListItemButton from "@mui/material/ListItemButton";
 import ListSubheader from "@mui/material/ListSubheader";
 
@@ -9,6 +10,14 @@ import { addSelected } from "../context/selectedSlice";
 import { deleteKeyword } from "../../../context/keywordSlice";
 import { deleteResults, getResults } from "../context/resultsSlice";
 import { toggleCustom, toggleProduct } from "../context/showSlice";
+
+import {
+  List,
+  ListItem,
+  ListIcon,
+  OrderedList,
+  UnorderedList,
+} from "@chakra-ui/react";
 
 export default function SearchList() {
   const dispatch = useDispatch();
@@ -32,7 +41,7 @@ export default function SearchList() {
       }}
       subheader={<li />}
     >
-      <ListSubheader sx={{ padding: 0 }}>
+      {/* <ListSubheader sx={{ padding: 0 }}>
         <ListItemButton
           onClick={() => {
             dispatch(deleteKeyword());
@@ -49,39 +58,39 @@ export default function SearchList() {
             <span className="font-semibold">Create custom item</span>
           </div>
         </ListItemButton>
-      </ListSubheader>
+      </ListSubheader> */}
       {results &&
         results.map((item) => {
           return (
             <ListItem key={item.id} sx={{ padding: 0 }}>
-              <ListItemButton
+              {/* <ListItemButton
                 onClick={() => {
                   dispatch(addSelected(item));
                   dispatch(deleteKeyword());
                   dispatch(deleteResults());
                   dispatch(toggleProduct());
                 }}
-              >
-                <div className="flex py-2 w-4/5">
-                  <div className="w-1/12 mr-4 bg-white flex items-center justify-center rounded">
-                    <img
-                      src={item.thumbnail}
-                      alt="results-img"
-                      className="w-10/12 py-1"
-                    />
-                  </div>
-                  <div>
-                    <span className="block">{item.shoeName}</span>
-                    <span className="text-sm">{item.styleID}</span>
-                  </div>
+              > */}
+              <div className="flex py-2 w-4/5">
+                <div className="w-1/12 mr-4 bg-white flex items-center justify-center rounded">
+                  <img
+                    src={item.thumbnail}
+                    alt="results-img"
+                    className="w-10/12 py-1"
+                  />
                 </div>
-                <div className="w-1/5 flex justify-end text-blue-ryb">
-                  <div className="flex hover:text-granite-gray">
-                    <span className="text-2xl">+</span>
-                    <span className="ml-2 my-1.5 font-semibold">Add item</span>
-                  </div>
+                <div>
+                  <span className="block">{item.shoeName}</span>
+                  <span className="text-sm">{item.styleID}</span>
                 </div>
-              </ListItemButton>
+              </div>
+              <div className="w-1/5 flex justify-end text-blue-ryb">
+                <div className="flex hover:text-granite-gray">
+                  <span className="text-2xl">+</span>
+                  <span className="ml-2 my-1.5 font-semibold">Add item</span>
+                </div>
+              </div>
+              {/* </ListItemButton> */}
             </ListItem>
           );
         })}

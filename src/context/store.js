@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import errorReducer from "./errorSlice";
+import filteredItemReducer from "./filteredItemSlice";
 import inventoryReducer from "./inventorySlice";
 import keywordReducer from "./keywordSlice";
 import productReducer from "../features/createItem/context/productSlice";
@@ -13,6 +14,7 @@ import tabReducer from "../features/createItem/context/tabSlice";
 export const store = configureStore({
   reducer: {
     error: errorReducer,
+    filteredItem: filteredItemReducer,
     inventory: inventoryReducer,
     keyword: keywordReducer,
     product: productReducer,

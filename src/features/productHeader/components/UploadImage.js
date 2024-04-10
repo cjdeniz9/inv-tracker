@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 
+import { useSelector } from "react-redux";
+
 import { db } from "../../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
 import * as Bytescale from "@bytescale/sdk";
+
+import { getFilteredId } from "../../../context/filteredItemSlice";
+
 import { UploadButton } from "@bytescale/upload-widget-react";
 
 export default function UploadImage(props) {
@@ -12,7 +17,13 @@ export default function UploadImage(props) {
     maxFileCount: 1,
   };
 
-  const id = props.activeProductId;
+  const filteredId = useSelector(getFilteredId);
+
+  const [id, setId] = useState({});
+
+  useEffect(() => {
+    setId(filteredId);
+  }, []);
 
   const [files, setFiles] = useState([]);
 

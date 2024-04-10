@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 
+import { useSelector } from "react-redux";
+
+import {
+  getFilteredId,
+  getFilteredItem,
+} from "../../../context/filteredItemSlice";
+
 import { db } from "../../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -12,7 +19,8 @@ export default function ChangeImage(props) {
     maxFileCount: 1,
   };
 
-  const id = props.activeProductId;
+  const filteredId = useSelector(getFilteredId);
+  const filteredItem = useSelector(getFilteredItem);
 
   const [files, setFiles] = useState([]);
 
@@ -43,7 +51,7 @@ export default function ChangeImage(props) {
     });
 
   async function addImg() {
-    await updateDoc(doc(db, "inventory", id), {
+    await updateDoc(doc(db, "inventory", filteredId), {
       img: files[0].fileUrl,
     });
   }
@@ -52,10 +60,7 @@ export default function ChangeImage(props) {
     addImg();
   }, [files]);
 
-  if (
-    files.length !== 0 &&
-    files[0].fileUrl !== props.activeProduct[0].fileUrl
-  ) {
+  if (files.length !== 0 && files[0].fileUrl !== filteredItem.fileUrl) {
     window.location.reload();
   }
 
