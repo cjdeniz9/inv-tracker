@@ -14,9 +14,11 @@ import SoldForm from "./SoldForm";
 // uninstall headlessui
 import moment from "moment";
 
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+
 import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+// import Menu from "@mui/material/Menu";
+// import MenuItem from "@mui/material/MenuItem";
 import Paper from "@mui/material/Paper";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -218,55 +220,62 @@ export default function Listings(props) {
       {props.activeProduct.length > 0 &&
       (props.activeProduct[0].soldPlatform === undefined ||
         props.activeProduct[0].soldPlatform === "") ? (
-        <div className="mt-6">
-          <Button
-            onClick={handleMenu}
-            sx={{
-              border: 1,
-              borderColor: "#CFCFCF",
-              borderRadius: 1,
-              color: anchorEl ? "#A1A5A4" : "#242424",
-              fontWeight: 600,
-              py: 1,
-              px: 2,
-              textTransform: "none",
-              "&:hover": {
-                bgcolor: "transparent",
-                color: "#A1A5A4",
-              },
-            }}
-          >
-            Mark as
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={openMenu}
-            onClose={handleClose}
-            sx={{
-              "& .MuiMenu-paper": {
-                width: "17%",
-                border: 1,
-                borderColor: "#EDEDED",
-                marginTop: 1,
-                boxShadow: 0,
-              },
-            }}
-          >
-            <MenuItem
-              onClick={handleOpenSold}
-              sx={{ fontSize: 14, paddingY: "4px" }}
-            >
-              Mark Sold
-            </MenuItem>
-            <MenuItem
-              onClick={handleOpenListed}
-              sx={{ fontSize: 14, paddingY: "4px" }}
-            >
-              Mark Listed
-            </MenuItem>
-          </Menu>
-        </div>
+        <Menu>
+          <MenuButton as={Button}>Mark as</MenuButton>
+          <MenuList>
+            <MenuItem>Mark Sold</MenuItem>
+            <MenuItem>Mark Listed</MenuItem>
+          </MenuList>
+        </Menu>
       ) : (
+        // <div className="mt-6">
+        //   <Button
+        //     onClick={handleMenu}
+        //     sx={{
+        //       border: 1,
+        //       borderColor: "#CFCFCF",
+        //       borderRadius: 1,
+        //       color: anchorEl ? "#A1A5A4" : "#242424",
+        //       fontWeight: 600,
+        //       py: 1,
+        //       px: 2,
+        //       textTransform: "none",
+        //       "&:hover": {
+        //         bgcolor: "transparent",
+        //         color: "#A1A5A4",
+        //       },
+        //     }}
+        //   >
+        //     Mark as
+        //   </Button>
+        //   <Menu
+        //     anchorEl={anchorEl}
+        //     open={openMenu}
+        //     onClose={handleClose}
+        //     sx={{
+        //       "& .MuiMenu-paper": {
+        //         width: "17%",
+        //         border: 1,
+        //         borderColor: "#EDEDED",
+        //         marginTop: 1,
+        //         boxShadow: 0,
+        //       },
+        //     }}
+        //   >
+        //     <MenuItem
+        //       onClick={handleOpenSold}
+        //       sx={{ fontSize: 14, paddingY: "4px" }}
+        //     >
+        //       Mark Sold
+        //     </MenuItem>
+        //     <MenuItem
+        //       onClick={handleOpenListed}
+        //       sx={{ fontSize: 14, paddingY: "4px" }}
+        //     >
+        //       Mark Listed
+        //     </MenuItem>
+        //   </Menu>
+        // </div>
         ""
       )}
       {showSoldForm ? (

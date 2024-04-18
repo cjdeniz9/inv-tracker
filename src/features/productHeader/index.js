@@ -37,7 +37,7 @@ export default function ProductHeader() {
       <span className="text-granite-gray"> / Item #{filteredId}</span>
       <div className="flex w-full justify-between pt-3">
         <div>
-          <h1 className="phone-screen:text-2xl tablet-screen:text-3xl xl:text-3xl">
+          <h1 className="phone-screen:text-2xl tablet-screen:text-3xl xl:text-4xl">
             {item.name}
           </h1>
         </div>

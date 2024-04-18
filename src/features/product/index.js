@@ -1,11 +1,11 @@
 import Item from "./components/Item";
 import Notes from "./components/Notes";
 
-export default function Product(props) {
+export default function Product() {
   return (
     <>
-      <Item activeProduct={props.activeProduct} />
-      <Notes activeProduct={props.activeProduct} />
+      <Item />
+      <Notes />
     </>
   );
 }
