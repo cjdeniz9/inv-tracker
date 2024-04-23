@@ -14,8 +14,6 @@ import DeleteItem from "./components/DeleteItem";
 import EditItem from "./components/EditItem";
 import UploadImage from "./components/UploadImage";
 
-import { Flex, Spacer } from "@chakra-ui/react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -41,12 +39,11 @@ export default function ProductHeader() {
             {item.name}
           </h1>
         </div>
-        <Flex w="10.25%">
-          {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
-          <EditItem />
-          <Spacer />
-          <DeleteItem />
-        </Flex>
+          <div>
+            {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
+            <EditItem />
+            <DeleteItem />
+          </div>
       </div>
     </div>
   );

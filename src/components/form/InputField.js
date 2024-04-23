@@ -29,19 +29,15 @@ const InputField = ({
         w={width}
         fontSize={17}
         _focusVisible={{
-          borderColor: "#003EFF",
-          borderWidth: "1px",
+          border: ".1px",
+          borderColor: "#CFCFCF",
           _hover: {
             borderColor: "#003EFF",
-            borderWidth: "1px",
           },
         }}
         _hover={{
           borderColor: "#CFCFCF",
           borderWidth: "1px",
-        }}
-        _placeholder={{
-          color: "#A0AEC0",
         }}
         required={required}
       />

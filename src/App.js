@@ -34,14 +34,14 @@ export default function App({ urlname }) {
     return () => unsubscribe;
   }, []);
 
-  const getProduct = async (id) => {
-    const response = await fetch(`http://localhost:8000/product/${id}`);
-    const data = await response.json();
-    setProduct(data);
-  };
+  // const getProduct = async (id) => {
+  //   const response = await fetch(`http://localhost:8000/product/${id}`);
+  //   const data = await response.json();
+  //   setProduct(data);
+  // };
 
   useEffect(() => {
-    getProduct();
+    // getProduct();
   }, []);
 
   return (
@@ -61,7 +61,7 @@ export default function App({ urlname }) {
           path="/"
           element={
             <Inventory
-              getProduct={getProduct}
+              // getProduct={getProduct}
               inventory={inventory}
               product={product}
               setInventory={setInventory}
@@ -75,7 +75,7 @@ export default function App({ urlname }) {
           path="/:id"
           element={
             <ProductDetail
-              getProduct={getProduct}
+              // getProduct={getProduct}
               inventory={inventory}
               loading={loading}
               product={product}

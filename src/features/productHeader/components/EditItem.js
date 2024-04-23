@@ -68,6 +68,7 @@ export default function EditItem() {
       <Button
         onClick={onOpen}
         variant="outline"
+        mr={2}
         px={3}
         fontSize={15}
         borderRadius={4}

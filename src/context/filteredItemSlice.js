@@ -18,6 +18,15 @@ export const filteredItemSlice = createSlice({
     editCondition: (state, action) => {
       state.filteredItem[0].item.condition = action.payload;
     },
+    editListingDate: (state, action) => {
+      state.filteredItem[0].item.listingDate = action.payload;
+    },
+    editListingPlatform: (state, action) => {
+      state.filteredItem[0].item.listingPlatform = action.payload;
+    },
+    editListingPrice: (state, action) => {
+      state.filteredItem[0].item.listingPrice = action.payload;
+    },
     editName: (state, action) => {
       state.filteredItem[0].item.name = action.payload;
     },
@@ -61,6 +70,9 @@ export const {
   editBrand,
   editColor,
   editCondition,
+  editListingDate,
+  editListingPlatform,
+  editListingPrice,
   editName,
   editNotes,
   editOrderNum,

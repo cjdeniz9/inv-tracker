@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { db } from "../../../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteField, doc, updateDoc } from "firebase/firestore";
 
 const initialState = {
   filteredId: "",
@@ -18,6 +18,33 @@ export const addListingToFirestore = createAsyncThunk(
       listingDate: listing.listingDate,
       listingPlatform: listing.listingPlatform,
       listingPrice: listing.listingPrice,
+      status: "Listed",
+    });
+  }
+);
+
+export const updateListingToFirestore = createAsyncThunk(
+  "inventory/updateListingToFirestore",
+  async (listing) => {
+    const id = listing.id;
+    const item = listing.item;
+    return await updateDoc(doc(db, "inventory", id), {
+      listingDate: item.listingDate,
+      listingPlatform: item.listingPlatform,
+      listingPrice: item.listingPrice,
+      status: "Listed",
+    });
+  }
+);
+
+export const deleteListingToFirestore = createAsyncThunk(
+  "inventory/deleteListingToFirestore",
+  async (id) => {
+    return await updateDoc(doc(db, "inventory", id), {
+      listingDate: deleteField(),
+      listingPlatform: deleteField(),
+      listingPrice: deleteField(),
+      status: "Unlisted",
     });
   }
 );
@@ -38,6 +65,7 @@ export const listingSlice = createSlice({
     addListingPrice: (state, action) => {
       state.listingPrice = action.payload;
     },
+    clearListing: () => initialState,
   },
 });
 
@@ -46,6 +74,7 @@ export const {
   addListingDate,
   addListingPlatform,
   addListingPrice,
+  clearListing,
 } = listingSlice.actions;
 
 export const getListing = (state) => state.listing;

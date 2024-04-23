@@ -21,7 +21,7 @@ import Product from "../../features/product/index";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
 import ProductHeader from "../../features/productHeader/index";
 
-import TestListings from "../listings/_tests_";
+import Listings from "../listings/index";
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ export default function Item() {
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
               <Product />
               <div className="w-full flex justify-between mt-8">
-                <TestListings />
+                <Listings />
                 {/* <PurchaseDetail activeProduct={activeProduct} /> */}
               </div>
             </div>

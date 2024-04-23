@@ -22,6 +22,7 @@ export const addSaleToFirestore = createAsyncThunk(
       salePlatformFees: sale.salePlatformFees,
       salePrice: sale.salePrice,
       saleShipping: sale.saleShipping,
+      status: "Sold",
     });
   }
 );
@@ -48,6 +49,7 @@ export const saleSlice = createSlice({
     addSaleShipping: (state, action) => {
       state.saleShipping = action.payload;
     },
+    clearSale: () => initialState,
   },
 });
 
@@ -58,6 +60,7 @@ export const {
   addSalePlatformFees,
   addSalePrice,
   addSaleShipping,
+  clearSale,
 } = saleSlice.actions;
 
 export const getSale = (state) => state.sale;

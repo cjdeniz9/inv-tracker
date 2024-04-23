@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addListingFilteredId,
   addListingToFirestore,
+  clearListing,
   getListing,
 } from "../context/listingSlice";
 import {
   addSaleFilteredId,
   addSaleToFirestore,
+  clearSale,
   getSale,
 } from "../context/saleSlice";
 import {
@@ -35,7 +37,10 @@ import {
   ModalFooter,
   Flex,
   Spacer,
+  useToast,
 } from "@chakra-ui/react";
+
+import AlertNotif from "../../../components/alert/AlertNotif";
 
 export default function MarkAsMenu() {
   const {
@@ -51,6 +56,7 @@ export default function MarkAsMenu() {
   } = useDisclosure();
 
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const filteredId = useSelector(getFilteredId);
   const filteredItem = useSelector(getFilteredItem);
@@ -67,31 +73,95 @@ export default function MarkAsMenu() {
     e.preventDefault();
 
     dispatch(addListingToFirestore(listing));
+    dispatch(clearListing());
     dispatch(updateStatus("idle"));
   };
 
   const addSold = (e) => {
     e.preventDefault();
 
-    dispatch(addSaleToFirestore(sale));
-    dispatch(updateStatus("idle"));
+    const total =
+      Number(sale.salePrice) -
+      (Number(sale.salePlatformFees) + Number(sale.saleShipping));
+
+    if (total <= 0) {
+      toast({
+        position: "top",
+        duration: 6000,
+        render: () => (
+          <AlertNotif
+            status="error"
+            width="96"
+            title="Payout amount must be greater than $0"
+          />
+        ),
+      });
+      dispatch(clearSale());
+      onSoldClose();
+    } else {
+      dispatch(addSaleToFirestore(sale));
+      dispatch(clearSale());
+      dispatch(updateStatus("idle"));
+    }
   };
 
   return (
     <>
       {filteredItem.soldPlatform === undefined ? (
         <Menu>
-          <MenuButton as={Button}>Mark as</MenuButton>
-          <MenuList>
-            <MenuItem onClick={onSoldOpen}>Mark Sold</MenuItem>
-            <MenuItem onClick={onListedOpen}>Mark Listed</MenuItem>
+          <MenuButton
+            as={Button}
+            bg="#fff"
+            border="1px"
+            borderColor="#CFCFCF"
+            borderRadius={4}
+            fontSize={14}
+            fontWeight={700}
+            px={3}
+            _hover={{
+              color: "#7A7A7A",
+            }}
+            _active={{
+              bg: "#fff",
+              color: "#7A7A7A",
+            }}
+          >
+            Mark as
+          </MenuButton>
+          <MenuList fontSize={15}>
+            <MenuItem
+              onClick={onSoldOpen}
+              _hover={{
+                bg: "#F3F3F3",
+              }}
+              _focus={{
+                bg: "#F3F3F3",
+              }}
+            >
+              Mark Sold
+            </MenuItem>
+            <MenuItem
+              onClick={onListedOpen}
+              _hover={{
+                bg: "#F3F3F3",
+              }}
+            >
+              Mark Listed
+            </MenuItem>
           </MenuList>
         </Menu>
       ) : (
         ""
       )}
 
-      <Modal isOpen={isSoldOpen} onClose={onSoldClose} size="lg">
+      <Modal
+        isOpen={isSoldOpen}
+        onClose={() => {
+          onSoldClose();
+          dispatch(clearSale());
+        }}
+        size="lg"
+      >
         <ModalOverlay />
         <ModalContent>
           <form id="soldForm" onSubmit={addSold}>
@@ -135,7 +205,14 @@ export default function MarkAsMenu() {
         </ModalContent>
       </Modal>
 
-      <Modal isOpen={isListedOpen} onClose={onListedClose} size="lg">
+      <Modal
+        isOpen={isListedOpen}
+        onClose={() => {
+          onListedClose();
+          dispatch(clearListing());
+        }}
+        size="lg"
+      >
         <ModalOverlay />
         <ModalContent>
           <form id="listedForm" onSubmit={addListed}>
