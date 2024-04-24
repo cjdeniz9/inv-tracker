@@ -2,6 +2,10 @@ import { useSelector } from "react-redux";
 
 import { getFilteredItem } from "../../../context/filteredItemSlice";
 
+import BoxedImg from "../../../components/ui/BoxedImg";
+
+import AltLogo from "../../../assets/trackerLogo-alt.png";
+
 export default function Item() {
   const filteredItem = useSelector(getFilteredItem);
 
@@ -10,8 +14,6 @@ export default function Item() {
       <div className="w-[16%] flex justify-center items-center">
         <div>
           <h2>{filteredItem.size}</h2>
-          {/* <span className="text-xl">US</span>
-            <p className="text-xl">M</p> */}
         </div>
       </div>
       <div className="my-8 border-l border-american-silver"></div>
@@ -23,12 +25,15 @@ export default function Item() {
         </div>
       </div>
       <div className="2xl:w-[20%] w-[29%] flex flex-row-reverse py-3 pr-5">
-        {filteredItem.img === "" ? (
-          ""
+        {filteredItem.img === undefined ? (
+          <BoxedImg width="150px" img={AltLogo} title="alt-logo" padding={10} />
         ) : (
-          <div className="bg-white w-[70%] border border-[1px] border-bright-gray rounded flex datas-center justify-center">
-            <img src={filteredItem.img} alt="item-img" className="w-[70%]" />
-          </div>
+          <BoxedImg
+            width="150px"
+            img={filteredItem.img}
+            title="item-logo"
+            padding={4}
+          />
         )}
       </div>
     </div>

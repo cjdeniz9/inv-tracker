@@ -17,7 +17,7 @@ import Product from "../../features/product/index";
 // import TrackShipment from "../features/trackShipment/components/TrackShipment";
 // import PackageMap from "../features/trackShipment/components/PackageMap";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
-import ProductHeader from "../../features/productHeader/index";
+import ItemHeader from "../itemHeader/index";
 
 import Listings from "../listings/index";
 import PurchaseDetail from "../purchaseDetail/index";
@@ -46,7 +46,7 @@ export default function Item() {
     inventoryStatus === "complete" && (
       <>
         <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
-          <ProductHeader
+          <ItemHeader
           // getProduct={props.getProduct}
           // product={props.product}
           // setProduct={props.setProduct}

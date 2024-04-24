@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
 import EditItem from "../../features/editItem/components/EditItem";
-import DeleteItem from "../../features/productHeader/components//DeleteItem";
-import UploadImage from "../../features/productHeader/components/UploadImage";
-import ChangeImage from "../../features/productHeader/components/ChangeImage";
+import DeleteItem from "../../features/itemHeader/components//DeleteItem";
+import UploadImage from "../../features/itemHeader/components/UploadImage";
+import ChangeImage from "../../features/itemHeader/components/ChangeImage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

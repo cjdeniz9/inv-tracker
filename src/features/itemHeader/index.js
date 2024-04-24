@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import {
   getFilteredId,
   getFilteredItem,
 } from "../../context/filteredItemSlice";
+import { updateStatus } from "../../context/inventorySlice";
 
 import ChangeImage from "./components/ChangeImage";
 import DeleteItem from "./components/DeleteItem";
@@ -17,7 +18,9 @@ import UploadImage from "./components/UploadImage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
-export default function ProductHeader() {
+export default function ItemHeader() {
+  const dispatch = useDispatch();
+
   const filteredId = useSelector(getFilteredId);
   const filteredItem = useSelector(getFilteredItem);
 
@@ -29,7 +32,13 @@ export default function ProductHeader() {
 
   return (
     <div className="pb-4">
-      <Link to="/" className="no-underline text-blue-ryb">
+      <Link
+        to="/"
+        onClick={() => {
+          dispatch(updateStatus("idle"));
+        }}
+        className="no-underline text-blue-ryb"
+      >
         <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Inventory
       </Link>
       <span className="text-granite-gray"> / Item #{filteredId}</span>
@@ -39,11 +48,11 @@ export default function ProductHeader() {
             {item.name}
           </h1>
         </div>
-          <div>
-            {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
-            <EditItem />
-            <DeleteItem />
-          </div>
+        <div>
+          {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
+          <EditItem />
+          <DeleteItem />
+        </div>
       </div>
     </div>
   );
