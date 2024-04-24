@@ -13,7 +13,7 @@ import {
 } from "../../context/inventorySlice";
 
 import Product from "../../features/product/index";
-// import ProductTimeline from "../features/productTimeline/index";
+import ItemTimeline from "../itemTimeline/index";
 // import TrackShipment from "../features/trackShipment/components/TrackShipment";
 // import PackageMap from "../features/trackShipment/components/PackageMap";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
@@ -54,8 +54,8 @@ export default function Item() {
           <main className="lg:w-full lg:flex ">
             <div className="tablet-screen:w-4/12 w-full">
               <div id="feed" className="tablet-screen:px-7">
-                {/* <ProductTimeline activeProduct={activeProduct} />
-              <TrackShipment
+                <ItemTimeline />
+                {/* <TrackShipment
                 activeProduct={activeProduct}
                 activeProductId={activeProductId}
               />

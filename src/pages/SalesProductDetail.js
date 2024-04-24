@@ -6,7 +6,7 @@ import Navbar from "../layouts/Navbar";
 // import MobileSalesProductDetail from "../components/Items/MobileSalesProductDetail";
 import PurchaseDetail from "../features/purchaseDetail/index";
 import Product from "../features/product/index";
-import ProductTimeline from "../features/productTimeline/index";
+import ProductTimeline from "../features/itemTimeline/index";
 import TrackShipment from "../features/trackShipment/components/TrackShipment";
 import PackageMap from "../features/trackShipment/components/PackageMap";
 import SalesProductDetailHeader from "../components/_tests_/SalesProductDetailHeader";

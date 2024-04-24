@@ -54,7 +54,7 @@ export default function PurchaseDetail() {
   return (
     <div className="w-[45%]">
       <div className="pb-2">
-        <h4>Purchase details</h4>
+        <h4 className="font-semibold">Purchase details</h4>
       </div>
       <div className="flex justify-between text-raisin-black">
         <div>
