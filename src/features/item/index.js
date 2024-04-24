@@ -12,8 +12,6 @@ import {
   updateStatus,
 } from "../../context/inventorySlice";
 
-// import Listings from "../features/listings/index";
-// import PurchaseDetail from "../features/purchaseDetail/index";
 import Product from "../../features/product/index";
 // import ProductTimeline from "../features/productTimeline/index";
 // import TrackShipment from "../features/trackShipment/components/TrackShipment";
@@ -22,6 +20,7 @@ import Product from "../../features/product/index";
 import ProductHeader from "../../features/productHeader/index";
 
 import Listings from "../listings/index";
+import PurchaseDetail from "../purchaseDetail/index";
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -71,7 +70,7 @@ export default function Item() {
               <Product />
               <div className="w-full flex justify-between mt-8">
                 <Listings />
-                {/* <PurchaseDetail activeProduct={activeProduct} /> */}
+                <PurchaseDetail />
               </div>
             </div>
           </main>

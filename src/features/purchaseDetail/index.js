@@ -1,47 +1,54 @@
-import moment from "moment";
+import { useSelector } from "react-redux";
 
-export default function PurchaseDetail(props) {
+import { getFilteredItem } from "../../context/filteredItemSlice";
+
+import { formatDate } from "../../utils/formatDate";
+
+export default function PurchaseDetail() {
+  const filteredItem = useSelector(getFilteredItem);
+
+  const shipping =
+    filteredItem.shippingPrice === undefined ? 0 : filteredItem.shippingPrice;
+  const tax = filteredItem.tax === undefined ? 0 : filteredItem.tax;
+
+  const fees = shipping + tax;
+
   const purchaseDetails = [
     {
-      id: 1,
+      id: 0,
       title: "Price",
-      value: "$" + props.activeProduct[0].price,
+      value: "$" + filteredItem.price,
+    },
+    {
+      id: 1,
+      title: "Shipping",
+      value:
+        filteredItem.shippingPrice === undefined
+          ? ""
+          : "$" + filteredItem.shippingPrice,
     },
     {
       id: 2,
-      title: "Shipping",
-      value:
-        props.activeProduct[0].shippingPrice === ""
-          ? ""
-          : "$" + props.activeProduct[0].shippingPrice,
+      title: "Total",
+      value: "$" + (filteredItem.price - fees),
     },
     {
       id: 3,
-      title: "Total",
-      value:
-        "$" +
-        (props.activeProduct[0].price +
-          props.activeProduct[0].tax +
-          props.activeProduct[0].shippingPrice),
+      title: "Place of purchase",
+      value: filteredItem.placeOfPurchase,
     },
     {
       id: 4,
-      title: "Place of purchase",
-      value: props.activeProduct[0].placeOfPurchase,
+      title: "Purchase Date",
+      value: formatDate(filteredItem.purchasedDate),
     },
     {
       id: 5,
-      title: "Purchase Date",
-      value: moment(props.activeProduct[0].purchasedDate).format("LL"),
-    },
-    {
-      id: 6,
       title: "Order number",
       value:
-        props.activeProduct[0].orderNum === "" ||
-        props.activeProduct[0].orderNum === undefined
+        filteredItem.orderNum === "" || filteredItem.orderNum === undefined
           ? "None"
-          : "#" + props.activeProduct[0].orderNum,
+          : "#" + filteredItem.orderNum,
     },
   ];
   return (
