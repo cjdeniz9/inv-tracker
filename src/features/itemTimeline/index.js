@@ -18,15 +18,13 @@ export default function ItemTimeline() {
       />
       {filteredItem.status === "Listed" && (
         <TimelineBox
-          text={`Listed on ${filteredItem.listedPlatform} for $
-        ${filteredItem.listingPrice}.00`}
+          text={`Listed on ${filteredItem.listedPlatform} for $${filteredItem.listingPrice}.00`}
           date={filteredItem.listingDate}
         />
       )}
       {filteredItem.status === "Sold" && (
         <TimelineBox
-          text={`Sold on ${filteredItem.salePlatform} for $
-      ${filteredItem.salePrice}.00`}
+          text={`Sold on ${filteredItem.salePlatform} for $${filteredItem.salePrice}.00`}
           date={filteredItem.saleDate}
         />
       )}

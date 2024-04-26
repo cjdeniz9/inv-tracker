@@ -7,8 +7,8 @@ import Navbar from "../layouts/Navbar";
 import PurchaseDetail from "../features/purchaseDetail/index";
 import Product from "../features/product/index";
 import ProductTimeline from "../features/itemTimeline/index";
-import TrackShipment from "../features/trackShipment/components/TrackShipment";
-import PackageMap from "../features/trackShipment/components/PackageMap";
+// import TrackShipment from "../features/trackShipment/components/TrackShipment";
+// import PackageMap from "../features/trackShipment/components/PackageMap";
 import SalesProductDetailHeader from "../components/_tests_/SalesProductDetailHeader";
 
 export default function SalesProductDatail() {
@@ -38,15 +38,15 @@ export default function SalesProductDatail() {
           <div className="tablet-screen:w-4/12 w-full">
             <div id="feed" className="tablet-screen:px-7">
               <ProductTimeline activeProduct={activeProduct} />
-              <TrackShipment
+              {/* <TrackShipment
                 activeProduct={activeProduct}
                 activeProductId={activeProductId}
-              />
-              {activeProduct[0].hasOwnProperty("geometry") ? (
+              /> */}
+              {/* {activeProduct[0].hasOwnProperty("geometry") ? (
                 <PackageMap activeProduct={activeProduct} />
               ) : (
                 ""
-              )}
+              )} */}
               {/* <div className="mt-12">
           <span className="text-xl">
             Net Profit:{" "}

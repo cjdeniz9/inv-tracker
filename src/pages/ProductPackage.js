@@ -10,7 +10,7 @@ import moment from "moment";
 
 import Navbar from "../layouts/Navbar";
 import PackageHeader from "../features/packageHeader/index";
-import PackageMap from "../features/trackShipment/components/PackageMap";
+// import PackageMap from "../features/trackShipment/components/PackageMap";
 import TrackingDetail from "../features/trackingDetail/index";
 
 export default function ProductPackage() {
@@ -82,7 +82,7 @@ export default function ProductPackage() {
               </div>
               <div className="w-full flex justify-between mt-8">
                 <TrackingDetail activeProduct={activeProduct} />
-                <PackageMap activeProduct={activeProduct} />
+                {/* <PackageMap activeProduct={activeProduct} /> */}
               </div>
             </div>
             <div className="tablet-screen:w-4/12 w-full">

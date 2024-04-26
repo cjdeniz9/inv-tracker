@@ -1,10 +1,13 @@
 import { useEffect } from "react";
+
 import { useParams } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { setFilteredItem } from "../../context/filteredItemSlice";
+import {
+  getFilteredItem,
+  setFilteredItem,
+} from "../../context/filteredItemSlice";
 import {
   getInventory,
   getInventoryStatus,
@@ -14,13 +17,13 @@ import {
 
 import Product from "../../features/product/index";
 import ItemTimeline from "../itemTimeline/index";
-// import TrackShipment from "../features/trackShipment/components/TrackShipment";
-// import PackageMap from "../features/trackShipment/components/PackageMap";
+import TrackShipment from "../trackShipment/index";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
 import ItemHeader from "../itemHeader/index";
 
 import Listings from "../listings/index";
 import PurchaseDetail from "../purchaseDetail/index";
+import PackageMap from "../packageMap/index";
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -46,24 +49,13 @@ export default function Item() {
     inventoryStatus === "complete" && (
       <>
         <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
-          <ItemHeader
-          // getProduct={props.getProduct}
-          // product={props.product}
-          // setProduct={props.setProduct}
-          />
+          <ItemHeader />
           <main className="lg:w-full lg:flex ">
             <div className="tablet-screen:w-4/12 w-full">
               <div id="feed" className="tablet-screen:px-7">
                 <ItemTimeline />
-                {/* <TrackShipment
-                activeProduct={activeProduct}
-                activeProductId={activeProductId}
-              />
-              {activeProduct[0].hasOwnProperty("geometry") ? (
-                <PackageMap activeProduct={activeProduct} />
-              ) : (
-                ""
-              )} */}
+                <TrackShipment />
+                <PackageMap />
               </div>
             </div>
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">

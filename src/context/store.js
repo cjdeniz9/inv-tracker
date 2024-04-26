@@ -9,6 +9,7 @@ import productReducer from "../features/createItem/context/productSlice";
 import resultsReducer from "../features/createItem/context/resultsSlice";
 import saleReducer from "../features/listings/context/saleSlice";
 import selectedReducer from "../features/createItem/context/selectedSlice";
+import shipmentReducer from "./shipmentSlice";
 import sizeReducer from "./sizeSlice";
 import showReducer from "../features/createItem/context/showSlice";
 import tabReducer from "../features/createItem/context/tabSlice";
@@ -24,6 +25,7 @@ export const store = configureStore({
     results: resultsReducer,
     sale: saleReducer,
     selected: selectedReducer,
+    shipment: shipmentReducer,
     size: sizeReducer,
     show: showReducer,
     tab: tabReducer,
