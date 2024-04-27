@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import Listings from "../features/listings/index";
 import Navbar from "../layouts/Navbar";
 // import MobileSalesProductDetail from "../components/Items/MobileSalesProductDetail";
-import PurchaseDetail from "../features/purchaseDetail/index";
-import Product from "../features/product/index";
+import PurchaseDetail from "../features/purchaseDetails/index";
+// import Product from "../features/product/index";
 import ProductTimeline from "../features/itemTimeline/index";
 // import TrackShipment from "../features/trackShipment/components/TrackShipment";
 // import PackageMap from "../features/trackShipment/components/PackageMap";
@@ -61,7 +61,7 @@ export default function SalesProductDatail() {
             </div>
           </div>
           <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
-            <Product activeProduct={activeProduct} />
+            {/* <Product activeProduct={activeProduct} /> */}
             <div className="w-full flex justify-between mt-8">
               <Listings
                 activeProduct={activeProduct}

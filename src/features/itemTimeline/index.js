@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-import ReactTimeAgo from "react-time-ago";
+import { useSelector } from "react-redux";
 
 import { getFilteredItem } from "../../context/filteredItemSlice";
 
@@ -9,25 +9,33 @@ import TimelineBox from "./components/TimelineBox.js";
 export default function ItemTimeline() {
   const filteredItem = useSelector(getFilteredItem);
 
+  const [item, setItem] = useState({});
+
+  useEffect(() => {
+    setItem(filteredItem);
+  }, []);
+
   return (
-    <>
-      <h4 className="font-semibold">Timeline</h4>
-      <TimelineBox
-        text={`Purchased for $${filteredItem.price}.00`}
-        date={filteredItem.purchasedDate}
-      />
-      {filteredItem.status === "Listed" && (
+    Object.keys(item).length && (
+      <>
+        <h4 className="font-semibold">Timeline</h4>
         <TimelineBox
-          text={`Listed on ${filteredItem.listedPlatform} for $${filteredItem.listingPrice}.00`}
-          date={filteredItem.listingDate}
+          text={`Purchased for $${item.price}.00`}
+          date={item.purchasedDate}
         />
-      )}
-      {filteredItem.status === "Sold" && (
-        <TimelineBox
-          text={`Sold on ${filteredItem.salePlatform} for $${filteredItem.salePrice}.00`}
-          date={filteredItem.saleDate}
-        />
-      )}
-    </>
+        {item.status === "Listed" && (
+          <TimelineBox
+            text={`Listed on ${item.listingPlatform} for $${item.listingPrice}.00`}
+            date={item.listingDate}
+          />
+        )}
+        {item.status === "Sold" && (
+          <TimelineBox
+            text={`Sold on ${item.salePlatform} for $${item.salePrice}.00`}
+            date={item.saleDate}
+          />
+        )}
+      </>
+    )
   );
 }

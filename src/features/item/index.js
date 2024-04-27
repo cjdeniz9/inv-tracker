@@ -15,15 +15,14 @@ import {
   updateStatus,
 } from "../../context/inventorySlice";
 
-import Product from "../../features/product/index";
+import ItemDetails from "../itemDetails/index";
+import ItemHeader from "../itemHeader/index";
 import ItemTimeline from "../itemTimeline/index";
+import Listings from "../listings/index";
+import PackageMap from "../packageMap/index";
+import PurchaseDetails from "../purchaseDetails/index";
 import TrackShipment from "../trackShipment/index";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
-import ItemHeader from "../itemHeader/index";
-
-import Listings from "../listings/index";
-import PurchaseDetail from "../purchaseDetail/index";
-import PackageMap from "../packageMap/index";
 
 export default function Item() {
   const dispatch = useDispatch();
@@ -59,10 +58,10 @@ export default function Item() {
               </div>
             </div>
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
-              <Product />
+              <ItemDetails />
               <div className="w-full flex justify-between mt-8">
                 <Listings />
-                <PurchaseDetail />
+                <PurchaseDetails />
               </div>
             </div>
           </main>

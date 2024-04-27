@@ -1,5 +1,10 @@
 import { useState } from "react";
+
 import { Link } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+
+import { updateStatus } from "../context/inventorySlice";
 
 import trackerLogo from "../img/trackerLogo.png";
 
@@ -12,6 +17,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (

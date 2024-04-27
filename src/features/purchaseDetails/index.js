@@ -1,15 +1,22 @@
+import { useEffect, useState } from "react";
+
 import { useSelector } from "react-redux";
 
 import { getFilteredItem } from "../../context/filteredItemSlice";
 
 import { formatDate } from "../../utils/formatDate";
 
-export default function PurchaseDetail() {
+export default function PurchaseDetails() {
   const filteredItem = useSelector(getFilteredItem);
 
-  const shipping =
-    filteredItem.shippingPrice === undefined ? 0 : filteredItem.shippingPrice;
-  const tax = filteredItem.tax === undefined ? 0 : filteredItem.tax;
+  const [item, setItem] = useState({});
+
+  useEffect(() => {
+    setItem(filteredItem);
+  }, []);
+
+  const shipping = item.shippingPrice === undefined ? 0 : item.shippingPrice;
+  const tax = item.tax === undefined ? 0 : item.tax;
 
   const fees = shipping + tax;
 
@@ -17,38 +24,35 @@ export default function PurchaseDetail() {
     {
       id: 0,
       title: "Price",
-      value: "$" + filteredItem.price,
+      value: "$" + item.price,
     },
     {
       id: 1,
       title: "Shipping",
-      value:
-        filteredItem.shippingPrice === undefined
-          ? ""
-          : "$" + filteredItem.shippingPrice,
+      value: item.shippingPrice === undefined ? "" : "$" + item.shippingPrice,
     },
     {
       id: 2,
       title: "Total",
-      value: "$" + (filteredItem.price - fees),
+      value: "$" + (item.price + fees),
     },
     {
       id: 3,
       title: "Place of purchase",
-      value: filteredItem.placeOfPurchase,
+      value: item.placeOfPurchase,
     },
     {
       id: 4,
       title: "Purchase Date",
-      value: formatDate(filteredItem.purchasedDate),
+      value: formatDate(item.purchasedDate),
     },
     {
       id: 5,
       title: "Order number",
       value:
-        filteredItem.orderNum === "" || filteredItem.orderNum === undefined
+        item.orderNum === "" || item.orderNum === undefined
           ? "None"
-          : "#" + filteredItem.orderNum,
+          : "#" + item.orderNum,
     },
   ];
   return (

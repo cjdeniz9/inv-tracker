@@ -28,7 +28,9 @@ export const updateListingToFirestore = createAsyncThunk(
   async (listing) => {
     const id = listing.id;
     const item = listing.item;
+    console.log(id);
     return await updateDoc(doc(db, "inventory", id), {
+      name: item.name,
       listingDate: item.listingDate,
       listingPlatform: item.listingPlatform,
       listingPrice: item.listingPrice,

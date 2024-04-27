@@ -26,25 +26,26 @@ export const addItemToFirestore = createAsyncThunk(
   }
 );
 
-export const updateItemToFirestore = createAsyncThunk(
-  "inventory/updateItemToFirestore",
+export const updateItemInFirestore = createAsyncThunk(
+  "inventory/updateItemInFirestore",
   async (data) => {
     const id = data.id;
     const item = data.item;
     return await updateDoc(doc(db, "inventory", id), {
-      brand: item.brand,
-      color: item.color,
-      condition: item.condition,
+      brand: item.brand === undefined ? "" : item.brand,
+      color: item.color === undefined ? "" : item.color,
+      condition: item.condition === undefined ? "" : item.condition,
       name: item.name,
-      notes: item.notes,
-      orderNum: item.orderNum,
-      placeOfPurchase: item.placeOfPurchase,
+      notes: item.notes === undefined ? "" : item.notes,
+      orderNum: item.orderNum === undefined ? "" : item.orderNum,
+      placeOfPurchase:
+        item.placeOfPurchase === undefined ? "" : item.placeOfPurchase,
       price: parseFloat(item.price),
       purchasedDate: item.purchasedDate,
       shippingPrice:
         item.shippingPrice !== "" ? parseFloat(item.shippingPrice) : "",
-      size: item.size,
-      sku: item.sku,
+      size: item.size === undefined ? "" : item.size,
+      sku: item.sku === undefined ? "" : item.sku,
       tax: item.tax !== "" ? parseFloat(item.tax) : "",
     });
   }

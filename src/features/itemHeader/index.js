@@ -32,13 +32,7 @@ export default function ItemHeader() {
 
   return (
     <div className="pb-4">
-      <Link
-        to="/"
-        onClick={() => {
-          dispatch(updateStatus("idle"));
-        }}
-        className="no-underline text-blue-ryb"
-      >
+      <Link to="/" className="no-underline text-blue-ryb">
         <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Inventory
       </Link>
       <span className="text-granite-gray"> / Item #{filteredId}</span>

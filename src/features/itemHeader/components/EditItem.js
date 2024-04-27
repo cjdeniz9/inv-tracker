@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  updateItemToFirestore,
+  updateItemInFirestore,
   updateStatus,
 } from "../../../context/inventorySlice";
 
 import {
+  deleteFilteredItem,
   editBrand,
   editColor,
   editCondition,
@@ -40,10 +41,16 @@ import {
   useDisclosure,
   Spacer,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
+
+import AlertNotif from "../../../components/alert/AlertNotif";
+import BtnSubmit from "../../../components/form/BtnSubmit";
+import BtnCancel from "../../../components/form/BtnCancel";
 
 export default function EditItem() {
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -59,8 +66,20 @@ export default function EditItem() {
   const editItem = (e) => {
     e.preventDefault();
 
-    dispatch(updateItemToFirestore(filterData));
+    dispatch(updateItemInFirestore(filterData));
     dispatch(updateStatus("idle"));
+
+    toast({
+      position: "top",
+      duration: 6000,
+      render: () => (
+        <AlertNotif
+          status="success"
+          width="65"
+          title="Your item has been edited."
+        />
+      ),
+    });
   };
 
   return (
@@ -81,10 +100,16 @@ export default function EditItem() {
         Edit
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"3xl"}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+        }}
+        size={"3xl"}
+      >
         <ModalOverlay />
         <ModalContent>
-          <form id="editform" onSubmit={editItem}>
+          <form id="editForm" onSubmit={editItem}>
             <ModalHeader fontSize={25}>Editing {item.name}</ModalHeader>
             <ModalBody>
               <Flex mb={5}>
@@ -476,28 +501,8 @@ export default function EditItem() {
               </Flex>
             </ModalBody>
             <ModalFooter>
-              <Button
-                mr={2}
-                onClick={onClose}
-                variant="outline"
-                px={3}
-                fontSize={15}
-                borderRadius={4}
-                borderColor={"#CFCFCF"}
-              >
-                Close
-              </Button>
-              <Button
-                type="submit"
-                form="editform"
-                px={3}
-                fontSize={15}
-                color="#fff"
-                borderRadius={4}
-                backgroundColor="#003EFF"
-              >
-                Save
-              </Button>
+              <BtnCancel onClick={onClose} mr={2} value="Close" />
+              <BtnSubmit form="editForm" value="Save" />
             </ModalFooter>
           </form>
         </ModalContent>

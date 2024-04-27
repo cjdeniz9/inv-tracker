@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+
+import { updateStatus } from "../context/inventorySlice";
 
 import Navbar from "../layouts/Navbar";
 import Header from "../components/Header";
@@ -10,7 +14,12 @@ import InventoryTable from "../features/inventoryTable/components/InventoryTable
 import CreateItem from "../features/createItem/index";
 
 export default function Inventory(props) {
+  const dispatch = useDispatch();
+
   let inventoryContent;
+
+  const isClient = typeof window !== "undefined";
+  let currentPathname = isClient ? window.location.pathname : "";
 
   const [search, setSearch] = useState("");
 
@@ -141,6 +150,9 @@ export default function Inventory(props) {
   //     );
   //   });
   // }
+  useEffect(() => {
+    currentPathname?.includes("/") && dispatch(updateStatus("idle"));
+  }, []);
 
   return (
     <div className="App">

@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { getFilteredId } from "../../../context/filteredItemSlice";
-import { deleteItemFromFirestore } from "../../../context/inventorySlice";
+import {
+  deleteItemFromFirestore,
+  updateStatus,
+} from "../../../context/inventorySlice";
 
 import {
   Button,
@@ -64,6 +67,7 @@ export default function DeleteItem() {
               <Button
                 onClick={() => {
                   dispatch(deleteItemFromFirestore(filteredId));
+                  dispatch(updateStatus("idle"));
                 }}
                 colorScheme="red"
                 px={3}
