@@ -1,31 +1,53 @@
-import { useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-
-import { deleteResults } from "./context/resultsSlice";
 import { deleteProduct } from "./context/productSlice";
+import { deleteResults } from "./context/resultsSlice";
 import { deleteSelected } from "./context/selectedSlice";
 import {
-  getCreate,
-  getProductForm,
+  getCreateInventory,
+  getCustomItemForm,
+  getProductDetails,
   resetShow,
-  toggleCreate,
 } from "./context/showSlice";
-import CreateInventory from "../createItem/components/CreateInventory";
-import ProductDetails from "../createItem/components/ProductDetails";
+import { getTabIndex, setTabIndex } from "./context/tabSlice";
+import { sizeError } from "../../context/errorSlice";
 import { deleteKeyword } from "../../context/keywordSlice";
-import { deleteSize } from "../../context/sizeSlice";
+import { deleteSize, getSize } from "../../context/sizeSlice";
+
+import {
+  Button,
+  Slide,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
+
+import { AddIcon } from "@chakra-ui/icons";
+
+import CreateInventory from "./components/CreateInventory";
+import Header from "./components/Header";
+import ProductDetails from "./components/ProductDetails";
+
+import BtnNext from "../../components/form/BtnNext";
+import BtnSubmit from "../../components/form/BtnSubmit";
 
 export default function CreateItem() {
   const dispatch = useDispatch();
 
-  const createItem = useSelector(getCreate);
-  const productForm = useSelector(getProductForm);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const createInventory = useSelector(getCreateInventory);
+  const customItemForm = useSelector(getCustomItemForm);
+  const productDetails = useSelector(getProductDetails);
+  const size = useSelector(getSize);
+  const tabIndex = useSelector(getTabIndex);
 
   function handleClose() {
+    onClose();
     dispatch(deleteKeyword());
     dispatch(deleteProduct());
     dispatch(deleteResults());
@@ -34,39 +56,64 @@ export default function CreateItem() {
     dispatch(resetShow());
   }
 
+  const changeTab = () => {
+    if (size === "") {
+      dispatch(sizeError(true));
+    } else {
+      dispatch(sizeError(false));
+      dispatch(setTabIndex(1));
+    }
+  };
+
   return (
     <>
-      {!createItem ? (
-        <button
-          onClick={() => dispatch(toggleCreate())}
-          className="w-10 h-10 pb-1 bg-blue-ryb rounded text-white text-xl font-medium"
-        >
-          +
-        </button>
-      ) : (
-        <button onClick={handleClose} className="fixed top-8 right-6 z-50">
-          <FontAwesomeIcon icon={faX} />
-        </button>
-      )}
-      <div
-        onClick={() => {
-          dispatch(toggleCreate());
-          dispatch(deleteKeyword());
-          dispatch(deleteResults());
-        }}
-        className={`${
-          createItem
-            ? "translate-x-0 absolute w-full h-full top-0 right-0 bg-raisin-black opacity-50 z-40"
-            : ""
-        }`}
-      ></div>
-      <div
-        className={`lg:w-7/12 fixed top-0 right-0 w-full h-full bg-white ${
-          createItem ? "translate-x-0" : "translate-x-full"
-        } ease-in-out duration-300 z-40`}
+      <Button
+        onClick={onOpen}
+        bg="#003EFF"
+        color="white"
+        borderRadius={3}
+        _hover={{ bg: "#5388FE" }}
       >
-        {productForm === false ? <CreateInventory /> : <ProductDetails />}
-      </div>
+        <AddIcon boxSize={3} />
+      </Button>
+
+      <Slide direction="right" in={isOpen}>
+        <Modal isOpen={isOpen} onClose={handleClose} scrollBehavior="inside">
+          <ModalOverlay style={{ zIndex: 40 }} />
+          <Slide direction="right" in={isOpen} style={{ zIndex: 50 }}>
+            <ModalContent
+              containerProps={{
+                justifyContent: "flex-end",
+                paddingRight: "0rem",
+              }}
+              maxW="56rem"
+              minH="100vh"
+              w="70rem"
+              mt={0}
+              borderRadius={0}
+            >
+              <ModalHeader display="fixed" w="full" minH={15}>
+                <Header />
+              </ModalHeader>
+              <ModalBody>
+                {createInventory === true && <CreateInventory />}
+                {productDetails === true && <ProductDetails />}
+              </ModalBody>
+              <ModalFooter display="fixed" w="full" minH={20}>
+                {productDetails && !customItemForm && tabIndex === 0 && (
+                  <BtnNext onClick={changeTab} value="Next" />
+                )}
+                {productDetails && customItemForm && tabIndex === 0 && (
+                  <BtnSubmit form="customItemForm" value="Next" />
+                )}
+                {productDetails && tabIndex === 1 && (
+                  <BtnSubmit form="additem" value="Add item" />
+                )}
+              </ModalFooter>
+            </ModalContent>
+          </Slide>
+        </Modal>
+      </Slide>
     </>
   );
 }

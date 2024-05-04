@@ -1,27 +1,40 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteProduct, getProduct } from "../context/productSlice";
-import { deleteSelected, getSelected } from "../context/selectedSlice";
 import { deleteResults } from "../context/resultsSlice";
-import { toggleProduct } from "../context/showSlice";
+import { deleteSelected, getSelected } from "../context/selectedSlice";
+import {
+  toggleCreateInventory,
+  toggleProductDetails,
+} from "../context/showSlice";
+import { resetTabIndex } from "../context/tabSlice";
 import { deleteKeyword } from "../../../context/keywordSlice";
 import { deleteSize, getSize } from "../../../context/sizeSlice";
 
-import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import {
+  Button,
+  IconButton,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+
+import { DeleteIcon } from "@chakra-ui/icons";
+
+import Data from "../../../components/table/Data";
+import Heading from "../../../components/table/Heading";
+
+import { formatCurrency } from "../../../utils/formatCurrency";
 
 export default function Edit() {
   const dispatch = useDispatch();
 
   const product = useSelector(getProduct);
   const selected = useSelector(getSelected);
-  const sizing = useSelector(getSize);
+  const size = useSelector(getSize);
 
   function handleDelete() {
     dispatch(deleteKeyword());
@@ -29,18 +42,15 @@ export default function Edit() {
     dispatch(deleteResults());
     dispatch(deleteSelected());
     dispatch(deleteSize());
+    dispatch(resetTabIndex());
   }
 
   return (
     <>
       <div className="border-b w-full" />
       <div className="flex items-center py-3">
-        <div className="flex w-1/2 items-center">
-          <div
-            className={
-              Boolean(selected.selectedArray) ? "w-1/12 mr-6" : "w-1/6 mr-6"
-            }
-          >
+        <div className="flex w-11/12 items-center">
+          <div className="w-1/12 mr-6">
             <img
               src={
                 Boolean(selected.selectedArray)
@@ -61,24 +71,22 @@ export default function Edit() {
             </span>
           </div>
         </div>
-        <div className="flex w-1/2 justify-end">
+        <div className="flex w-1/12 justify-end">
           <Button
-            variant="outlined"
-            onClick={() => dispatch(toggleProduct())}
-            sx={{
-              borderColor: "#CFCFCF",
-              color: "#242424",
-              fontSize: "12px",
-              fontWeight: 600,
-              margin: 0,
-              minWidth: 0,
-              padding: ".3rem 1rem",
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: "white",
-                borderColor: "#CFCFCF",
-                color: "#525252",
-              },
+            onClick={() => {
+              dispatch(toggleCreateInventory());
+              dispatch(toggleProductDetails());
+            }}
+            h="2.25rem"
+            bg="none"
+            border="1px"
+            borderColor="#CFCFCF"
+            px={2}
+            fontSize={12}
+            fontWeight={600}
+            _hover={{
+              bg: "none",
+              color: "#525252",
             }}
           >
             Edit
@@ -86,97 +94,52 @@ export default function Edit() {
         </div>
       </div>
       <div className="border-b w-full" />
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell
-              align="left"
-              sx={{
-                color: "#5F5F5F",
-                fontWeight: 600,
-                paddingY: 1,
-                paddingLeft: 0,
-                paddingRight: 6,
-              }}
-            >
-              Size
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                color: "#5F5F5F",
-                fontWeight: 600,
-                paddingY: 0,
-                paddingLeft: 0,
-              }}
-            >
-              Purchase price
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                color: "#5F5F5F",
-                fontWeight: 600,
-                paddingY: 0,
-                paddingLeft: 0,
-              }}
-            >
-              Tax
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                color: "#5F5F5F",
-                fontWeight: 600,
-                paddingY: 0,
-                paddingLeft: 0,
-              }}
-            >
-              Shipping
-            </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                color: "#5F5F5F",
-                fontWeight: 600,
-                paddingY: 0,
-                paddingLeft: 0,
-              }}
-            ></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell
-              component="th"
-              scope="row"
-              align="left"
-              sx={{ paddingX: 0, marginRight: "2rem" }}
-            >
-              {sizing} US M
-            </TableCell>
-            <TableCell align="left" sx={{ paddingX: 0 }}>
-              {product.price !== 0 ? product.price : "-"}
-            </TableCell>
-            <TableCell align="left" sx={{ paddingX: 0 }}>
-              {product.tax !== 0 ? product.tax : "-"}
-            </TableCell>
-            <TableCell align="left" sx={{ paddingX: 0 }}>
-              {product.shippingPrice !== 0 ? product.shippingPrice : "-"}
-            </TableCell>
-            <TableCell align="left" sx={{ paddingX: 0 }}>
-              <IconButton onClick={handleDelete} size="small">
-                <DeleteIcon
-                  fontSize="inherit"
-                  sx={{
-                    color: "#5F5F5F",
+      <TableContainer>
+        <Table>
+          <Thead>
+            <Tr>
+              <Heading title="Size" />
+              <Heading title="Purchase price" />
+              <Heading title="Tax" />
+              <Heading title="Shipping" />
+              <Heading title="" />
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <Data title={size} />
+              <Data
+                title={
+                  product.price !== "" ? formatCurrency(product.price) : "-"
+                }
+              />
+              <Data
+                title={product.tax !== "" ? formatCurrency(product.tax) : "-"}
+              />
+              <Data
+                title={
+                  product.shippingPrice !== ""
+                    ? formatCurrency(product.shippingPrice)
+                    : "-"
+                }
+              />
+              <Td align="left" sx={{ paddingX: 0 }}>
+                <IconButton
+                  icon={<DeleteIcon />}
+                  onClick={handleDelete}
+                  bg="none"
+                  size="sm"
+                  color="#7A7A7A"
+                  _hover={{
+                    bg: "none",
+                    color: "#A1A5A4",
                   }}
                 />
-              </IconButton>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+              </Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
     </>
   );
 }

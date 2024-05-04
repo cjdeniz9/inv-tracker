@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 
-const AlertNotif = ({ status, width, title }) => {
+const AlertNotif = ({ status, width, fontWeight, title }) => {
   return (
     <Alert
       status={status}
@@ -11,7 +11,7 @@ const AlertNotif = ({ status, width, title }) => {
       width={width}
     >
       <AlertIcon />
-      <AlertTitle fontWeight={600}>{title}</AlertTitle>
+      <AlertTitle fontWeight={fontWeight}>{title}</AlertTitle>
     </Alert>
   );
 };

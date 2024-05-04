@@ -2,26 +2,27 @@ import { useEffect, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import { getResults, setResults } from "../context/resultsSlice";
+import { toggleNoResults, toggleSearchList } from "../context/showSlice";
 import { getKeyword, setKeyword } from "../../../context/keywordSlice";
-import { setResults } from "../context/resultsSlice";
 
-import SearchList from "./SearchList";
+import { Flex, Spinner } from "@chakra-ui/react";
 
-export default function Search(props) {
+import SearchList from "../components/SearchList";
+
+import api from "../../../api/products";
+
+export default function Search() {
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    dispatch(setKeyword(e.target.value));
-  };
-
   const keyword = useSelector(getKeyword);
+  const results = useSelector(getResults);
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
-      if (props.isOpen === false) return;
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          props.setInputOpen(false);
+          dispatch(toggleSearchList(false));
         }
       }
       document.addEventListener("mousedown", handleClickOutside);
@@ -29,22 +30,39 @@ export default function Search(props) {
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [ref, props.isOpen]);
+    }, [ref]);
   }
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
+  const handleChange = (e) => {
+    dispatch(setKeyword(e.target.value));
+  };
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      const response = await fetch(
-        `https://inv-tracker.onrender.com/product/${keyword}`
-      );
-      const data = await response.json();
-      dispatch(setResults(data));
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get(`/product/${keyword}`);
+        if (response && response.data) {
+          dispatch(toggleNoResults(false));
+          dispatch(setResults(response.data));
+        }
+      } catch (err) {
+        if (err.response) {
+          // The server responded with a status code outside the 2xx range
+          dispatch(toggleNoResults(true));
+        } else if (err.request) {
+          // The request was made but no response was received
+          dispatch(toggleNoResults(true));
+        } else {
+          // Something happened in setting up the request that triggered an error
+          dispatch(toggleNoResults(true));
+        }
+      }
     };
 
-    fetchProduct();
+    fetchProducts();
   }, [keyword]);
 
   return (
@@ -67,8 +85,16 @@ export default function Search(props) {
             id="keyword"
             value={keyword}
             onChange={handleChange}
+            onClick={() => {
+              dispatch(toggleSearchList(true));
+            }}
             required
           />
+          {keyword.length >= 1 && results.length === 0 && (
+            <Flex flexDirection="row-reverse" mr={3}>
+              <Spinner display="absolute" mt="-1.75rem" size="sm" />
+            </Flex>
+          )}
           {keyword.length !== 0 && <SearchList />}
         </div>
       </div>

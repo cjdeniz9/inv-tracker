@@ -88,7 +88,9 @@ export default function SizeChart() {
 
   return (
     <>
-      <span className="block mb-2 font-semibold">Select size to add</span>
+      <span className="block mb-2 text-sm font-semibold">
+        Select size to add
+      </span>
       <div className="border-b w-full" />
       <div className="lg:grid-cols-6 grid grid-cols-9 gap-2 pt-4">
         {shoeSizeNum.map((item) => {
@@ -98,7 +100,7 @@ export default function SizeChart() {
               : "";
           return (
             <input
-              className={`${selectedColor} border-[1px] rounded-md py-2 text-center text-[15px] font-medium hover:border-davys-grey hover:text-davys-grey`}
+              className={`${selectedColor} border-[1px] rounded-md py-2 text-center text-xs font-medium hover:border-davys-grey hover:text-davys-grey`}
               type="button"
               id="size"
               value={item.size}

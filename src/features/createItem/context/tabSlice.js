@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = "1";
+const initialState = 0;
 
 export const tabSlice = createSlice({
   name: "tab",
   initialState,
   reducers: {
-    tabValue: (state, action) => action.payload,
-    resetTabValue: () => initialState,
+    setTabIndex: (state, action) => action.payload,
+    resetTabIndex: () => initialState,
   },
 });
 
-export const { tabValue, resetTabValue } = tabSlice.actions;
+export const { setTabIndex, resetTabIndex } = tabSlice.actions;
 
-export const getTabValue = (state) => state.tab;
+export const getTabIndex = (state) => state.tab;
 
 export default tabSlice.reducer;

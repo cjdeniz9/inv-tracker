@@ -1,10 +1,6 @@
-import { useState } from "react";
-
 import { serverTimestamp } from "firebase/firestore";
 
 import { useDispatch, useSelector } from "react-redux";
-
-import Button from "@mui/material/Button";
 
 import {
   addCondition,
@@ -21,13 +17,19 @@ import {
 import { deleteResults } from "../context/resultsSlice";
 import { deleteSelected, getSelected } from "../context/selectedSlice";
 import { resetShow, toggleCreate } from "../context/showSlice";
-import { resetTabValue } from "../context/tabSlice";
+import { resetTabIndex } from "../context/tabSlice";
 import { nameError, resetError } from "../../../context/errorSlice";
 import { addItemToFirestore } from "../../../context/inventorySlice";
 import { deleteSize, getSize } from "../../../context/sizeSlice";
 
+import { Divider, Flex, Spacer, useModalContext } from "@chakra-ui/react";
+
+import InputField from "../../../components/form/InputField";
+
 export default function PurchaseDetails() {
   const dispatch = useDispatch();
+
+  const { onClose } = useModalContext();
 
   const product = useSelector(getProduct);
   const selected = useSelector(getSelected);
@@ -82,108 +84,82 @@ export default function PurchaseDetails() {
 
     dispatch(addItemToFirestore(item));
 
+    onClose();
     dispatch(deleteProduct());
     dispatch(deleteResults());
     dispatch(deleteSelected());
     dispatch(deleteSize());
     dispatch(resetError());
     dispatch(resetShow());
-    dispatch(resetTabValue());
+    dispatch(resetTabIndex());
   };
 
   return (
     <form onSubmit={createItem} id="additem">
-      <span className="block font-semibold mb-1">Purchase data</span>
-      <div className="border-b w-full mb-2" />
-      <div className="flex w-3/5 mb-4 justify-between">
-        <div className="w-[32%]">
-          <label className="text-xs inline-block mb-2">
-            Purchase price <span className="text-cinnabar-red">*</span>
-          </label>
-          <input
-            className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="0.00"
-            type="number"
-            id="price"
-            value={product.price}
-            onChange={(e) => {
-              dispatch(addPrice(e.target.value));
-            }}
-            required
-          />
-        </div>
-        <div className="w-[31%]">
-          <label className="text-xs inline-block mb-2">Tax</label>
-          <input
-            className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="0.00"
-            type="number"
-            id="tax"
-            value={product.tax}
-            onChange={(e) => {
-              dispatch(addTax(e.target.value));
-            }}
-          />
-        </div>
-        <div className="w-[32%]">
-          <label className="text-xs inline-block mb-2">Shipping price</label>
-          <input
-            className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="0.00"
-            type="number"
-            id="shippingPrice"
-            value={product.shippingPrice}
-            onChange={(e) => {
-              dispatch(addShippingPrice(e.target.value));
-            }}
-          />
-        </div>
-      </div>
-      <div className="flex w-3/5 mb-4 justify-between">
-        <div className="w-[32%]">
-          <label className="text-xs inline-block mb-2">Place of purchase</label>
-          <input
-            className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="SNKRS"
-            type="text"
-            id="placeOfPurchase"
-            value={product.placeOfPurchase}
-            onChange={(e) => {
-              dispatch(addPlaceOfPurchase(e.target.value));
-            }}
-          />
-        </div>
-        <div className="w-[32%]">
-          <label className="text-xs inline-block mb-2">
-            Date of Purchase <span className="text-cinnabar-red">*</span>
-          </label>
-          <input
-            className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="mm/dd/yyyy"
-            type="date"
-            id="purchasedDate"
-            value={product.purchasedDate}
-            onChange={(e) => {
-              dispatch(addPurchasedDate(e.target.value));
-            }}
-            required
-          />
-        </div>
-        <div className="w-[32%]">
-          <label className="text-xs inline-block mb-2">Order ID</label>
-          <input
-            className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            placeholder="#12345"
-            type="text"
-            id="orderNum"
-            value={product.orderNum}
-            onChange={(e) => {
-              dispatch(addOrderNum(e.target.value));
-            }}
-          />
-        </div>
-      </div>
-      <span className="block font-semibold mb-1">Additional details</span>
+      <span className="block text-sm font-semibold mb-1">Purchase data</span>
+      <Divider mt="5px" borderColor="#A1A5A4" />
+      <Flex w="60%">
+        <InputField
+          label="Purchase Price"
+          type="number"
+          placeholder="0.00"
+          value={product.price}
+          onChange={addPrice}
+          width="10rem"
+          required={true}
+        />
+        <Spacer />
+        <InputField
+          label="Tax"
+          type="number"
+          placeholder="0.00"
+          value={product.tax}
+          onChange={addTax}
+          width="10rem"
+          required={false}
+        />
+        <Spacer />
+        <InputField
+          label="Shipping price"
+          type="number"
+          placeholder="0.00"
+          value={product.shippingPrice}
+          onChange={addShippingPrice}
+          width="10rem"
+          required={false}
+        />
+      </Flex>
+      <Flex w="60%" mt="2rem">
+        <InputField
+          label="Place of purchase"
+          type="text"
+          placeholder="SNKRS"
+          value={product.placeOfPurchase}
+          onChange={addPlaceOfPurchase}
+          width="10rem"
+          required={false}
+        />
+        <Spacer />
+        <InputField
+          label="Date of Purchase"
+          type="date"
+          value={product.purchasedDate}
+          onChange={addPurchasedDate}
+          width="10rem"
+          required={true}
+        />
+        <Spacer />
+        <InputField
+          label="Order ID"
+          type="text"
+          placeholder="#12345"
+          value={product.orderNum}
+          onChange={addOrderNum}
+          width="10rem"
+          required={false}
+        />
+      </Flex>
+      <span className="block font-semibold mt-4">Additional details</span>
       <div className="border-b w-full mb-2" />
       <div className="flex w-5/6 justify-between">
         <div className="w-[72%]">
@@ -194,9 +170,7 @@ export default function PurchaseDetails() {
             rows="4"
             id="notes"
             value={product.notes}
-            onChange={(e) => {
-              dispatch(addNotes(e.target.value));
-            }}
+            onChange={addNotes}
           />
         </div>
         <div className="w-[26%]">
@@ -207,27 +181,10 @@ export default function PurchaseDetails() {
             type="text"
             id="condition"
             value={product.condition}
-            onChange={(e) => {
-              dispatch(addCondition(e.target.value));
-            }}
+            onChange={addCondition}
           />
         </div>
       </div>
-      <Button
-        id="additem"
-        type="submit"
-        variant="contained"
-        style={{
-          backgroundColor: "#003EFF",
-          position: "fixed",
-          bottom: "1rem",
-          right: "1rem",
-          fontWeight: 600,
-          textTransform: "none",
-        }}
-      >
-        Add item
-      </Button>
     </form>
   );
 }

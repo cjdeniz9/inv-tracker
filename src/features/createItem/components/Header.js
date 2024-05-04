@@ -1,64 +1,62 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-
-import CustomItem from "./CustomItem";
-
 import { useDispatch, useSelector } from "react-redux";
-import { deleteSelected, getSelected } from "../context/selectedSlice";
-import { getSize } from "../../../context/sizeSlice";
+
 import { deleteProduct, getProduct } from "../context/productSlice";
-import { getCustom, toggleCustom, toggleProduct } from "../context/showSlice";
+import { deleteSelected, getSelected } from "../context/selectedSlice";
+import {
+  getCreateInventory,
+  getProductDetails,
+  toggleCreateInventory,
+  toggleCustomItemForm,
+  toggleProductDetails,
+} from "../context/showSlice";
+import { getSize } from "../../../context/sizeSlice";
+
+import { Button, Flex, Heading, Icon } from "@chakra-ui/react";
 
 export default function Header() {
   const dispatch = useDispatch();
 
-  const customForm = useSelector(getCustom);
+  const createInventory = useSelector(getCreateInventory);
+  const productDetails = useSelector(getProductDetails);
+
   const product = useSelector(getProduct);
   const selected = useSelector(getSelected);
-  const sizing = useSelector(getSize);
+  const size = useSelector(getSize);
 
   function handleReturn() {
     if (
       (!Boolean(selected.selectedArray) || !Boolean(product.productArray)) &&
-      sizing !== ""
+      size !== ""
     ) {
-      dispatch(toggleProduct());
+      dispatch(toggleProductDetails());
+      dispatch(toggleCreateInventory());
     } else {
       dispatch(deleteProduct());
       dispatch(deleteSelected());
-      dispatch(toggleCustom());
-      dispatch(toggleProduct());
+      dispatch(toggleCustomItemForm());
+      dispatch(toggleProductDetails());
+      dispatch(toggleCreateInventory());
     }
   }
 
   return (
     <>
-      <button
-        onClick={handleReturn}
-        className="flex items-baseline justify-between mb-3"
-      >
-        <FontAwesomeIcon icon={faChevronLeft} className="mr-3 text-lg" />
-        <h4>Product Details</h4>
-      </button>
-      <div className="mb-3">
-        <span>Search manually to find items</span>
-      </div>
-      {customForm === true ? (
-        <CustomItem />
-      ) : (
-        <>
-          <div className="border-b w-full" />
-          <div className="flex items-center py-3">
-            <div className="w-1/12 mr-6">
-              <img src={selected.thumbnail} alt="header-img" />
-            </div>
-            <div className="text-sm">
-              <span className="block font-semibold">{selected.shoeName}</span>
-              <span>{selected.styleID}</span>
-            </div>
-          </div>
-          <div className="border-b w-full" />
-        </>
+      {createInventory === true && (
+        <Heading fontSize="1.5rem" fontWeight="600" lineHeight="30px" mt={3}>
+          Create inventory
+        </Heading>
+      )}
+      {productDetails === true && (
+        <Button onClick={handleReturn} p={0} bg="none" _hover={{ bg: "none" }}>
+          <Flex alignItems="center">
+            <Icon boxSize={6} mr={1}>
+              <path d="M10.5 1.28212L3 8.5L10.5 15.7179L9.34259 17L0.5 8.5L9.34259 -3.86522e-07L10.5 1.28212Z"></path>
+            </Icon>
+            <Heading fontSize="1.5rem" fontWeight="600" lineHeight="30px">
+              Product Details
+            </Heading>
+          </Flex>
+        </Button>
       )}
     </>
   );

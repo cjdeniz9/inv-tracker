@@ -7,6 +7,8 @@ const InputField = ({
   type,
   placeholder,
   value,
+  booleanOnChange,
+  customOnChange,
   onChange,
   width,
   required,
@@ -23,9 +25,13 @@ const InputField = ({
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => {
-          dispatch(onChange(e.target.value));
-        }}
+        onChange={
+          booleanOnChange
+            ? customOnChange
+            : (e) => {
+                dispatch(onChange(e.target.value));
+              }
+        }
         w={width}
         fontSize={17}
         _focusVisible={{
