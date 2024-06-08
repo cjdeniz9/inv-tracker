@@ -1,44 +1,50 @@
+import { useSelector } from "react-redux";
+
+import { getInventory } from "../../../context/inventorySlice";
+
 import trackerLogo from "../../../assets/trackerLogo-alt.png";
 
-export default function DashboardInventory(props) {
-  // let inventoryContent = props.inventoryData.filter(
-  //   (item, index) =>
-  //     index ===
-  //     props.inventoryData.findIndex((element) => element.name === item.name)
-  // );
+import BoxedImg from "../../../components/ui/BoxedImg";
 
-  // const [dashboardInvName, setDashboardInvName] = useState(inventoryContent);
+export default function Inventory() {
+  const inventory = useSelector(getInventory);
 
   return (
     <div className="h-screen bg-gray-98">
       <div className="max-h-full overflow-auto p-4">
-        <h4 className="pb-6">Your Inventory</h4>
-        {props.inventory.map((item) => {
+        <p className="text-2xl font-semibold mb-8">Your Inventory</p>
+        {inventory.map((inv) => {
           const itemProfit =
-            item.salePrice === "" ? "$0" : "$" + item.salePrice;
+            inv.item.salePrice === undefined ? "$0" : "$" + inv.item.salePrice;
           const itemProfitPercent =
-            item.salePrice === ""
+            inv.item.salePrice === undefined
               ? "0%"
-              : ((item.salePrice / item.price) * 100).toFixed(2) + "%";
+              : ((inv.item.salePrice / inv.item.price) * 100).toFixed(2) + "%";
           return (
-            <div key={item.id} className="pb-3">
+            <div key={inv.item.id} className="pb-3">
               <div className="w-full h-full bg-white rounded flex p-3 drop-shadow-sm">
-                {item.img === "" ? (
-                  <div className="w-20 flex items-center justify-center bg-white border-[1px] border-bright-gray rounded">
-                    <img src={trackerLogo} alt="" className="w-[45%]" />
-                  </div>
+                {inv.item.img === "" ? (
+                  <BoxedImg
+                    width={16}
+                    img={trackerLogo}
+                    title="Alt Tracker Logo"
+                    padding={3}
+                  />
                 ) : (
-                  <div className="w-20 flex items-center justify-center bg-white border-[1px] border-bright-gray rounded">
-                    <img src={item.img} className="w-[70%]" />
-                  </div>
+                  <BoxedImg
+                    width={16}
+                    img={inv.item.img}
+                    title="Item's image"
+                    padding={1.5}
+                  />
                 )}
                 <div className="w-full flex justify-between ml-6">
-                  <div className="grid gap-2">
-                    <span className="text-[15px] text-blue-ryb font-medium">
-                      {item.name}
+                  <div className="w-72 grid gap-2">
+                    <span className="text-sm text-blue-ryb font-medium truncate">
+                      {inv.item.name}
                     </span>
                     <div>
-                      <span className="text-xl text-salem-green font-semibold">
+                      <span className="text-salem-green font-semibold">
                         {itemProfit}
                       </span>
                       <span className="border-[1px] border-quick-silver rounded-2xl px-2 ml-2 text-sm text-salem-green font-medium">
@@ -46,8 +52,10 @@ export default function DashboardInventory(props) {
                       </span>
                     </div>
                   </div>
-                  <div className="my-auto mr-3">
-                    <h5 className="">{item.size}</h5>
+                  <div className="my-auto mr-2">
+                    <span className="text-lg font-semibold">
+                      {inv.item.size}
+                    </span>
                   </div>
                 </div>
               </div>

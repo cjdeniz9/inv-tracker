@@ -1,32 +1,39 @@
-import moment from "moment";
+import { useSelector } from "react-redux";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getChart } from "../context/chartSlice";
 import {
-  faArrowDown,
-  faArrowUp,
-  faArrowsLeftRight,
-} from "@fortawesome/free-solid-svg-icons";
+  getNetProfit,
+  getSalesCount,
+  getTotalSpend,
+} from "../context/dashboardSlice";
 
-export default function DashboardHeader(props) {
-  const totalIncome = props.totalSpend + props.netProfit;
+import { getInventory } from "../../../context/inventorySlice";
 
-  const currentProfit =
-    props.chartData.length === 0 ? 0 : props.chartData.slice(-1)[0].profit;
+import { profitColor } from "../utils/profitColor";
+import { profitIcon } from "../utils/profitIcon";
 
-  const currentTotal = props.inventory
-    .filter((item) => {
-      const formattedDate = moment(item.saleDate).format("l");
-      return formattedDate.includes(moment().format("l"));
-    })
-    .reduce(function (prev, current) {
-      return prev + +current.price;
-    }, 0);
+export default function Header() {
+  const chartData = useSelector(getChart);
+  const inventory = useSelector(getInventory);
+
+  const netProfit = useSelector(getNetProfit);
+  const salesCount = useSelector(getSalesCount);
+  const totalSpend = useSelector(getTotalSpend);
+
+  const totalIncome = totalSpend + netProfit;
+
+  const currentProfit = chartData.length
+    ? chartData.slice(-1)[0].item.profit
+    : 0;
+
+  const currentTotal = inventory.reduce(function (prev, current) {
+    return prev + +current.item.price;
+  }, 0);
 
   const adjustedProfitAmount =
-    props.chartData.length === 0 || 1
+    chartData.length === 0 || 1
       ? 0
-      : props.chartData.slice(-2)[0].profit -
-        props.chartData.slice(-1)[0].profit;
+      : chartData.slice(-2)[0].item.profit - chartData.slice(-1)[0].item.profit;
 
   // const adjustedProfitPercent =
   //   props.newDate.length === 0 || 1
@@ -38,7 +45,7 @@ export default function DashboardHeader(props) {
   //       ).toFixed(2);
 
   const adjustedProfitPercent =
-    props.chartData.length === 0 || undefined
+    chartData.length === 0 || undefined
       ? 0
       : ((currentProfit / currentTotal) * 100).toFixed(2);
 
@@ -46,36 +53,22 @@ export default function DashboardHeader(props) {
     ? 0
     : adjustedProfitPercent;
 
-  const currentInventoryCount = props.inventory.filter((item) => {
-    return !item.status.toLowerCase().includes("sold");
-  });
+  const inventoryCount = inventory.filter((inv) => {
+    return !inv.item.status.toLowerCase().includes("Sold");
+  }).length;
 
   const inventoryStock = [
     {
       id: 1,
-      value: currentInventoryCount.length,
+      value: inventoryCount,
       text: "inventory item currently",
     },
     {
       id: 2,
-      value: props.salesCount,
+      value: salesCount,
       text: "sale all time",
     },
   ];
-
-  let profitTextColor;
-  let profitSymbol;
-
-  if (adjustedProfitPercent < 0) {
-    profitTextColor = "text-blood-red";
-    profitSymbol = <FontAwesomeIcon icon={faArrowDown} />;
-  } else if (adjustedProfitPercent > 0) {
-    profitTextColor = "text-salem-green";
-    profitSymbol = <FontAwesomeIcon icon={faArrowUp} />;
-  } else {
-    profitTextColor = "text-granite-gray";
-    profitSymbol = <FontAwesomeIcon icon={faArrowsLeftRight} />;
-  }
 
   return (
     <div className="inline-block">
@@ -83,9 +76,12 @@ export default function DashboardHeader(props) {
       <h3>${totalIncome}</h3>
       <div>
         <span
-          className={`block relative ${profitTextColor} font-medium text-lg`}
+          className={`block relative ${profitColor(
+            adjustedProfitAmount
+          )} font-medium text-lg`}
         >
-          {profitSymbol} ${currentProfit} ({checkAdjustedProfitPercent}%)
+          {profitIcon(adjustedProfitAmount)} ${currentProfit} (
+          {checkAdjustedProfitPercent}%)
         </span>
         {inventoryStock.map((item, key) => {
           return (

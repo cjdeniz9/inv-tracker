@@ -1,109 +1,101 @@
+import { useSelector } from "react-redux";
+
 import { v4 as uuidv4 } from "uuid";
 
-export default function Reports(props) {
+import {
+  getItemsPurchased,
+  getNetProfit,
+  getSalesCount,
+  getTotalSpend,
+} from "../context/dashboardSlice";
+
+import { Box, Container, Flex, SimpleGrid } from "@chakra-ui/react";
+
+import { formatCurrency } from "../../../utils/formatCurrency";
+
+export default function Reports() {
   const defaultPercentValue = 0;
 
-  const netProfitPercent = ((props.netProfit / props.totalSpend) * 100).toFixed(
-    2
-  );
+  const itemPurchased = useSelector(getItemsPurchased);
+  const netProfit = useSelector(getNetProfit);
+  const salesCount = useSelector(getSalesCount);
+  const salesIncome = useSelector(getSalesCount);
+  const totalSpend = useSelector(getTotalSpend);
+
+  const netProfitPercent = ((netProfit / totalSpend) * 100).toFixed(2);
 
   const reportsGrid = [
     {
       title: "Sales Income",
-      priceCount: `$${props.salesIncome}`,
       percentValue: `${defaultPercentValue}%`,
-      value: props.salesIncome,
-      topBorder: true,
-      bottomBorder: true,
-      leftBorder: true,
-      rightBorder: true,
+      value: formatCurrency(salesIncome),
     },
     {
       title: "Total Spend",
-      priceCount: `$${props.totalSpend}`,
       percentValue: `${defaultPercentValue}%`,
-      value: props.totalSpend,
-      topBorder: true,
-      bottomBorder: true,
-      leftBorder: false,
-      rightBorder: false,
+      value: formatCurrency(totalSpend),
     },
     {
       title: "Net Profit",
-      priceCount: `$${props.netProfit}`,
       percentValue: `${isNaN(netProfitPercent) ? 0 : netProfitPercent}%`,
-      value: props.netProfit,
-      topBorder: true,
-      bottomBorder: true,
-      leftBorder: true,
-      rightBorder: true,
+      value: formatCurrency(netProfit),
     },
     {
       title: "Item Spend",
-      priceCount: 0,
       percentValue: `${defaultPercentValue}%`,
       value: 0,
-      topBorder: false,
-      bottomBorder: true,
-      leftBorder: true,
-      rightBorder: true,
     },
     {
       title: "Items Purchased",
-      priceCount: props.itemPurchased,
       percentValue: `${defaultPercentValue}%`,
-      value: props.itemPurchased,
-      topBorder: false,
-      bottomBorder: true,
-      leftBorder: false,
-      rightBorder: false,
+      value: itemPurchased,
     },
     {
       title: "Sales Count",
-      priceCount: props.salesCount,
       percentValue: `${defaultPercentValue}%`,
-      value: props.salesCount,
-      topBorder: false,
-      bottomBorder: true,
-      leftBorder: true,
-      rightBorder: true,
+      value: salesCount,
     },
   ];
 
+  function valueColor(value) {
+    const num = value.toString().replace(/[^0-9]/g, "");
+
+    if (num < 0) {
+      return "#E53E3E";
+    } else {
+      return "#1D8751";
+    }
+  }
+
   return (
-    <div className="xl:pb-0 py-10">
-      <div className="border rounded-lg border-[#E2E8F0]">
-        <h6 className="pl-2 pt-3">Reports</h6>
-        <div className="phone-sizing:grid-cols-2 tablet-screen:grid-cols-3 grid grid-cols-1 p-2">
-          {reportsGrid.map((item, key) => {
-            const reportTextColor =
-              item.value >= 0 ? "text-[#1D8751]" : "text-[#e53e3e]";
-            const percentTextColor =
-              item.value >= 0 ? "text-[#1D8751]" : "text-[#e53e3e]";
-
-            const topBordering = item.topBorder === true ? "border-t" : "";
-            const bottomBordering = (item.bottomBorder = true
-              ? "border-b"
-              : "");
-            const leftBordering = item.leftBorder === true ? "border-l" : "";
-            const rightBordering = item.rightBorder === true ? "border-r" : "";
-
+    <Box border="1px" borderColor="#EDEDED" borderRadius={8} shadow="md" mt={8}>
+      <Box p={3}>
+        <h2 className="text-xl font-semibold">Reports</h2>
+        <SimpleGrid
+          columns={2}
+          bg="#EDEDED"
+          gridGap="1px"
+          border="1px"
+          borderColor="#EDEDED"
+          mt={4}
+        >
+          {reportsGrid.map((item) => {
             return (
-              <div key={uuidv4()} className={`border pl-4 pt-3 pb-3`}>
-                <h6>{item.title}</h6>
-                <div className="flex items-center">
-                  <h5 className={reportTextColor}>{item.priceCount}</h5>
-                  <span
-                    className={`${percentTextColor} border rounded-[16px] px-2 ml-2 mb-1 text-xs font-medium`}
-                  >
-                    {item.percentValue}
-                  </span>
-                </div>
-              </div>
+              <Container key={uuidv4()} bg="white" p={5}>
+                <Box>
+                  <p className="text-sm font-semibold m-0">{item.title}</p>
+                  <Flex alignItems="center" color={valueColor(item.value)}>
+                    <h2 className="text-xl">{item.value}</h2>
+                    <span className="border rounded-[16px] px-2 ml-2 mb-1 text-xs font-medium">
+                      {item.percentValue}
+                    </span>
+                  </Flex>
+                </Box>
+              </Container>
             );
           })}
-        </div>
-      </div>
-    </div>
+        </SimpleGrid>
+      </Box>
+    </Box>
   );
 }

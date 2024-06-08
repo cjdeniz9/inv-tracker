@@ -12,8 +12,15 @@ import {
   faSackDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { useDispatch } from "react-redux";
+import { updateStatus } from "../context/inventorySlice";
+import { updateChartStatus } from "../features/dashboard/context/chartSlice";
+import { Button } from "@chakra-ui/react";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -71,15 +78,34 @@ export default function Navbar() {
             <li>
               <Link
                 to="/dashboard"
-                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
+                className="w-[90%] flex no-underline font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
-                <FontAwesomeIcon icon={faTable} className="text-granite-gray" />
-                <span className="ml-4 text-[#242424]">Dashboard</span>
+                <Button
+                  w="full"
+                  bg="none"
+                  _hover={{
+                    bg: "#CFCFCF",
+                  }}
+                >
+                  <div className="w-full text-left">
+                    <FontAwesomeIcon
+                      icon={faTable}
+                      className="text-granite-gray"
+                    />
+                    <span className="font-normal ml-4 text-[#242424]">
+                      Dashboard
+                    </span>
+                  </div>
+                </Button>
               </Link>
             </li>
             <li>
               <Link
                 to="/"
+                onClick={() => {
+                  dispatch(updateChartStatus("idle"));
+                  dispatch(updateStatus("idle"));
+                }}
                 className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon

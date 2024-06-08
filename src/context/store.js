@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import chartReducer from "../features/dashboard/context/chartSlice";
+import dashboardReducer from "../features/dashboard/context/dashboardSlice";
 import errorReducer from "./errorSlice";
 import filteredItemReducer from "./filteredItemSlice";
 import inventoryReducer from "./inventorySlice";
@@ -16,6 +18,8 @@ import tabReducer from "../features/createItem/context/tabSlice";
 
 export const store = configureStore({
   reducer: {
+    chart: chartReducer,
+    dashboard: dashboardReducer,
     error: errorReducer,
     filteredItem: filteredItemReducer,
     inventory: inventoryReducer,
