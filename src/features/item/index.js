@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,18 +27,23 @@ import TrackShipment from "../trackShipment/index";
 export default function Item() {
   const dispatch = useDispatch();
 
+  let location = useLocation();
+
   const inv = useSelector(getInventory);
   const inventoryStatus = useSelector(getInventoryStatus);
 
   let { id } = useParams;
 
   const itemId = useParams().id;
+  const saleId = useParams().productId;
 
   useEffect(() => {
     if (inventoryStatus === "idle") {
       dispatch(fetchInventory());
     } else if (inventoryStatus === "succeeded") {
-      const filteredId = inv.filter((item) => item.id.includes(itemId));
+      const filteredId = inv.filter((item) =>
+        item.id.includes(location.pathname === `/${item.id}` ? itemId : saleId)
+      );
       dispatch(setFilteredItem(filteredId));
       dispatch(updateStatus("complete"));
     }

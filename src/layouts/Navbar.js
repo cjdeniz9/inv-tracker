@@ -118,6 +118,10 @@ export default function Navbar() {
             <li>
               <Link
                 to="/sales"
+                onClick={() => {
+                  dispatch(updateChartStatus("idle"));
+                  dispatch(updateStatus("idle"));
+                }}
                 className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
               >
                 <FontAwesomeIcon

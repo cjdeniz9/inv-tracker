@@ -29,7 +29,7 @@ export default function PurchaseDetails() {
     {
       id: 1,
       title: "Shipping",
-      value: item.shippingPrice === undefined ? "" : "$" + item.shippingPrice,
+      value: item.shippingPrice === undefined ? "" : "" + item.shippingPrice,
     },
     {
       id: 2,
@@ -39,7 +39,10 @@ export default function PurchaseDetails() {
     {
       id: 3,
       title: "Place of purchase",
-      value: item.placeOfPurchase,
+      value:
+        item.placeOfPurchase === "" || item.placeOfPurchase === undefined
+          ? "-"
+          : item.placeOfPurchase,
     },
     {
       id: 4,
@@ -51,7 +54,7 @@ export default function PurchaseDetails() {
       title: "Order number",
       value:
         item.orderNum === "" || item.orderNum === undefined
-          ? "None"
+          ? "-"
           : "#" + item.orderNum,
     },
   ];

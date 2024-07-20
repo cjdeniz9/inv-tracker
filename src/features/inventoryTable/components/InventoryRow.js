@@ -25,7 +25,7 @@ export default function InventoryRow({ id, row }) {
       </td>
       <td className="max-w-xs text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">
         <Link
-          to={location.pathname === "/" ? `/${id}` : `/sales/${row.id}`}
+          to={location.pathname === "/" ? `/${id}` : `/sales/${id}`}
           className="no-underline"
         >
           {row.name}

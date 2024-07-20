@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   getFilteredId,
@@ -21,6 +21,8 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 export default function ItemHeader() {
   const dispatch = useDispatch();
 
+  let location = useLocation();
+
   const filteredId = useSelector(getFilteredId);
   const filteredItem = useSelector(getFilteredItem);
 
@@ -32,9 +34,15 @@ export default function ItemHeader() {
 
   return (
     <div className="pb-4">
-      <Link to="/" className="no-underline text-blue-ryb">
-        <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Inventory
-      </Link>
+      {location.pathname === `/${filteredId}` ? (
+        <Link to="/" className="no-underline text-blue-ryb">
+          <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Inventory
+        </Link>
+      ) : (
+        <Link to="/sales" className="no-underline text-blue-ryb">
+          <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Sales
+        </Link>
+      )}
       <span className="text-granite-gray"> / Item #{filteredId}</span>
       <div className="flex w-full justify-between pt-3">
         <div>

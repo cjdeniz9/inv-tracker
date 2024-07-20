@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+
+import { updateStatus } from "../context/inventorySlice";
 
 import Header from "../components/Header";
 import InventoryTable from "../features/inventoryTable/components/InventoryTable";
@@ -7,69 +11,74 @@ import Search from "../features/inventoryTable/components/Search";
 import InventoryTableHead from "../features/inventoryTable/components/InventoryTableHead";
 
 export default function Sales() {
+  const dispatch = useDispatch();
+
   let salesInv;
 
-  const [inventory, setInventory] = useState(
-    () => JSON.parse(localStorage.getItem("inventory")) || []
-  );
+  const isClient = typeof window !== "undefined";
+  let currentPathname = isClient ? window.location.pathname : "";
 
   const [search, setSearch] = useState("");
 
-  if (search.length > 0) {
-    salesInv = inventory
-      .filter((item) => {
-        return item.name.toLowerCase().includes(search.toLowerCase());
-      })
-      .map((item) => {
-        return (
-          <InventoryTable
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            brand={item.brand}
-            size={item.size}
-            sizeTypeSelected={item.sizeTypeSelected}
-            styleId={item.styleId}
-            status={item.status}
-            colorway={item.colorway}
-            placeOfPurchase={item.placeOfPurchase}
-            purchasedDate={item.purchasedDate}
-            soldDate={item.soldDate}
-            price={item.price}
-            roi={item.roi}
-            condition={item.condition}
-            notes={item.notes}
-          />
-        );
-      });
-  } else {
-    salesInv = inventory
-      .filter((item) => {
-        return item.status.toLowerCase().includes("sold");
-      })
-      .map((item) => {
-        return (
-          <InventoryTable
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            brand={item.brand}
-            size={item.size}
-            sizeTypeSelected={item.sizeTypeSelected}
-            styleId={item.styleId}
-            status={item.status}
-            colorway={item.colorway}
-            placeOfPurchase={item.placeOfPurchase}
-            purchasedDate={item.purchasedDate}
-            soldDate={item.soldDate}
-            price={item.price}
-            roi={item.roi}
-            condition={item.condition}
-            notes={item.notes}
-          />
-        );
-      });
-  }
+  // if (search.length > 0) {
+  //   salesInv = inventory
+  //     .filter((item) => {
+  //       return item.name.toLowerCase().includes(search.toLowerCase());
+  //     })
+  //     .map((item) => {
+  //       return (
+  //         <InventoryTable
+  //           key={item.id}
+  //           id={item.id}
+  //           name={item.name}
+  //           brand={item.brand}
+  //           size={item.size}
+  //           sizeTypeSelected={item.sizeTypeSelected}
+  //           styleId={item.styleId}
+  //           status={item.status}
+  //           colorway={item.colorway}
+  //           placeOfPurchase={item.placeOfPurchase}
+  //           purchasedDate={item.purchasedDate}
+  //           soldDate={item.soldDate}
+  //           price={item.price}
+  //           roi={item.roi}
+  //           condition={item.condition}
+  //           notes={item.notes}
+  //         />
+  //       );
+  //     });
+  // } else {
+  //   salesInv = inventory
+  //     .filter((item) => {
+  //       return item.status.toLowerCase().includes("sold");
+  //     })
+  //     .map((item) => {
+  //       return (
+  //         <InventoryTable
+  //           key={item.id}
+  //           id={item.id}
+  //           name={item.name}
+  //           brand={item.brand}
+  //           size={item.size}
+  //           sizeTypeSelected={item.sizeTypeSelected}
+  //           styleId={item.styleId}
+  //           status={item.status}
+  //           colorway={item.colorway}
+  //           placeOfPurchase={item.placeOfPurchase}
+  //           purchasedDate={item.purchasedDate}
+  //           soldDate={item.soldDate}
+  //           price={item.price}
+  //           roi={item.roi}
+  //           condition={item.condition}
+  //           notes={item.notes}
+  //         />
+  //       );
+  //     });
+  // }
+
+  useEffect(() => {
+    currentPathname?.includes("/sales") && dispatch(updateStatus("idle"));
+  }, []);
 
   return (
     <>
@@ -84,7 +93,7 @@ export default function Sales() {
         <div className="relative overflow-x-auto max-h-[39rem]">
           <table className="w-full overflow-scroll text-sm text-left">
             <InventoryTableHead />
-            <tbody>{salesInv}</tbody>
+            <InventoryTable />
           </table>
         </div>
       </div>
