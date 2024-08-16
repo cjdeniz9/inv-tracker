@@ -10,7 +10,7 @@ import Packages from "./pages/Packages";
 import ProductDetail from "./pages/ProductDetail";
 import SalesProductDatail from "./pages/SalesProductDetail";
 import Sales from "./pages/Sales";
-import ProductPackage from "./pages/ProductPackage";
+import PackageDetail from "./pages/PackageDetail";
 
 export default function App({ urlname }) {
   const [error, setError] = useState();
@@ -85,10 +85,7 @@ export default function App({ urlname }) {
             />
           }
         />
-        <Route
-          path="/packages/:productId"
-          element={<ProductPackage inventory={inventory} />}
-        />
+        <Route path="/packages/:productId" element={<PackageDetail />} />
         <Route path="/sales" element={<Sales />} />
         <Route path="/sales/:productId" element={<SalesProductDatail />} />
       </Routes>

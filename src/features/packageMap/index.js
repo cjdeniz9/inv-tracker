@@ -6,13 +6,13 @@ import { useSelector } from "react-redux";
 
 import { getFilteredItem } from "../../context/filteredItemSlice";
 
-export default function PackageMap() {
+export default function PackageMap({ marginTop, height, width }) {
   const filteredItem = useSelector(getFilteredItem);
 
   return (
     filteredItem.geometry !== undefined && (
       <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-        <div className="mt-4 h-[48vh] w-full">
+        <div className={`mt-${marginTop} h-[${height}vh] w-${width}`}>
           <Map
             zoom={13}
             center={{

@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
+
+import { getFilteredItem } from "../../context/filteredItemSlice";
 
 import BtnDelete from "../../features/packageHeader/components/BtnDelete";
 import BtnEdit from "../../features/packageHeader/components/BtnEdit";
@@ -11,6 +15,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function PackageHeader(props) {
+  const filteredItem = useSelector(getFilteredItem);
+
+  const [item, setItem] = useState({});
+
+  useEffect(() => {
+    setItem(filteredItem);
+  }, []);
+
   const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
@@ -34,10 +46,10 @@ export default function PackageHeader(props) {
             getGeocoding={props.getGeocoding}
             setIsOpenEdit={setIsOpenEdit}
           />
-          <BtnDelete setIsOpenDelete={setIsOpenDelete} />
+          {/* <BtnDelete setIsOpenDelete={setIsOpenDelete} /> */}
         </div>
       </div>
-      <TrackPackage
+      {/* <TrackPackage
         activeProduct={props.activeProduct}
         isOpenEdit={isOpenEdit}
         setIsOpenEdit={setIsOpenEdit}
@@ -46,7 +58,7 @@ export default function PackageHeader(props) {
         activeProduct={props.activeProduct}
         isOpenDelete={isOpenDelete}
         setIsOpenDelete={setIsOpenDelete}
-      />
+      /> */}
     </div>
   );
 }

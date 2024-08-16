@@ -2,21 +2,19 @@ import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import {
   getFilteredId,
   getFilteredItem,
 } from "../../context/filteredItemSlice";
-import { updateStatus } from "../../context/inventorySlice";
 
 import ChangeImage from "./components/ChangeImage";
 import DeleteItem from "./components/DeleteItem";
 import EditItem from "./components/EditItem";
 import UploadImage from "./components/UploadImage";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import Breadcrumb from "../../components/header/Breadcrumb";
 
 export default function ItemHeader() {
   const dispatch = useDispatch();
@@ -32,29 +30,42 @@ export default function ItemHeader() {
     setItem(filteredItem);
   }, []);
 
+  let header;
+  if (location.pathname === `/${filteredId}`) {
+    header = (
+      <Breadcrumb link="/" title="Inventory" type="Item" id={filteredId} />
+    );
+  } else if (location.pathname === `/sales/${filteredId}`) {
+    header = (
+      <Breadcrumb link="/sales" title="Sales" type="Item" id={filteredId} />
+    );
+  } else if (location.pathname === `/packages/${filteredId}`) {
+    header = (
+      <Breadcrumb
+        link="/packages"
+        title="Packages"
+        type="Package"
+        id={filteredItem.shippingInfo.trackingNum}
+      />
+    );
+  }
+
   return (
     <div className="pb-4">
-      {location.pathname === `/${filteredId}` ? (
-        <Link to="/" className="no-underline text-blue-ryb">
-          <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Inventory
-        </Link>
-      ) : (
-        <Link to="/sales" className="no-underline text-blue-ryb">
-          <FontAwesomeIcon icon={faAngleLeft} className="pr-1" /> Sales
-        </Link>
-      )}
-      <span className="text-granite-gray"> / Item #{filteredId}</span>
+      {header}
       <div className="flex w-full justify-between pt-3">
         <div>
           <h1 className="phone-screen:text-2xl tablet-screen:text-3xl xl:text-4xl">
             {item.name}
           </h1>
         </div>
-        <div>
-          {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
-          <EditItem />
-          <DeleteItem />
-        </div>
+        {location.pathname !== `/packages/${filteredId}` && (
+          <div>
+            {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
+            <EditItem />
+            <DeleteItem />
+          </div>
+        )}
       </div>
     </div>
   );

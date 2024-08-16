@@ -22,6 +22,7 @@ import Listings from "../listings/index";
 import PackageMap from "../packageMap/index";
 import PurchaseDetails from "../purchaseDetails/index";
 import TrackShipment from "../trackShipment/index";
+import TrackingDetails from "../trackingDetails";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
 
 export default function Item() {
@@ -58,15 +59,29 @@ export default function Item() {
             <div className="tablet-screen:w-4/12 w-full">
               <div id="feed" className="tablet-screen:px-7">
                 <ItemTimeline />
-                <TrackShipment />
-                <PackageMap />
+                {(location.pathname === `/${itemId}` ||
+                  location.pathname === `/sales/${saleId}`) && (
+                  <>
+                    <TrackShipment />
+                    <PackageMap />
+                  </>
+                )}
               </div>
             </div>
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
               <ItemDetails />
               <div className="w-full flex justify-between mt-8">
-                <Listings />
-                <PurchaseDetails />
+                {location.pathname === `/packages/${saleId}` ? (
+                  <>
+                    <TrackingDetails />
+                    <PackageMap height={54} width="1/2" />
+                  </>
+                ) : (
+                  <>
+                    <Listings />
+                    <PurchaseDetails />
+                  </>
+                )}
               </div>
             </div>
           </main>

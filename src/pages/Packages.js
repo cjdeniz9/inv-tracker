@@ -17,8 +17,8 @@ export default function Packages(props) {
         </div>
         <div className="relative overflow-x-auto max-h-[39rem]">
           <table className="w-full overflow-scroll text-sm text-left">
-            <TableHeader />
-            <PackageTable inventory={props.inventory} />
+            {/* <TableHeader />
+            <PackageTable inventory={props.inventory} /> */}
             {/* <tbody>{salesInv}</tbody> */}
           </table>
         </div>
