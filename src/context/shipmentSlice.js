@@ -12,10 +12,13 @@ export const shipmentSlice = createSlice({
     addTrackingNum: (state, action) => {
       state.trackingNum = action.payload;
     },
+    removeTrackingNum: (state) => {
+      state.trackingNum = initialState.trackingNum;
+    },
   },
 });
 
-export const { addTrackingNum } = shipmentSlice.actions;
+export const { addTrackingNum, removeTrackingNum } = shipmentSlice.actions;
 
 export const getTrackingNum = (state) => state.shipment.trackingNum;
 

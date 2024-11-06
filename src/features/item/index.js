@@ -14,6 +14,7 @@ import {
   fetchInventory,
   updateStatus,
 } from "../../context/inventorySlice";
+import { removeTrackingNum } from "../../context/shipmentSlice";
 
 import ItemDetails from "../itemDetails/index";
 import ItemHeader from "../itemHeader/index";
@@ -49,6 +50,30 @@ export default function Item() {
       dispatch(updateStatus("complete"));
     }
   }, [inventoryStatus, dispatch]);
+
+  useEffect(() => {
+    return () => dispatch(removeTrackingNum());
+  }, []);
+
+  async function fetchShipment() {
+    console.log("w");
+    try {
+      const response = await fetch("http://localhost:8000/product/travis");
+
+      if (!response.ok) {
+        throw new Error("Could not fetch resource");
+      }
+
+      console.log(response);
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  fetchShipment();
 
   return (
     inventoryStatus === "complete" && (

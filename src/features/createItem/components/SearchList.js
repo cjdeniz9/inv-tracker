@@ -31,8 +31,7 @@ export default function SearchList() {
   }
 
   return (
-    searchList === true &&
-    results.length >= 1 && (
+    searchList === true && (
       <Box
         w="52.7rem"
         maxH="56.5vh"

@@ -5,8 +5,8 @@ import { deleteSelected, getSelected } from "../context/selectedSlice";
 import {
   getCreateInventory,
   getProductDetails,
+  resetShow,
   toggleCreateInventory,
-  toggleCustomItemForm,
   toggleProductDetails,
 } from "../context/showSlice";
 import { getSize } from "../../../context/sizeSlice";
@@ -33,9 +33,7 @@ export default function Header() {
     } else {
       dispatch(deleteProduct());
       dispatch(deleteSelected());
-      dispatch(toggleCustomItemForm());
-      dispatch(toggleProductDetails());
-      dispatch(toggleCreateInventory());
+      dispatch(resetShow());
     }
   }
 

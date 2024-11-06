@@ -10,7 +10,7 @@ import {
   getFilteredItem,
 } from "../../context/filteredItemSlice";
 import { updateStatus } from "../../context/inventorySlice";
-import { getTrackingNum } from "../../context/shipmentSlice";
+import { getTrackingNum, removeTrackingNum } from "../../context/shipmentSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
@@ -50,20 +50,46 @@ export default function TrackShipment() {
     dispatch(updateStatus("idle"));
   }
 
-  const addShipment = async (e) => {
+  // const addShipment = async (e) => {
+  //   e.preventDefault();
+
+  //   if (trackingNum) {
+  //     let data = await fetch(
+  //       `https://inv-tracker.onrender.com/trackingNumber/${trackingNum}`
+  //     );
+  //     data = await data.json();
+  //     if (data) {
+  //       setShipmentDetails(data);
+  //     }
+  //     getGeocoding(data);
+  //   }
+  // };
+
+  async function addShipment(e) {
     e.preventDefault();
 
-    if (trackingNum) {
-      let data = await fetch(
+    try {
+      const response = await fetch(
+        // `http://localhost:8000/trackingNumber/${trackingNum}`
         `https://inv-tracker.onrender.com/trackingNumber/${trackingNum}`
       );
-      data = await data.json();
-      if (data) {
-        setShipmentDetails(data);
+
+      if (!response.ok) {
+        throw new Error("Could not fetch resource");
       }
-      getGeocoding(data);
+
+      const data = await response.json();
+
+      console.log(response);
+      console.log(data);
+
+      // setShipmentDetails(data);
+      // getGeocoding(data);
+    } catch (error) {
+      console.error(error);
+      console.log("test");
     }
-  };
+  }
 
   if (Object.keys(shipmentDetails).length !== 0) {
     updateDoc(doc(db, "inventory", id), {
@@ -80,6 +106,7 @@ export default function TrackShipment() {
       },
     });
 
+    dispatch(removeTrackingNum());
     dispatch(updateStatus("idle"));
 
     setShipmentDetails([]);

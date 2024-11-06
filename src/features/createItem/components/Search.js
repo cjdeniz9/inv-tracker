@@ -3,7 +3,11 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getResults, setResults } from "../context/resultsSlice";
-import { toggleNoResults, toggleSearchList } from "../context/showSlice";
+import {
+  getNoResults,
+  toggleNoResults,
+  toggleSearchList,
+} from "../context/showSlice";
 import { getKeyword, setKeyword } from "../../../context/keywordSlice";
 
 import { Flex, Spinner } from "@chakra-ui/react";
@@ -16,6 +20,7 @@ export default function Search() {
   const dispatch = useDispatch();
 
   const keyword = useSelector(getKeyword);
+  const noResults = useSelector(getNoResults);
   const results = useSelector(getResults);
 
   function useOutsideAlerter(ref) {
@@ -44,9 +49,12 @@ export default function Search() {
     const fetchProducts = async () => {
       try {
         const response = await api.get(`/product/${keyword}`);
-        if (response && response.data) {
+        if (response && response.data != null) {
           dispatch(toggleNoResults(false));
           dispatch(setResults(response.data));
+        } else {
+          dispatch(toggleNoResults(true));
+          dispatch(setResults([]));
         }
       } catch (err) {
         if (err.response) {
@@ -62,7 +70,9 @@ export default function Search() {
       }
     };
 
-    fetchProducts();
+    if (keyword.length > 0 || keyword !== "") {
+      fetchProducts();
+    }
   }, [keyword]);
 
   return (
