@@ -12,7 +12,10 @@ import {
   editListingPrice,
   getFilteredItem,
 } from "../../../context/filteredItemSlice";
+
 import InputField from "../../../components/form/InputField";
+
+import moment from "moment";
 
 import { Flex, ModalBody } from "@chakra-ui/react";
 
@@ -68,6 +71,7 @@ export default function ListedForm() {
           onChange={
             filteredItem.status === "Listed" ? editListingDate : addListingDate
           }
+          max={moment().format("YYYY-MM-DD")}
           width="96%"
           required={true}
         />

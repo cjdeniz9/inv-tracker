@@ -70,8 +70,8 @@ export default function TrackShipment() {
 
     try {
       const response = await fetch(
-        // `http://localhost:8000/trackingNumber/${trackingNum}`
-        `https://inv-tracker.onrender.com/trackingNumber/${trackingNum}`
+        `http://localhost:8000/trackingNumber/${trackingNum}`
+        // `https://inv-tracker.onrender.com/trackingNumber/${trackingNum}`
       );
 
       if (!response.ok) {
@@ -86,8 +86,7 @@ export default function TrackShipment() {
       // setShipmentDetails(data);
       // getGeocoding(data);
     } catch (error) {
-      console.error(error);
-      console.log("test");
+      console.error(error.response);
     }
   }
 

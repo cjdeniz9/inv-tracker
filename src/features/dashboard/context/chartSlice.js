@@ -20,9 +20,7 @@ const initialState = {
 
 export const fetchChart = createAsyncThunk("dashboard/fetchChart", async () => {
   const dashboard = collection(db, "dashboard");
-  const querySnapshot = await getDocs(
-    query(dashboard, orderBy("timestamp", "asc"))
-  );
+  const querySnapshot = await getDocs(query(dashboard, orderBy("date", "asc")));
   const chart = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     item: doc.data(),
@@ -35,7 +33,6 @@ export const updateChartInFirestore = createAsyncThunk(
   async (data) => {
     const id = data.id;
     const currentProfits = data.profit;
-    console.log(currentProfits);
     return await updateDoc(doc(db, "dashboard", id), {
       profit: currentProfits,
     });
@@ -72,6 +69,8 @@ export const chartSlice = createSlice({
 export const { updateChartStatus } = chartSlice.actions;
 
 export const getChartStatus = (state) => state.chart.status;
+export const getChartError = (state) => state.chart.error;
+
 export const getChart = (state) => state.chart.chartData;
 
 export default chartSlice.reducer;

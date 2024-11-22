@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+import { db } from "../../../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -14,6 +17,12 @@ import {
   clearSale,
   getSale,
 } from "../context/saleSlice";
+import {
+  fetchChart,
+  getChart,
+  getChartStatus,
+  updateChartStatus,
+} from "../../dashboard/context/chartSlice";
 import {
   getFilteredId,
   getFilteredItem,
@@ -42,6 +51,9 @@ import {
 
 import AlertNotif from "../../../components/alert/AlertNotif";
 
+import { formatToUniversalDate } from "../../../utils/formatToUniversalDate";
+import { formatDate } from "../../../utils/formatDate";
+
 export default function MarkAsMenu() {
   const {
     isOpen: isSoldOpen,
@@ -64,10 +76,21 @@ export default function MarkAsMenu() {
   const listing = useSelector(getListing);
   const sale = useSelector(getSale);
 
+  const chart = useSelector(getChart);
+  const chartStatus = useSelector(getChartStatus);
+
   useEffect(() => {
     dispatch(addListingFilteredId(filteredId));
     dispatch(addSaleFilteredId(filteredId));
   }, []);
+
+  useEffect(() => {
+    if (isSoldOpen && chartStatus === "idle") {
+      dispatch(fetchChart());
+    } else if (chartStatus === "succeeded") {
+      dispatch(updateChartStatus("complete"));
+    }
+  }, [isSoldOpen]);
 
   const addListed = (e) => {
     e.preventDefault();
@@ -83,6 +106,23 @@ export default function MarkAsMenu() {
     const total =
       Number(sale.salePrice) -
       (Number(sale.salePlatformFees) + Number(sale.saleShipping));
+
+    function addSaleToChartData() {
+      const chartFilter = chart.filter((i) => {
+        const date = formatToUniversalDate(i.item.date);
+        if (date.includes(sale.saleDate)) {
+          return i;
+        }
+      });
+
+      if (chartFilter.length === 0) {
+        addDoc(collection(db, "dashboard"), {
+          date: sale.saleDate,
+          profit: sale.salePrice,
+          timestamp: serverTimestamp(),
+        });
+      }
+    }
 
     if (total <= 0) {
       toast({
@@ -100,6 +140,7 @@ export default function MarkAsMenu() {
       onSoldClose();
     } else {
       dispatch(addSaleToFirestore(sale));
+      addSaleToChartData();
       dispatch(clearSale());
       dispatch(updateStatus("idle"));
     }

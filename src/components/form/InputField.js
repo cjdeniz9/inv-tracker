@@ -10,6 +10,7 @@ const InputField = ({
   booleanOnChange,
   customOnChange,
   onChange,
+  max,
   width,
   required,
 }) => {
@@ -32,6 +33,7 @@ const InputField = ({
                 dispatch(onChange(e.target.value));
               }
         }
+        max={max}
         w={width}
         fontSize={17}
         _focusVisible={{

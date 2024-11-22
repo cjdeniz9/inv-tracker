@@ -11,6 +11,8 @@ import {
 
 import InputField from "../../../components/form/InputField";
 
+import moment from "moment";
+
 import { Flex, ModalBody } from "@chakra-ui/react";
 
 export default function SoldForm() {
@@ -42,6 +44,7 @@ export default function SoldForm() {
           placeholder=""
           value={sale.saleDate}
           onChange={addSaleDate}
+          max={moment().format("YYYY-MM-DD")}
           width="96%"
           required={true}
         />

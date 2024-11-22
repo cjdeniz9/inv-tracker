@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   Chart as ChartJS,
@@ -13,9 +13,11 @@ import {
 
 import { Line } from "react-chartjs-2";
 
-import { getChart } from "../context/chartSlice";
+import useAddChartData from "../hooks/useAddChartData";
+import useFetchChart from "../hooks/useFetchChart";
 
 import { formatCurrency } from "../../../utils/formatCurrency";
+import { formatDate } from "../../../utils/formatDate";
 
 ChartJS.register(
   CategoryScale,
@@ -28,7 +30,11 @@ ChartJS.register(
 );
 
 export default function Chart() {
-  const chartData = useSelector(getChart);
+  const dispatch = useDispatch();
+
+  const { chart } = useFetchChart();
+
+  const {} = useAddChartData();
 
   // Tooltip.positioners.cursor = function (chartElements, coordinates) {
   //   return coordinates;
@@ -81,15 +87,15 @@ export default function Chart() {
     },
   };
 
-  const labels = chartData.map((data) => {
-    return data.item.date;
+  const labels = chart.map((data) => {
+    return formatDate(data.item.date);
   });
 
   const data = {
     labels,
     datasets: [
       {
-        data: chartData.map((data) => data.item.profit),
+        data: chart.map((data) => data.item.profit),
         borderColor: "rgba(72, 187, 120, 1)",
         pointStyle: false,
       },

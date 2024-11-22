@@ -1,63 +1,19 @@
-import { useSelector } from "react-redux";
-
-import { getChart } from "../context/chartSlice";
-import {
-  getNetProfit,
-  getSalesCount,
-  getTotalSpend,
-} from "../context/dashboardSlice";
-
-import { getInventory } from "../../../context/inventorySlice";
+import useHandleHeader from "../hooks/useHandleHeader";
 
 import { profitColor } from "../utils/profitColor";
 import { profitIcon } from "../utils/profitIcon";
 
 export default function Header() {
-  const chartData = useSelector(getChart);
-  const inventory = useSelector(getInventory);
+  const {
+    totalIncome,
+    currentProfit,
+    adjustedProfitAmount,
+    checkAdjustedProfitPercent,
+    inventoryCount,
+    salesCount,
+  } = useHandleHeader();
 
-  const netProfit = useSelector(getNetProfit);
-  const salesCount = useSelector(getSalesCount);
-  const totalSpend = useSelector(getTotalSpend);
-
-  const totalIncome = totalSpend + netProfit;
-
-  const currentProfit = chartData.length
-    ? chartData.slice(-1)[0].item.profit
-    : 0;
-
-  const currentTotal = inventory.reduce(function (prev, current) {
-    return prev + +current.item.price;
-  }, 0);
-
-  const adjustedProfitAmount =
-    chartData.length === 0 || 1
-      ? 0
-      : chartData.slice(-2)[0].item.profit - chartData.slice(-1)[0].item.profit;
-
-  // const adjustedProfitPercent =
-  //   props.newDate.length === 0 || 1
-  //     ? 0
-  //     : (
-  //         (props.newDate.slice(-1)[0].profit /
-  //           props.newDate.slice(-2)[0].profit) *
-  //         100
-  //       ).toFixed(2);
-
-  const adjustedProfitPercent =
-    chartData.length === 0 || undefined
-      ? 0
-      : ((currentProfit / currentTotal) * 100).toFixed(2);
-
-  const checkAdjustedProfitPercent = isNaN(adjustedProfitPercent)
-    ? 0
-    : adjustedProfitPercent;
-
-  const inventoryCount = inventory.filter((inv) => {
-    return !inv.item.status.toLowerCase().includes("Sold");
-  }).length;
-
-  const inventoryStock = [
+  const headerValues = [
     {
       id: 1,
       value: inventoryCount,
@@ -83,7 +39,7 @@ export default function Header() {
           {profitIcon(adjustedProfitAmount)} ${currentProfit} (
           {checkAdjustedProfitPercent}%)
         </span>
-        {inventoryStock.map((item, key) => {
+        {headerValues.map((item, key) => {
           return (
             <span
               key={item.id}

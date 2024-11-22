@@ -26,6 +26,8 @@ import { Divider, Flex, Spacer, useModalContext } from "@chakra-ui/react";
 
 import InputField from "../../../components/form/InputField";
 
+import moment from "moment";
+
 export default function PurchaseDetails() {
   const dispatch = useDispatch();
 
@@ -145,6 +147,7 @@ export default function PurchaseDetails() {
           type="date"
           value={product.purchasedDate}
           onChange={addPurchasedDate}
+          max={moment().format("YYYY-MM-DD")}
           width="10rem"
           required={true}
         />

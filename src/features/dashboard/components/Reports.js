@@ -1,38 +1,31 @@
-import { useSelector } from "react-redux";
-
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  getItemsPurchased,
-  getNetProfit,
-  getSalesCount,
-  getTotalSpend,
-} from "../context/dashboardSlice";
+import useHandleReport from "../hooks/useHandleReport";
+
+import { formatCurrency } from "../../../utils/formatCurrency";
+import { profitColor } from "../../../utils/chakraUI/profitColor";
 
 import { Box, Container, Flex, SimpleGrid } from "@chakra-ui/react";
 
-import { formatCurrency } from "../../../utils/formatCurrency";
-
 export default function Reports() {
-  const defaultPercentValue = 0;
-
-  const itemPurchased = useSelector(getItemsPurchased);
-  const netProfit = useSelector(getNetProfit);
-  const salesCount = useSelector(getSalesCount);
-  const salesIncome = useSelector(getSalesCount);
-  const totalSpend = useSelector(getTotalSpend);
-
-  const netProfitPercent = ((netProfit / totalSpend) * 100).toFixed(2);
+  const {
+    itemPurchased,
+    netProfit,
+    salesCount,
+    salesIncome,
+    totalSpend,
+    netProfitPercent,
+  } = useHandleReport();
 
   const reportsGrid = [
     {
       title: "Sales Income",
-      percentValue: `${defaultPercentValue}%`,
+      percentValue: "0%",
       value: formatCurrency(salesIncome),
     },
     {
       title: "Total Spend",
-      percentValue: `${defaultPercentValue}%`,
+      percentValue: "0%",
       value: formatCurrency(totalSpend),
     },
     {
@@ -42,30 +35,20 @@ export default function Reports() {
     },
     {
       title: "Item Spend",
-      percentValue: `${defaultPercentValue}%`,
+      percentValue: "0%",
       value: 0,
     },
     {
       title: "Items Purchased",
-      percentValue: `${defaultPercentValue}%`,
+      percentValue: "0%",
       value: itemPurchased,
     },
     {
       title: "Sales Count",
-      percentValue: `${defaultPercentValue}%`,
+      percentValue: "0%",
       value: salesCount,
     },
   ];
-
-  function valueColor(value) {
-    const num = value.toString().replace(/[^0-9]/g, "");
-
-    if (num < 0) {
-      return "#E53E3E";
-    } else {
-      return "#1D8751";
-    }
-  }
 
   return (
     <Box border="1px" borderColor="#EDEDED" borderRadius={8} shadow="md" mt={8}>
@@ -84,7 +67,7 @@ export default function Reports() {
               <Container key={uuidv4()} bg="white" p={5}>
                 <Box>
                   <p className="text-sm font-semibold m-0">{item.title}</p>
-                  <Flex alignItems="center" color={valueColor(item.value)}>
+                  <Flex alignItems="center" color={profitColor(item.value)}>
                     <h2 className="text-xl">{item.value}</h2>
                     <span className="border rounded-[16px] px-2 ml-2 mb-1 text-xs font-medium">
                       {item.percentValue}

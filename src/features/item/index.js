@@ -55,25 +55,25 @@ export default function Item() {
     return () => dispatch(removeTrackingNum());
   }, []);
 
-  async function fetchShipment() {
-    console.log("w");
-    try {
-      const response = await fetch("http://localhost:8000/product/travis");
+  // async function fetchShipment() {
+  //   console.log("w");
+  //   try {
+  //     const response = await fetch("http://localhost:8000/product/travis");
 
-      if (!response.ok) {
-        throw new Error("Could not fetch resource");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Could not fetch resource");
+  //     }
 
-      console.log(response);
+  //     console.log(response);
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //     const data = await response.json();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
-  fetchShipment();
+  // fetchShipment();
 
   return (
     inventoryStatus === "complete" && (
