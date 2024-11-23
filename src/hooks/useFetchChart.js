@@ -7,7 +7,7 @@ import {
   getChart,
   getChartError,
   getChartStatus,
-} from "../context/chartSlice";
+} from "../features/dashboard/context/chartSlice";
 
 export default function useFetchChart() {
   const dispatch = useDispatch();

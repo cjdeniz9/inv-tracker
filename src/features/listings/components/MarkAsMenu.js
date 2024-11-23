@@ -1,36 +1,19 @@
 import { useEffect } from "react";
 
-import { db } from "../../../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  addListingFilteredId,
-  addListingToFirestore,
-  clearListing,
-  getListing,
-} from "../context/listingSlice";
-import {
-  addSaleFilteredId,
-  addSaleToFirestore,
-  clearSale,
-  getSale,
-} from "../context/saleSlice";
-import {
-  fetchChart,
-  getChart,
-  getChartStatus,
-  updateChartStatus,
-} from "../../dashboard/context/chartSlice";
+import { addListingFilteredId, clearListing } from "../context/listingSlice";
+import { addSaleFilteredId, clearSale } from "../context/saleSlice";
 import {
   getFilteredId,
   getFilteredItem,
 } from "../../../context/filteredItemSlice";
-import { updateStatus } from "../../../context/inventorySlice";
 
 import SoldForm from "./SoldForm";
 import ListedForm from "./ListedForm";
+
+import useAddSale from "../hooks/useAddSale";
+import useAddListing from "../hooks/useAddListing";
 
 import {
   Button,
@@ -46,13 +29,7 @@ import {
   ModalFooter,
   Flex,
   Spacer,
-  useToast,
 } from "@chakra-ui/react";
-
-import AlertNotif from "../../../components/alert/AlertNotif";
-
-import { formatToUniversalDate } from "../../../utils/formatToUniversalDate";
-import { formatDate } from "../../../utils/formatDate";
 
 export default function MarkAsMenu() {
   const {
@@ -67,83 +44,24 @@ export default function MarkAsMenu() {
     onClose: onListedClose,
   } = useDisclosure();
 
+  const { addListing } = useAddListing();
+  const { addSale } = useAddSale();
+
   const dispatch = useDispatch();
-  const toast = useToast();
 
   const filteredId = useSelector(getFilteredId);
   const filteredItem = useSelector(getFilteredItem);
-
-  const listing = useSelector(getListing);
-  const sale = useSelector(getSale);
-
-  const chart = useSelector(getChart);
-  const chartStatus = useSelector(getChartStatus);
 
   useEffect(() => {
     dispatch(addListingFilteredId(filteredId));
     dispatch(addSaleFilteredId(filteredId));
   }, []);
 
-  useEffect(() => {
-    if (isSoldOpen && chartStatus === "idle") {
-      dispatch(fetchChart());
-    } else if (chartStatus === "succeeded") {
-      dispatch(updateChartStatus("complete"));
-    }
-  }, [isSoldOpen]);
-
-  const addListed = (e) => {
+  const handleSoldFormOnSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(addListingToFirestore(listing));
-    dispatch(clearListing());
-    dispatch(updateStatus("idle"));
-  };
-
-  const addSold = (e) => {
-    e.preventDefault();
-
-    const total =
-      Number(sale.salePrice) -
-      (Number(sale.salePlatformFees) + Number(sale.saleShipping));
-
-    function addSaleToChartData() {
-      const chartFilter = chart.filter((i) => {
-        const date = formatToUniversalDate(i.item.date);
-        if (date.includes(sale.saleDate)) {
-          return i;
-        }
-      });
-
-      if (chartFilter.length === 0) {
-        addDoc(collection(db, "dashboard"), {
-          date: sale.saleDate,
-          profit: sale.salePrice,
-          timestamp: serverTimestamp(),
-        });
-      }
-    }
-
-    if (total <= 0) {
-      toast({
-        position: "top",
-        duration: 6000,
-        render: () => (
-          <AlertNotif
-            status="error"
-            width="96"
-            title="Payout amount must be greater than $0"
-          />
-        ),
-      });
-      dispatch(clearSale());
-      onSoldClose();
-    } else {
-      dispatch(addSaleToFirestore(sale));
-      addSaleToChartData();
-      dispatch(clearSale());
-      dispatch(updateStatus("idle"));
-    }
+    addSale();
+    onSoldClose();
   };
 
   return (
@@ -205,7 +123,7 @@ export default function MarkAsMenu() {
       >
         <ModalOverlay />
         <ModalContent>
-          <form id="soldForm" onSubmit={addSold}>
+          <form id="soldForm" onSubmit={handleSoldFormOnSubmit}>
             <ModalHeader fontSize={24}>Mark as Sold</ModalHeader>
             <SoldForm />
             <ModalFooter mt={4} mb={2}>
@@ -256,13 +174,16 @@ export default function MarkAsMenu() {
       >
         <ModalOverlay />
         <ModalContent>
-          <form id="listedForm" onSubmit={addListed}>
+          <form id="listedForm" onSubmit={addListing}>
             <ModalHeader fontSize={24}>Mark as Listed</ModalHeader>
             <ListedForm />
             <ModalFooter mt={4} mb={2}>
               <Flex w="full">
                 <Button
-                  onClick={onListedClose}
+                  onClick={() => {
+                    onListedClose();
+                    dispatch(clearListing());
+                  }}
                   variant="outline"
                   px={3}
                   fontSize={15}

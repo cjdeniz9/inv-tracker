@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +12,7 @@ import {
 import { Line } from "react-chartjs-2";
 
 import useAddChartData from "../hooks/useAddChartData";
-import useFetchChart from "../hooks/useFetchChart";
+import useFetchChart from "../../../hooks/useFetchChart";
 
 import { formatCurrency } from "../../../utils/formatCurrency";
 import { formatDate } from "../../../utils/formatDate";
@@ -30,8 +28,6 @@ ChartJS.register(
 );
 
 export default function Chart() {
-  const dispatch = useDispatch();
-
   const { chart } = useFetchChart();
 
   const {} = useAddChartData();

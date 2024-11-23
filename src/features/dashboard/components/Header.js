@@ -6,7 +6,6 @@ import { profitIcon } from "../utils/profitIcon";
 export default function Header() {
   const {
     totalIncome,
-    currentProfit,
     adjustedProfitAmount,
     checkAdjustedProfitPercent,
     inventoryCount,
@@ -36,7 +35,7 @@ export default function Header() {
             adjustedProfitAmount
           )} font-medium text-lg`}
         >
-          {profitIcon(adjustedProfitAmount)} ${currentProfit} (
+          {profitIcon(adjustedProfitAmount)} ${adjustedProfitAmount} (
           {checkAdjustedProfitPercent}%)
         </span>
         {headerValues.map((item, key) => {

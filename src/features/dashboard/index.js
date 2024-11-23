@@ -6,7 +6,7 @@ import Inventory from "../../features/dashboard/components/Inventory";
 import Header from "../../features/dashboard/components/Header";
 import Reports from "../../features/dashboard/components/Reports";
 
-import useFetchChart from "./hooks/useFetchChart";
+import useFetchChart from "../../hooks/useFetchChart";
 import useFetchInventory from "../../hooks/useFetchInventory";
 
 import { Box } from "@chakra-ui/react";

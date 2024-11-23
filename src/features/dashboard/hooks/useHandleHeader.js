@@ -25,9 +25,9 @@ export default function useHandleHeader() {
   }, 0);
 
   const adjustedProfitAmount =
-    chart.length === 0 || 1
+    chart.length === 0
       ? 0
-      : chart.slice(-2)[0].item.profit - chart.slice(-1)[0].item.profit;
+      : chart.slice(-1)[0].item.profit - chart.slice(-2)[0].item.profit;
 
   // const adjustedProfitPercent =
   //   props.newDate.length === 0 || 1
@@ -53,7 +53,6 @@ export default function useHandleHeader() {
 
   return {
     totalIncome,
-    currentProfit,
     adjustedProfitAmount,
     checkAdjustedProfitPercent,
     inventoryCount,
