@@ -1,12 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import { Link } from "react-router-dom";
 
-import { getFilteredId } from "../../../context/filteredItemSlice";
-import {
-  deleteItemFromFirestore,
-  updateStatus,
-} from "../../../context/inventorySlice";
+import useDeleteItem from "../hooks/useDeleteItem";
 
 import {
   Button,
@@ -21,11 +15,9 @@ import {
 } from "@chakra-ui/react";
 
 export default function DeleteItem() {
-  const dispatch = useDispatch();
-
-  const filteredId = useSelector(getFilteredId);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { deleteItem } = useDeleteItem();
 
   return (
     <>
@@ -66,8 +58,7 @@ export default function DeleteItem() {
             <Link to="/">
               <Button
                 onClick={() => {
-                  dispatch(deleteItemFromFirestore(filteredId));
-                  dispatch(updateStatus("idle"));
+                  deleteItem();
                 }}
                 colorScheme="red"
                 px={3}
