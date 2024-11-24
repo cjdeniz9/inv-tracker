@@ -41,11 +41,19 @@ export default function useHandleHeader() {
   const adjustedProfitPercent =
     chart.length === 0 || undefined
       ? 0
-      : ((currentProfit / currentTotal) * 100).toFixed(2);
+      : (
+          (chart.slice(-1)[0].item.profit / chart.slice(-2)[0].item.profit) *
+          100
+        ).toFixed(2);
 
-  const checkAdjustedProfitPercent = isNaN(adjustedProfitPercent)
-    ? 0
-    : adjustedProfitPercent;
+  let checkAdjustedProfitPercent;
+  if (isNaN(adjustedProfitPercent)) {
+    checkAdjustedProfitPercent = 0;
+  } else if (chart.length > 0 && adjustedProfitPercent == 0) {
+    checkAdjustedProfitPercent = 100;
+  } else {
+    checkAdjustedProfitPercent = adjustedProfitPercent;
+  }
 
   const inventoryCount = inventory.filter((inv) => {
     return !inv.item.status.toLowerCase().includes("Sold");
