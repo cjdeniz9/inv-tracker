@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 
+import { db } from "../../../firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+
 import { addSaleToFirestore, clearSale, getSale } from "../context/saleSlice";
 import { updateChartInFirestore } from "../../dashboard/context/chartSlice";
 import { updateStatus } from "../../../context/inventorySlice";
@@ -30,14 +33,6 @@ export default function useAddSale() {
       }
     });
 
-    const newProfit =
-      Number(matchFound[0].item.profit) + Number(sale.salePrice);
-
-    const data = {
-      id: matchFound[0].id,
-      profit: newProfit,
-    };
-
     if (total <= 0) {
       toast({
         position: "top",
@@ -50,13 +45,28 @@ export default function useAddSale() {
           />
         ),
       });
-      dispatch(clearSale());
-    } else {
+    } else if (matchFound.length !== 0) {
+      const newProfit = Number(matchFound[0].item.profit) + Number(total);
+
+      const data = {
+        id: matchFound[0].id,
+        profit: newProfit,
+      };
+
       dispatch(addSaleToFirestore(sale));
       dispatch(updateChartInFirestore(data));
-      dispatch(clearSale());
+      dispatch(updateStatus("idle"));
+    } else {
+      dispatch(addSaleToFirestore(sale));
+      addDoc(collection(db, "dashboard"), {
+        date: sale.saleDate,
+        profit: total,
+        timestamp: serverTimestamp(),
+      });
       dispatch(updateStatus("idle"));
     }
+
+    dispatch(clearSale());
   };
 
   return { addSale };
