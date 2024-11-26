@@ -16,6 +16,8 @@ export default function useAddChartData() {
 
   const date = moment().format("YYYY-MM-DD");
 
+  const newD = moment(date, "YYYY-MM-DD").add(1, "days").format("YYYY-MM-DD");
+
   const currentProfits = inventory
     .filter((item) => {
       if (
@@ -45,6 +47,30 @@ export default function useAddChartData() {
         timestamp: serverTimestamp(),
       });
     }
+
+    // Fills in missing dates
+    chart.map(function (value, index) {
+      if (index + 1 === chart.length) {
+        return;
+      }
+      const nextIndex = chart[index + 1];
+
+      const startDate = moment(value.item.date).startOf("day");
+      const endDate = moment(nextIndex.item.date).startOf("day");
+
+      while (startDate.add(1, "days").diff(endDate) < 0) {
+        const missingDate = moment(startDate.toDate()).format("YYYY-MM-DD");
+
+        addDoc(collection(db, "dashboard"), {
+          date: missingDate,
+          profit: 0,
+          timestamp: serverTimestamp(),
+        });
+      }
+    });
+    // if (i.item.date !== chart.slice(-1)[0].item.date)
+    // return console.log(i.item.date);
+    // });
   }, []);
 
   useEffect(() => {
