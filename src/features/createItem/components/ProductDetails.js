@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { getTabIndex, setTabIndex } from "../context/tabSlice";
+import {
+  getProductDetailsTabIndex,
+  setProductDetailsTabIndex,
+} from "../context/tabSlice";
 import { getNameError, getSizeError } from "../../../context/errorSlice";
 import { getSize } from "../../../context/sizeSlice";
 
@@ -17,7 +20,8 @@ import {
 import PurchaseDetails from "./PurchaseDetails";
 import Subheader from "./Subheader";
 
-import SizeChart from "../../../components/form/SizeChart";
+import SizeChart from "./SizeChart";
+// import SizeChart from "../../../components/form/SizeChart";
 import AlertNotif from "../../../components/alert/AlertNotif";
 
 export default function ProductDetails() {
@@ -26,16 +30,16 @@ export default function ProductDetails() {
   const errorName = useSelector(getNameError);
   const errorSize = useSelector(getSizeError);
   const size = useSelector(getSize);
-  const tabIndex = useSelector(getTabIndex);
+  const tabIndex = useSelector(getProductDetailsTabIndex);
 
-  const handleTabsChange = (index) => {
-    dispatch(setTabIndex(index));
+  const handleTabChange = (index) => {
+    dispatch(setProductDetailsTabIndex(index));
   };
 
   return (
     <>
       <Subheader />
-      <Tabs variant="unstyled" index={tabIndex} onChange={handleTabsChange}>
+      <Tabs variant="unstyled" index={tabIndex} onChange={handleTabChange}>
         <TabList>
           <Tab fontSize="14px" _selected={{ fontWeight: "600" }}>
             Size

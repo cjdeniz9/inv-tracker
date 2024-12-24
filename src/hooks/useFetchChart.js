@@ -24,5 +24,5 @@ export default function useFetchChart() {
     handleFetchChart();
   }, [handleFetchChart]);
 
-  return { chart, chartStatus, chartError };
+  return { chart, chartStatus, chartError, handleFetchChart };
 }

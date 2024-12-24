@@ -1,3 +1,4 @@
+import moment from "moment";
 import useHandleHeader from "../hooks/useHandleHeader";
 
 import { profitColor } from "../utils/profitColor";
@@ -11,6 +12,13 @@ export default function Header() {
     inventoryCount,
     salesCount,
   } = useHandleHeader();
+
+  var msTillEndOfDay = moment()
+    .endOf("day")
+    .add(1, "seconds")
+    .diff(moment(), "milliseconds");
+
+  // console.log(msTillEndOfDay);
 
   const headerValues = [
     {

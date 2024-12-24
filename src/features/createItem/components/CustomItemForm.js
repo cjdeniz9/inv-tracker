@@ -7,7 +7,7 @@ import {
   addSku,
   getProduct,
 } from "../context/productSlice";
-import { setTabIndex } from "../context/tabSlice";
+import { setProductDetailsTabIndex } from "../context/tabSlice";
 import { nameError, sizeError } from "../../../context/errorSlice";
 import { getSize } from "../../../context/sizeSlice";
 
@@ -28,7 +28,7 @@ export default function CustomItemForm() {
       dispatch(sizeError(true));
     } else {
       dispatch(sizeError(false));
-      dispatch(setTabIndex(1));
+      dispatch(setProductDetailsTabIndex(1));
     }
   }
 

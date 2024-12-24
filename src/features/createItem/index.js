@@ -9,7 +9,10 @@ import {
   getProductDetails,
   resetShow,
 } from "./context/showSlice";
-import { getTabIndex, setTabIndex } from "./context/tabSlice";
+import {
+  getProductDetailsTabIndex,
+  setProductDetailsTabIndex,
+} from "./context/tabSlice";
 import { sizeError } from "../../context/errorSlice";
 import { deleteKeyword } from "../../context/keywordSlice";
 import { deleteSize, getSize } from "../../context/sizeSlice";
@@ -44,7 +47,7 @@ export default function CreateItem() {
   const customItemForm = useSelector(getCustomItemForm);
   const productDetails = useSelector(getProductDetails);
   const size = useSelector(getSize);
-  const tabIndex = useSelector(getTabIndex);
+  const tabIndex = useSelector(getProductDetailsTabIndex);
 
   function handleClose() {
     onClose();
@@ -61,7 +64,7 @@ export default function CreateItem() {
       dispatch(sizeError(true));
     } else {
       dispatch(sizeError(false));
-      dispatch(setTabIndex(1));
+      dispatch(setProductDetailsTabIndex(1));
     }
   };
 

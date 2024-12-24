@@ -47,12 +47,15 @@ export default function PurchaseDetails() {
   const name = Boolean(selected.selectedArray)
     ? product.name
     : selected.shoeName;
-  const resellPrices = Boolean(selected.selectedArray)
-    ? ""
-    : {
-        goat: selected.lowestResellPrice.goat,
+  const resellPrices = Object.hasOwn(selected, "lowestResellPrice")
+    ? {
+        goat:
+          selected.lowestResellPrice.goat === undefined
+            ? ""
+            : selected.lowestResellPrice.goat,
         stockX: selected.lowestResellPrice.stockX,
-      };
+      }
+    : "";
   const sku = Boolean(selected.selectedArray) ? product.sku : selected.styleID;
 
   const createItem = async (e) => {
@@ -83,6 +86,8 @@ export default function PurchaseDetails() {
       tax: product.tax,
       timestamp: serverTimestamp(),
     };
+
+    console.log(item);
 
     dispatch(addItemToFirestore(item));
 

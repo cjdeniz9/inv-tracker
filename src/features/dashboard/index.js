@@ -15,11 +15,14 @@ export default function Dash() {
   const { chartStatus } = useFetchChart();
   const { inventoryStatus } = useFetchInventory();
 
+  console.log(chartStatus);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const handleLoading = () => {
-    if (chartStatus === "succeeded" && inventoryStatus === "succeeded")
+    if (chartStatus === "succeeded" && inventoryStatus === "succeeded") {
       setIsLoading(false);
+    }
   };
 
   useEffect(() => {

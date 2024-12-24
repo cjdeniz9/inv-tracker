@@ -3,20 +3,21 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { db } from "../../../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 import { getInventory } from "../../../context/inventorySlice";
-import { getChart } from "../context/chartSlice";
 
 import moment from "moment";
+
+import { getChart } from "../context/chartSlice";
 
 export default function useAddChartData() {
   const chart = useSelector(getChart);
   const inventory = useSelector(getInventory);
 
-  const date = moment().format("YYYY-MM-DD");
+  const [isEnabled, setIsEnabled] = useState(false);
 
-  const newD = moment(date, "YYYY-MM-DD").add(1, "days").format("YYYY-MM-DD");
+  const date = moment().format("YYYY-MM-DD");
 
   const currentProfits = inventory
     .filter((item) => {
@@ -37,45 +38,21 @@ export default function useAddChartData() {
       addDoc(collection(db, "dashboard"), {
         date: date,
         profit: currentProfits,
-        timestamp: serverTimestamp(),
       });
     } else if (chart.length && chart.slice(-1)[0].item.date !== date) {
       //   Checks if current day exist, if not creates new doc for chart
       addDoc(collection(db, "dashboard"), {
         date: date,
         profit: currentProfits,
-        timestamp: serverTimestamp(),
       });
     }
 
-    // Fills in missing dates
-    chart.map(function (value, index) {
-      if (index + 1 === chart.length) {
-        return;
-      }
-      const nextIndex = chart[index + 1];
-
-      const startDate = moment(value.item.date).startOf("day");
-      const endDate = moment(nextIndex.item.date).startOf("day");
-
-      while (startDate.add(1, "days").diff(endDate) < 0) {
-        const missingDate = moment(startDate.toDate()).format("YYYY-MM-DD");
-
-        addDoc(collection(db, "dashboard"), {
-          date: missingDate,
-          profit: 0,
-          timestamp: serverTimestamp(),
-        });
-      }
-    });
-    // if (i.item.date !== chart.slice(-1)[0].item.date)
-    // return console.log(i.item.date);
-    // });
+    setIsEnabled(true);
   }, []);
 
   useEffect(() => {
     handleData();
-  }, []);
+  }, [handleData]);
 
-  return {};
+  return { isEnabled };
 }
