@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-export default function TableHeader() {
+export default function Header() {
   let heading, subheading;
   let location = useLocation();
 

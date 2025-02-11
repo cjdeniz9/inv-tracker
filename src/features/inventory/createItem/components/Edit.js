@@ -8,8 +8,8 @@ import {
   toggleProductDetails,
 } from "../context/showSlice";
 import { resetTabIndex } from "../context/tabSlice";
-import { deleteKeyword } from "../../../context/keywordSlice";
-import { deleteSize, getSize } from "../../../context/sizeSlice";
+import { deleteKeyword } from "../../../../context/keywordSlice";
+import { deleteSize, getSize } from "../../../../context/sizeSlice";
 
 import {
   Button,
@@ -24,10 +24,10 @@ import {
 
 import { DeleteIcon } from "@chakra-ui/icons";
 
-import Data from "../../../components/table/Data";
-import Heading from "../../../components/table/Heading";
+import Data from "../../../../components/table/Data";
+import Heading from "../../../../components/table/Heading";
 
-import { formatCurrency } from "../../../utils/formatCurrency";
+import { formatCurrency } from "../../../../utils/formatCurrency";
 
 export default function Edit() {
   const dispatch = useDispatch();

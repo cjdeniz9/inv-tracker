@@ -9,7 +9,7 @@ import {
   toggleCreateInventory,
   toggleProductDetails,
 } from "../context/showSlice";
-import { getSize } from "../../../context/sizeSlice";
+import { getSize } from "../../../../context/sizeSlice";
 
 import { Button, Flex, Heading, Icon } from "@chakra-ui/react";
 

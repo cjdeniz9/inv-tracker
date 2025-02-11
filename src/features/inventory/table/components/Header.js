@@ -1,5 +1,5 @@
-export default function InventoryTableHead() {
-  const tableHead = [
+export default function Header() {
+  const tableHeader = [
     {
       id: 1,
       name: "Name",
@@ -92,7 +92,7 @@ export default function InventoryTableHead() {
             </label>
           </div>
         </th>
-        {tableHead.map((item, key) => {
+        {tableHeader.map((item, key) => {
           return (
             <th
               key={item.id}

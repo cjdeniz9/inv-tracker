@@ -40,10 +40,6 @@ export default function App({ urlname }) {
   //   setProduct(data);
   // };
 
-  useEffect(() => {
-    // getProduct();
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>

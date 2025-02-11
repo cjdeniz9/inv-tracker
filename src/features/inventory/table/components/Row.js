@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 
-import { formatCurrency } from "../../../utils/formatCurrency";
-import { formatDate } from "../../../utils/formatDate";
-import { statusColor } from "../../../utils/statusColor";
-import { statusIcon } from "../../../utils/statusIcon";
+import { formatCurrency } from "../../../../utils/formatCurrency";
+import { formatDate } from "../../../../utils/formatDate";
+import { statusColor } from "../../../../utils/statusColor";
+import { statusIcon } from "../../../../utils/statusIcon";
 
-export default function InventoryRow({ id, row }) {
+export default function Row({ id, row }) {
   let location = useLocation();
 
   return (

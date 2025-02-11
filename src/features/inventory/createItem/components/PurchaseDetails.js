@@ -18,13 +18,13 @@ import { deleteResults } from "../context/resultsSlice";
 import { deleteSelected, getSelected } from "../context/selectedSlice";
 import { resetShow, toggleCreate } from "../context/showSlice";
 import { resetTabIndex } from "../context/tabSlice";
-import { nameError, resetError } from "../../../context/errorSlice";
-import { addItemToFirestore } from "../../../context/inventorySlice";
-import { deleteSize, getSize } from "../../../context/sizeSlice";
+import { nameError, resetError } from "../../../../context/errorSlice";
+import { addItemToFirestore } from "../../../../context/inventorySlice";
+import { deleteSize, getSize } from "../../../../context/sizeSlice";
 
 import { Divider, Flex, Spacer, useModalContext } from "@chakra-ui/react";
 
-import InputField from "../../../components/form/InputField";
+import InputField from "../../../../components/form/InputField";
 
 import moment from "moment";
 

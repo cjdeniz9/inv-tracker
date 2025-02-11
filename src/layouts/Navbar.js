@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import trackerLogo from "../img/trackerLogo.png";
+import { useDispatch } from "react-redux";
+
+import { updateStatus } from "../context/inventorySlice";
+import { updateChartStatus } from "../features/dashboard/context/chartSlice";
+import { resetFilter } from "../features/inventory/filter/context/filterSlice";
+
+import { Button } from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faTable,
   faBox,
@@ -12,15 +19,21 @@ import {
   faSackDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { useDispatch } from "react-redux";
-import { updateStatus } from "../context/inventorySlice";
-import { updateChartStatus } from "../features/dashboard/context/chartSlice";
-import { Button } from "@chakra-ui/react";
+import trackerLogo from "../img/trackerLogo.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  const isClient = typeof window !== "undefined";
+  let currentPathname = isClient ? window.location.pathname : "";
+
+  useEffect(() => {
+    if (currentPathname !== "/") {
+      dispatch(resetFilter());
+    }
+  }, []);
 
   return (
     <>

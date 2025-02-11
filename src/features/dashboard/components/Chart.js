@@ -6,6 +6,8 @@ import LineChart from "./LineChart";
 
 import moment from "moment";
 
+// import { Skeleton } from "@/components/ui/skeleton";
+
 export default function Chart() {
   const { isEnabled } = useAddChartData();
 

@@ -2,17 +2,29 @@ import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 
-export default function StatusFilter(props) {
+export default function StatusFilter() {
+  const selectedStatus = "All";
+
+  const status = [
+    {
+      id: 1,
+      type: "All",
+    },
+    {
+      id: 2,
+      type: "Listed",
+    },
+    {
+      id: 3,
+      type: "Sold",
+    },
+  ];
   return (
     <div className="relative z-10">
-      <Listbox value={props.selectedStatus} onChange={props.setSelectedStatus}>
+      <Listbox value={selectedStatus}>
         <div className="relative">
           <Listbox.Button className="relative cursor-pointer rounded-[4px] bg-white py-2 pl-3 pr-10 text-left text-sm hover:text-sonic-silver border">
-            <span className="block truncate">
-              {props.selectedStatus.length >= 1
-                ? `Status: ${props.selectedStatus}`
-                : `Status: ${props.status[0].type}`}
-            </span>
+            <span className="block truncate">Status: All</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon
                 className="h-5 w-5 text-gray-400"
@@ -27,7 +39,7 @@ export default function StatusFilter(props) {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5  text-sm">
-              {props.status.map((item) => (
+              {status.map((item) => (
                 <Listbox.Option
                   key={item.id}
                   value={item.type}

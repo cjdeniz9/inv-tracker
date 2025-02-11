@@ -8,12 +8,12 @@ import {
   getProduct,
 } from "../context/productSlice";
 import { setProductDetailsTabIndex } from "../context/tabSlice";
-import { nameError, sizeError } from "../../../context/errorSlice";
-import { getSize } from "../../../context/sizeSlice";
+import { nameError, sizeError } from "../../../../context/errorSlice";
+import { getSize } from "../../../../context/sizeSlice";
 
 import { Flex, Spacer } from "@chakra-ui/react";
 
-import InputField from "../../../components/form/InputField";
+import InputField from "../../../../components/form/InputField";
 
 export default function CustomItemForm() {
   const dispatch = useDispatch();

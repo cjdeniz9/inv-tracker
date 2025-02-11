@@ -9,7 +9,7 @@ import {
   toggleCustomItemForm,
   toggleProductDetails,
 } from "../context/showSlice";
-import { deleteKeyword } from "../../../context/keywordSlice";
+import { deleteKeyword } from "../../../../context/keywordSlice";
 
 import { Box, Button, Flex, List, ListItem, Text } from "@chakra-ui/react";
 

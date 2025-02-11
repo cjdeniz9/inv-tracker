@@ -4,8 +4,8 @@ import {
   getProductDetailsTabIndex,
   setProductDetailsTabIndex,
 } from "../context/tabSlice";
-import { getNameError, getSizeError } from "../../../context/errorSlice";
-import { getSize } from "../../../context/sizeSlice";
+import { getNameError, getSizeError } from "../../../../context/errorSlice";
+import { getSize } from "../../../../context/sizeSlice";
 
 import {
   Divider,
@@ -22,7 +22,7 @@ import Subheader from "./Subheader";
 
 import SizeChart from "./SizeChart";
 // import SizeChart from "../../../components/form/SizeChart";
-import AlertNotif from "../../../components/alert/AlertNotif";
+import AlertNotif from "../../../../components/alert/AlertNotif";
 
 export default function ProductDetails() {
   const dispatch = useDispatch();

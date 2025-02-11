@@ -1,4 +1,3 @@
-import Header from "../components/Header";
 import Navbar from "../layouts/Navbar";
 import Search from "../features/inventoryTable/components/Search";
 import TableHeader from "../features/packageTable/components/TableHeader";
@@ -9,7 +8,7 @@ export default function Packages(props) {
     <>
       <Navbar />
       <div className="tablet-screen:ml-52 h-[95vh] overflow-auto p-4">
-        <Header />
+        {/* <Header /> */}
         <div className="flex w-full pt-3">
           <div className="w-4/5 flex flex-row">
             {/* <Search setSearch={setSearch} /> */}

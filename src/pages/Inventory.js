@@ -5,23 +5,15 @@ import { useDispatch } from "react-redux";
 import { updateStatus } from "../context/inventorySlice";
 
 import Navbar from "../layouts/Navbar";
-import Header from "../components/Header";
-import Search from "../features/inventoryTable/components/Search";
-import StatusFilter from "../features/inventoryTable/components/StatusFilter";
-import InventoryTableHead from "../features/inventoryTable/components/InventoryTableHead";
-import InventoryTable from "../features/inventoryTable/components/InventoryTable";
+import Inv from "../features/inventory";
 
-import CreateItem from "../features/createItem/index";
+// import StatusFilter from "../features/inventoryTable/components/StatusFilter";
 
-export default function Inventory(props) {
+export default function Inventory() {
   const dispatch = useDispatch();
-
-  let inventoryContent;
 
   const isClient = typeof window !== "undefined";
   let currentPathname = isClient ? window.location.pathname : "";
-
-  const [search, setSearch] = useState("");
 
   const [selectedStatus, setSelectedStatus] = useState([]);
 
@@ -157,37 +149,7 @@ export default function Inventory(props) {
   return (
     <div className="App">
       <Navbar />
-      <div className="tablet-screen:ml-52 h-[95vh] overflow-auto p-4">
-        <Header />
-        <div className="flex w-full pt-3">
-          <div className="w-4/5 flex flex-row">
-            <Search setSearch={setSearch} />
-            <div className="pl-3">
-              <StatusFilter
-                status={status}
-                selectedStatus={selectedStatus}
-                setSelectedStatus={setSelectedStatus}
-              />
-            </div>
-            {/* <div className="pl-100">
-              <ProfitFilter
-                status={status}
-                selectedStatus={selectedStatus}
-                setSelectedStatus={setSelectedStatus}
-              />
-            </div> */}
-          </div>
-          <div className="w-1/5 flex justify-end">
-            <CreateItem />
-          </div>
-        </div>
-        <div className="relative overflow-x-auto max-h-[39rem]">
-          <table className="w-full overflow-scroll text-sm text-left">
-            <InventoryTableHead />
-            <InventoryTable />
-          </table>
-        </div>
-      </div>
+      <Inv />
     </div>
   );
 }

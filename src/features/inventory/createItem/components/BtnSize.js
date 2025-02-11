@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { getSizeChartTabIndex } from "../context/tabSlice";
-import { sizeError } from "../../../context/errorSlice";
-import { addSize, getSize } from "../../../context/sizeSlice";
+import { sizeError } from "../../../../context/errorSlice";
+import { addSize, getSize } from "../../../../context/sizeSlice";
 
 import { Button } from "@chakra-ui/react";
 

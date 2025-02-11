@@ -8,13 +8,13 @@ import {
   toggleNoResults,
   toggleSearchList,
 } from "../context/showSlice";
-import { getKeyword, setKeyword } from "../../../context/keywordSlice";
+import { getKeyword, setKeyword } from "../../../../context/keywordSlice";
 
 import { Flex, Spinner } from "@chakra-ui/react";
 
-import SearchList from "../components/SearchList";
+import SearchList from "./SearchList";
 
-import api from "../../../api/products";
+import api from "../../../../api/products";
 
 export default function Search() {
   const dispatch = useDispatch();

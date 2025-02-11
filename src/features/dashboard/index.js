@@ -15,8 +15,6 @@ export default function Dash() {
   const { chartStatus } = useFetchChart();
   const { inventoryStatus } = useFetchInventory();
 
-  console.log(chartStatus);
-
   const [isLoading, setIsLoading] = useState(true);
 
   const handleLoading = () => {

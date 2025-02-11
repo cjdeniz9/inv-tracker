@@ -13,9 +13,9 @@ import {
   getProductDetailsTabIndex,
   setProductDetailsTabIndex,
 } from "./context/tabSlice";
-import { sizeError } from "../../context/errorSlice";
-import { deleteKeyword } from "../../context/keywordSlice";
-import { deleteSize, getSize } from "../../context/sizeSlice";
+import { sizeError } from "../../../context/errorSlice";
+import { deleteKeyword } from "../../../context/keywordSlice";
+import { deleteSize, getSize } from "../../../context/sizeSlice";
 
 import {
   Button,
@@ -35,8 +35,8 @@ import CreateInventory from "./components/CreateInventory";
 import Header from "./components/Header";
 import ProductDetails from "./components/ProductDetails";
 
-import BtnNext from "../../components/form/BtnNext";
-import BtnSubmit from "../../components/form/BtnSubmit";
+import BtnNext from "../../../components/form/BtnNext";
+import BtnSubmit from "../../../components/form/BtnSubmit";
 
 export default function CreateItem() {
   const dispatch = useDispatch();
