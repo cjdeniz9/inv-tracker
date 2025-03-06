@@ -24,5 +24,5 @@ export default function useFetchInventory() {
     handleFetchInventory();
   }, [handleFetchInventory]);
 
-  return { inventory, inventoryStatus, inventoryError };
+  return { inventory, inventoryStatus, inventoryError, handleFetchInventory };
 }

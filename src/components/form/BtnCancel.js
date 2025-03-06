@@ -9,10 +9,10 @@ const BtnCancel = ({ onClick, mr, value }) => {
       px={3}
       fontSize={15}
       borderRadius={4}
-      borderColor={"#CFCFCF"}
+      borderColor={"#cfcfcf"}
       _hover={{
         backgroundColor: "none",
-        color: "#7A7A7A",
+        color: "#7a7a7a",
       }}
     >
       {value}

@@ -12,6 +12,7 @@ export default function Status() {
   return (
     <DropdownMenu
       getState={getStatus}
+      label="Status"
       title="All"
       options={statusOptions}
       setState={addStatus}

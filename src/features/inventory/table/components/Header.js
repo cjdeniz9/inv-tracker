@@ -1,4 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
+
+import { getTableCurrent } from "../context/tableSlice";
+import {
+  addSelectedItems,
+  getSelectedItems,
+} from "../../filter/context/filterSlice";
+
+import CheckboxParent from "../../../../components/inputs/CheckboxParent";
+
 export default function Header() {
+  const dispatch = useDispatch();
+
+  const tableCurrent = useSelector(getTableCurrent);
+
+  const selectedItems = useSelector(getSelectedItems);
+
   const tableHeader = [
     {
       id: 1,
@@ -77,19 +93,40 @@ export default function Header() {
     },
   ];
 
+  const allChecked =
+    selectedItems.length !== 0 && selectedItems.length == tableCurrent.length
+      ? true
+      : false;
+
+  const selectAll = () => {
+    if (allChecked) {
+      dispatch(addSelectedItems([]));
+    } else {
+      dispatch(addSelectedItems(tableCurrent));
+    }
+  };
+
   return (
     <thead className="bg-white border-b text-sm text-gray-700">
       <tr>
         <th scope="col" className="py-2.5 px-3">
           <div className="flex items-center">
-            <input
-              id="checkbox-all-search"
-              type="checkbox"
-              className="focus:ring-0 focus:ring-transparent w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm"
+            <CheckboxParent
+              allChecked={
+                selectedItems.length !== 0 &&
+                selectedItems.some((i) => tableCurrent.includes(i))
+                  ? true
+                  : false
+              }
+              isIndeterminate={
+                selectedItems.length !== 0 &&
+                selectedItems.length < tableCurrent.length &&
+                selectedItems.some((i) => tableCurrent.includes(i))
+                  ? true
+                  : false
+              }
+              onChange={selectAll}
             />
-            <label htmlFor="checkbox-all-search" className="sr-only">
-              checkbox
-            </label>
           </div>
         </th>
         {tableHeader.map((item, key) => {

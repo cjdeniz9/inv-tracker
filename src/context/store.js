@@ -16,6 +16,7 @@ import shipmentReducer from "./shipmentSlice";
 import sizeReducer from "./sizeSlice";
 import showReducer from "../features/inventory/createItem/context/showSlice";
 import tabReducer from "../features/inventory/createItem/context/tabSlice";
+import tableReducer from "../features/inventory/table/context/tableSlice";
 
 export const store = configureStore({
   reducer: {
@@ -35,6 +36,7 @@ export const store = configureStore({
     size: sizeReducer,
     show: showReducer,
     tab: tabReducer,
+    table: tableReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

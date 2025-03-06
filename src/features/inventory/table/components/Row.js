@@ -1,18 +1,44 @@
 import { Link, useLocation } from "react-router-dom";
 
+import CheckboxChild from "../../../../components/inputs/CheckboxChild";
+
 import { formatCurrency } from "../../../../utils/formatCurrency";
 import { formatDate } from "../../../../utils/formatDate";
 import { statusColor } from "../../../../utils/statusColor";
 import { statusIcon } from "../../../../utils/statusIcon";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addSelectedItems,
+  getSelectedItems,
+} from "../../filter/context/filterSlice";
 
-export default function Row({ id, row }) {
+export default function Row({ item, id, row }) {
+  const dispatch = useDispatch();
+
   let location = useLocation();
+
+  const selectedItems = useSelector(getSelectedItems);
+
+  const checked = selectedItems.some((i) => i === id);
+
+  const handleCheckbox = () => {
+    if (checked) {
+      const removeItem = selectedItems.filter((i) => i !== id);
+      dispatch(addSelectedItems(removeItem));
+    } else {
+      dispatch(addSelectedItems([...selectedItems, id]));
+    }
+  };
 
   return (
     <tr className="hover:bg-[#FAFAFA]">
       <td className="py-2.5 px-3">
         <div className="flex items-center">
-          <input
+          <CheckboxChild
+            isChecked={selectedItems.some((i) => i === id)}
+            onChange={handleCheckbox}
+          />
+          {/* <input
             id="checkbox-table-search-1"
             type="checkbox"
             // onClick={selectedRow(row.id)}
@@ -20,7 +46,7 @@ export default function Row({ id, row }) {
           />
           <label htmlFor="checkbox-table-search-1" className="sr-only">
             checkbox
-          </label>
+          </label> */}
         </div>
       </td>
       <td className="max-w-xs text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">

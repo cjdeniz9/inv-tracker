@@ -1,5 +1,12 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  addTableCurrent,
+  addTableData,
+  getTableData,
+} from "./context/tableSlice";
 import {
   getSearch,
   getStatus,
@@ -14,9 +21,13 @@ import Header from "./components/Header";
 import Row from "./components/Row";
 
 export default function Table() {
+  const dispatch = useDispatch();
+
   const data = useSelector(getInventory);
   const fetchingStatus = useSelector(getInventoryStatus);
   const error = useSelector(getInventoryError);
+
+  const tableData = useSelector(getTableData);
 
   const search = useSelector(getSearch);
   const status = useSelector(getStatus);
@@ -24,51 +35,51 @@ export default function Table() {
   const isClient = typeof window !== "undefined";
   let currentPathname = isClient ? window.location.pathname : "";
 
-  let content;
-  if (currentPathname === "/") {
-    content = data
-      .filter((item) => {
-        return !item.item.status.includes("Sold");
-      })
-      .map((row) => <Row key={row.id} id={row.id} row={row.item} />);
-  } else if (currentPathname == "/sales") {
-    content = data
-      .filter((item) => {
-        return item.item.status.includes("Sold");
-      })
-      .map((row) => <Row key={row.id} id={row.id} row={row.item} />);
-  } else if (fetchingStatus === "failed") {
-    content = <p>{error}</p>;
-  }
+  useEffect(() => {
+    if (currentPathname === "/") {
+      dispatch(
+        addTableData(
+          data.filter((item) => {
+            return !item.item.status.includes("Sold");
+          })
+        )
+      );
+    } else if (currentPathname == "/sales") {
+      dispatch(
+        addTableData(
+          data.filter((item) => {
+            return item.item.status.includes("Sold");
+          })
+        )
+      );
+    }
+  }, [data]);
 
-  // const [selectedCheckbox, setSelectedCheckbox] = useState({});
+  const tableRow = tableData.map((row) => (
+    <Row key={row.id} item={row} id={row.id} row={row.item} />
+  ));
 
-  // const sizeText = data.item.sizeTypeSelected === "Shoes" ? "US M" : "";
+  let table = tableRow
+    .filter((item) => {
+      return item.props.row.status.includes(status);
+    })
+    .sort((a, b) => {
+      if (a.props.row.status < b.props.row.status) return -1;
+    })
+    .filter((item) => {
+      return search.toLowerCase() === ""
+        ? item
+        : item.props.row.name.toLowerCase().includes(search);
+    });
 
-  // function selectedRow(data.item) {
-  //   setSelectedCheckbox((prevChecked) => (prevSelected) => data.item);
-  // }
-
-  const inventory = content.filter((item) => {
-    return item.props.row.status.includes(status);
-  });
-
-  const table = currentPathname === "/sales" ? content : inventory;
+  useEffect(() => {
+    dispatch(addTableCurrent(table.map((i) => i.key)));
+  }, [table]);
 
   return (
     <>
       <Header />
-      <tbody>
-        {table
-          .sort((a, b) => {
-            if (a.props.row.status < b.props.row.status) return -1;
-          })
-          .filter((item) => {
-            return search.toLowerCase() === ""
-              ? item
-              : item.props.row.name.toLowerCase().includes(search);
-          })}
-      </tbody>
+      <tbody>{fetchingStatus === "failed" ? <p>{error}</p> : table}</tbody>
     </>
   );
 }
