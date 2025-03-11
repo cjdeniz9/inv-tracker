@@ -4,12 +4,13 @@ import { db } from "../../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 import { addSaleToFirestore, clearSale, getSale } from "../context/saleSlice";
-import { updateChartInFirestore } from "../../dashboard/context/chartSlice";
+import {
+  getChart,
+  updateChartInFirestore,
+} from "../../dashboard/context/chartSlice";
 import { updateStatus } from "../../../context/inventorySlice";
 
 import AlertNotif from "../../../components/alert/AlertNotif";
-
-import useFetchChart from "../../../hooks/useFetchChart";
 
 import { useToast } from "@chakra-ui/react";
 
@@ -18,8 +19,7 @@ export default function useAddSale() {
 
   const toast = useToast();
 
-  const { chart } = useFetchChart();
-
+  const chart = useSelector(getChart);
   const sale = useSelector(getSale);
 
   const addSale = () => {
@@ -46,11 +46,11 @@ export default function useAddSale() {
         ),
       });
     } else if (matchFound.length !== 0) {
-      const newProfit = Number(matchFound[0].item.profit) + Number(total);
+      const newTotal = Number(matchFound[0].item.profit) + Number(total);
 
       const data = {
         id: matchFound[0].id,
-        profit: newProfit,
+        updatedAmount: newTotal,
       };
 
       dispatch(addSaleToFirestore(sale));

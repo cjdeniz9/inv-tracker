@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import chartReducer from "../features/dashboard/context/chartSlice";
 import dashboardReducer from "../features/dashboard/context/dashboardSlice";
 import errorReducer from "./errorSlice";
-import filterReducer from "../features/inventory/filter/context/filterSlice";
+import filterReducer from "../features/inventory/filters/context/filterSlice";
 import filteredItemReducer from "./filteredItemSlice";
 import inventoryReducer from "./inventorySlice";
 import keywordReducer from "./keywordSlice";

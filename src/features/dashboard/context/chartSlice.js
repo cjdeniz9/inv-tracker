@@ -32,9 +32,9 @@ export const updateChartInFirestore = createAsyncThunk(
   "dashboard/updateChartInFirestore",
   async (data) => {
     const id = data.id;
-    const currentProfits = data.profit;
+    const newTotal = data.updatedAmount;
     return await updateDoc(doc(db, "dashboard", id), {
-      profit: currentProfits,
+      profit: newTotal,
     });
   }
 );

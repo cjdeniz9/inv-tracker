@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addSelectedItems,
   getSelectedItems,
-} from "../../filter/context/filterSlice";
+} from "../../filters/context/filterSlice";
 
 export default function Row({ item, id, row }) {
   const dispatch = useDispatch();
@@ -19,14 +19,14 @@ export default function Row({ item, id, row }) {
 
   const selectedItems = useSelector(getSelectedItems);
 
-  const checked = selectedItems.some((i) => i === id);
+  const checked = selectedItems.some((i) => i.id === id);
 
   const handleCheckbox = () => {
     if (checked) {
-      const removeItem = selectedItems.filter((i) => i !== id);
+      const removeItem = selectedItems.filter((i) => i.id !== id);
       dispatch(addSelectedItems(removeItem));
     } else {
-      dispatch(addSelectedItems([...selectedItems, id]));
+      dispatch(addSelectedItems([...selectedItems, item]));
     }
   };
 
@@ -35,18 +35,9 @@ export default function Row({ item, id, row }) {
       <td className="py-2.5 px-3">
         <div className="flex items-center">
           <CheckboxChild
-            isChecked={selectedItems.some((i) => i === id)}
+            isChecked={selectedItems.some((i) => i.id === id)}
             onChange={handleCheckbox}
           />
-          {/* <input
-            id="checkbox-table-search-1"
-            type="checkbox"
-            // onClick={selectedRow(row.id)}
-            className="focus:ring-0 focus:ring-transparent w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-sm"
-          />
-          <label htmlFor="checkbox-table-search-1" className="sr-only">
-            checkbox
-          </label> */}
         </div>
       </td>
       <td className="max-w-xs text-base text-blue-ryb whitespace-nowrap text-clip overflow-hidden">

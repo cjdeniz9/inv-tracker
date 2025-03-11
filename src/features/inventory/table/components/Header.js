@@ -4,7 +4,7 @@ import { getTableCurrent } from "../context/tableSlice";
 import {
   addSelectedItems,
   getSelectedItems,
-} from "../../filter/context/filterSlice";
+} from "../../filters/context/filterSlice";
 
 import CheckboxParent from "../../../../components/inputs/CheckboxParent";
 

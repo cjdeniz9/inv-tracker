@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 
+import { useDispatch } from "react-redux";
+
 import useFetchInventory from "../../hooks/useFetchInventory";
 
+import { addPathname } from "./filters/context/filterSlice";
+
 import CreateItem from "./createItem";
-import Filter from "./filter";
+import Filter from "./filters";
 import Header from "./header";
 import Table from "./table";
-import BtnDelete from "./filter/components/BtnDelete";
+import BtnDelete from "./filters/components/BtnDelete";
 
 export default function Inv() {
+  const isClient = typeof window !== "undefined";
+  let pathname = isClient ? window.location.pathname : "";
+
+  const dispatch = useDispatch();
+
   const { inventoryStatus } = useFetchInventory();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +27,10 @@ export default function Inv() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    dispatch(addPathname(pathname));
+  }, []);
 
   useEffect(() => {
     handleLoading();
@@ -30,10 +43,12 @@ export default function Inv() {
         <div className="flex w-full pt-3">
           <Filter />
           <div className="w-1/5 flex justify-end">
-            <div className="mr-2.5">
-              <BtnDelete />
-            </div>
-            <CreateItem />
+            <BtnDelete />
+            {pathname === "/" && (
+              <div className="ml-2.5">
+                <CreateItem />
+              </div>
+            )}
           </div>
         </div>
         <div className="relative overflow-x-auto h-[34rem]">

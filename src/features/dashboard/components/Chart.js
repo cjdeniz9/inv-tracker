@@ -9,7 +9,7 @@ import moment from "moment";
 // import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Chart() {
-  const { isEnabled } = useAddChartData();
+  // const { isEnabled } = useAddChartData();
 
   // useEffect(() => {
   //   var msTillEndOfDay = moment()
@@ -23,5 +23,6 @@ export default function Chart() {
   //   return () => clearInterval(interval);
   // }, []);
 
-  return isEnabled && <LineChart />;
+  // return isEnabled && <LineChart />;
+  return <LineChart />;
 }

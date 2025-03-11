@@ -8,9 +8,10 @@ import {
   getTableData,
 } from "./context/tableSlice";
 import {
+  getPathname,
   getSearch,
   getStatus,
-} from "../../inventory/filter/context/filterSlice";
+} from "../filters/context/filterSlice";
 import {
   getInventory,
   getInventoryStatus,
@@ -32,11 +33,10 @@ export default function Table() {
   const search = useSelector(getSearch);
   const status = useSelector(getStatus);
 
-  const isClient = typeof window !== "undefined";
-  let currentPathname = isClient ? window.location.pathname : "";
+  const pathname = useSelector(getPathname);
 
   useEffect(() => {
-    if (currentPathname === "/") {
+    if (pathname === "/") {
       dispatch(
         addTableData(
           data.filter((item) => {
@@ -44,7 +44,7 @@ export default function Table() {
           })
         )
       );
-    } else if (currentPathname == "/sales") {
+    } else if (pathname == "/sales") {
       dispatch(
         addTableData(
           data.filter((item) => {
@@ -73,7 +73,7 @@ export default function Table() {
     });
 
   useEffect(() => {
-    dispatch(addTableCurrent(table.map((i) => i.key)));
+    dispatch(addTableCurrent(table.map((i) => i.props.item)));
   }, [table]);
 
   return (

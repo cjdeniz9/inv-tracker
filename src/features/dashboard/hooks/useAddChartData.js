@@ -1,58 +1,55 @@
-import { useCallback, useEffect, useState } from "react";
+// import { useCallback, useEffect, useState } from "react";
 
-import { useSelector } from "react-redux";
+// import { db } from "../../../firebase";
+// import { addDoc, collection } from "firebase/firestore";
 
-import { db } from "../../../firebase";
-import { addDoc, collection } from "firebase/firestore";
+// import useFetchChart from "../../../hooks/useFetchChart";
+// import useFetchInventory from "../../../hooks/useFetchInventory";
 
-import { getInventory } from "../../../context/inventorySlice";
+// import moment from "moment";
 
-import moment from "moment";
+// export default function useAddChartData() {
+//   const { chart } = useFetchChart();
+//   const { inventory } = useFetchInventory();
 
-import { getChart } from "../context/chartSlice";
+//   const [isEnabled, setIsEnabled] = useState(false);
 
-export default function useAddChartData() {
-  const chart = useSelector(getChart);
-  const inventory = useSelector(getInventory);
+//   const date = moment().format("YYYY-MM-DD");
 
-  const [isEnabled, setIsEnabled] = useState(false);
+//   const currentProfits = inventory
+//     .filter((item) => {
+//       if (
+//         item.item.status.includes("Sold") &&
+//         item.item.saleDate.includes(moment().format("YYYY-MM-DD"))
+//       ) {
+//         return item;
+//       }
+//     })
+//     .reduce(function (prev, current) {
+//       return prev + +current.item.salePrice;
+//     }, 0);
 
-  const date = moment().format("YYYY-MM-DD");
+//   const handleChartData = useCallback(() => {
+//     if (!chart.length) {
+//       //   Set first doc for chart
+//       addDoc(collection(db, "dashboard"), {
+//         date: date,
+//         profit: currentProfits,
+//       });
+//     } else if (chart.length && chart.slice(-1)[0].item.date !== date) {
+//       //   Checks if current day exist, if not creates new doc for chart
+//       addDoc(collection(db, "dashboard"), {
+//         date: date,
+//         profit: currentProfits,
+//       });
+//     }
 
-  const currentProfits = inventory
-    .filter((item) => {
-      if (
-        item.item.status.includes("Sold") &&
-        item.item.saleDate.includes(moment().format("YYYY-MM-DD"))
-      ) {
-        return item;
-      }
-    })
-    .reduce(function (prev, current) {
-      return prev + +current.item.salePrice;
-    }, 0);
+//     setIsEnabled(true);
+//   }, []);
 
-  const handleData = useCallback(() => {
-    if (!chart.length) {
-      //   Set first doc for chart
-      addDoc(collection(db, "dashboard"), {
-        date: date,
-        profit: currentProfits,
-      });
-    } else if (chart.length && chart.slice(-1)[0].item.date !== date) {
-      //   Checks if current day exist, if not creates new doc for chart
-      addDoc(collection(db, "dashboard"), {
-        date: date,
-        profit: currentProfits,
-      });
-    }
+//   useEffect(() => {
+//     handleChartData();
+//   }, [handleChartData]);
 
-    setIsEnabled(true);
-  }, []);
-
-  useEffect(() => {
-    handleData();
-  }, [handleData]);
-
-  return { isEnabled };
-}
+//   return { isEnabled, handleChartData };
+// }

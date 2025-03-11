@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isDisabled: true,
+  pathname: "",
   search: "",
   selectedItems: [],
   status: "",
@@ -11,6 +12,9 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
+    addPathname: (state, action) => {
+      state.pathname = action.payload;
+    },
     addSearch: (state, action) => {
       state.search = action.payload;
     },
@@ -24,9 +28,15 @@ export const filterSlice = createSlice({
   },
 });
 
-export const { addSearch, addStatus, addSelectedItems, resetFilter } =
-  filterSlice.actions;
+export const {
+  addPathname,
+  addSearch,
+  addStatus,
+  addSelectedItems,
+  resetFilter,
+} = filterSlice.actions;
 
+export const getPathname = (state) => state.filter.pathname;
 export const getSearch = (state) => state.filter.search;
 export const getSelectedItems = (state) => state.filter.selectedItems;
 export const getStatus = (state) => state.filter.status;
