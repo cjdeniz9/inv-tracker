@@ -12,6 +12,8 @@ import Header from "./header";
 import Table from "./table";
 import BtnDelete from "./filters/components/BtnDelete";
 
+import EmptyTable from "./components/EmptyTable";
+
 export default function Inv() {
   const isClient = typeof window !== "undefined";
   let pathname = isClient ? window.location.pathname : "";
@@ -51,11 +53,12 @@ export default function Inv() {
             )}
           </div>
         </div>
-        <div className="relative overflow-x-auto h-[34rem]">
-          <table className="w-full overflow-scroll text-sm text-left">
+        <div className="overflow-x-auto">
+          <table className="mb-3 overflow-scroll text-sm text-left">
             <Table />
           </table>
         </div>
+        <EmptyTable />
       </div>
     )
   );
