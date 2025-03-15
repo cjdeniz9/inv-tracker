@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux";
+
 import { addStatus, getStatus } from "../context/filterSlice";
+import { getInventory } from "../../../../context/inventorySlice";
 
 import DropdownMenu from "../../../../components/inputs/DropdownMenu";
 
 export default function Status() {
+  const inventory = useSelector(getInventory);
+
   const statusOptions = [
     { label: "All", value: "" },
     { label: "Unlisted", value: "Unlisted" },
@@ -16,6 +21,7 @@ export default function Status() {
       title="All"
       options={statusOptions}
       setState={addStatus}
+      disabled={!inventory.length && true}
     />
   );
 }

@@ -4,7 +4,14 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
-const DropdownMenu = ({ getState, label, title, options, setState }) => {
+const DropdownMenu = ({
+  getState,
+  label,
+  title,
+  options,
+  setState,
+  disabled,
+}) => {
   const dispatch = useDispatch();
 
   const state = useSelector(getState);
@@ -31,6 +38,7 @@ const DropdownMenu = ({ getState, label, title, options, setState }) => {
           background: "#fff",
           color: "#7A7A7A",
         }}
+        isDisabled={disabled}
       >
         {label}: {state === "" ? title : state}
       </MenuButton>

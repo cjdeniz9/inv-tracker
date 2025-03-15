@@ -14,6 +14,7 @@ const SearchBar = ({
   fontSize,
   px,
   w,
+  disabled,
 }) => {
   const dispatch = useDispatch();
 
@@ -43,6 +44,7 @@ const SearchBar = ({
         color: color,
         fontWeight: fontWeight,
       }}
+      isDisabled={disabled}
     />
   );
 };

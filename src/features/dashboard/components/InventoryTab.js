@@ -39,6 +39,7 @@ export default function InventoryTab() {
             fontSize="sm"
             px={2}
             w="full"
+            disabled={!inventory.length && true}
           />
         </div>
         {inventory.length ? (
