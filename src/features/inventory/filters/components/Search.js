@@ -3,5 +3,12 @@ import { addSearch } from "../context/filterSlice";
 import SearchBar from "../../../../components/inputs/SearchBar";
 
 export default function Search() {
-  return <SearchBar title="Search" onChange={addSearch} />;
+  return (
+    <SearchBar
+      title="Search"
+      onChange={addSearch}
+      focusBorder="0px"
+      w="27rem"
+    />
+  );
 }

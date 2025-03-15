@@ -1,12 +1,9 @@
 import { Box, Image } from "@chakra-ui/react";
 
-const BoxedImg = ({ width, img, title, padding }) => {
+const BoxedImg = ({ w, img, title, p }) => {
   return (
-    <Box
-      w={width}
-      className="bg-white border border-[1px] border-bright-gray rounded grid place-content-center"
-    >
-      <Image src={img} alt={title} px={padding} />
+    <Box w={w} className="grid place-content-center">
+      <Image src={img} alt={title} p={p} />
     </Box>
   );
 };

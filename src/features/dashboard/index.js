@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Chart from "./components/Chart";
 
-import Inventory from "../../features/dashboard/components/Inventory";
+import InventoryTab from "../../features/dashboard/components/InventoryTab";
 import Header from "../../features/dashboard/components/Header";
 import Reports from "../../features/dashboard/components/Reports";
 
@@ -39,7 +39,7 @@ export default function Dash() {
             <Reports />
           </div>
           <div className="xl:block 2xl:w-[43%] hidden w-5/12">
-            <Inventory />
+            <InventoryTab />
           </div>
         </div>
       </>

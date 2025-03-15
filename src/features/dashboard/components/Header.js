@@ -18,8 +18,6 @@ export default function Header() {
     .add(1, "seconds")
     .diff(moment(), "milliseconds");
 
-  // console.log(msTillEndOfDay);
-
   const headerValues = [
     {
       id: 1,

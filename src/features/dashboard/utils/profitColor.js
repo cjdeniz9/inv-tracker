@@ -4,6 +4,6 @@ export const profitColor = (value) => {
   } else if (value > 0) {
     return "text-salem-green";
   } else {
-    return "text-granite-gray";
+    return "text-quick-silver";
   }
 };

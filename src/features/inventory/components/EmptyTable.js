@@ -12,11 +12,11 @@ export default function EmptyTable() {
   return (
     !inventory.length && (
       <>
-        <div className="flex items-center justify-center mt-9">
+        <div className="flex items-center justify-center">
           <Image src={emptyTable} alt="empty-table" boxSize="xs" mb={9} />
         </div>
-        <div className="flex items-center justify-center mt-6">
-          <Text fontSize="xs" px={4}>
+        <div className="flex items-center justify-center">
+          <Text fontSize="sm" px={4}>
             Looks like you haven't added any items to your inventory.
           </Text>
         </div>

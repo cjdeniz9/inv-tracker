@@ -4,6 +4,7 @@ import chartReducer from "../features/dashboard/context/chartSlice";
 import dashboardReducer from "../features/dashboard/context/dashboardSlice";
 import errorReducer from "./errorSlice";
 import filterReducer from "../features/inventory/filters/context/filterSlice";
+import filtersReducer from "../context/filtersSlice";
 import filteredItemReducer from "./filteredItemSlice";
 import inventoryReducer from "./inventorySlice";
 import keywordReducer from "./keywordSlice";
@@ -24,6 +25,7 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     error: errorReducer,
     filter: filterReducer,
+    filters: filtersReducer,
     filteredItem: filteredItemReducer,
     inventory: inventoryReducer,
     keyword: keywordReducer,

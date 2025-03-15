@@ -6,8 +6,10 @@ import { deleteSelected } from "./context/selectedSlice";
 import {
   getCreateInventory,
   getCustomItemForm,
+  getModalCreate,
   getProductDetails,
   resetShow,
+  toggleModalCreate,
 } from "./context/showSlice";
 import {
   getProductDetailsTabIndex,
@@ -45,12 +47,14 @@ export default function CreateItem() {
 
   const createInventory = useSelector(getCreateInventory);
   const customItemForm = useSelector(getCustomItemForm);
+  const modalCreate = useSelector(getModalCreate);
   const productDetails = useSelector(getProductDetails);
   const size = useSelector(getSize);
   const tabIndex = useSelector(getProductDetailsTabIndex);
 
   function handleClose() {
     onClose();
+    dispatch(toggleModalCreate(false));
     dispatch(deleteKeyword());
     dispatch(deleteProduct());
     dispatch(deleteResults());
@@ -80,10 +84,18 @@ export default function CreateItem() {
         <AddIcon boxSize={3} />
       </Button>
 
-      <Slide direction="right" in={isOpen}>
-        <Modal isOpen={isOpen} onClose={handleClose} scrollBehavior="inside">
+      <Slide direction="right" in={modalCreate ? modalCreate : isOpen}>
+        <Modal
+          isOpen={modalCreate ? modalCreate : isOpen}
+          onClose={handleClose}
+          scrollBehavior="inside"
+        >
           <ModalOverlay style={{ zIndex: 40 }} />
-          <Slide direction="right" in={isOpen} style={{ zIndex: 50 }}>
+          <Slide
+            direction="right"
+            in={modalCreate ? modalCreate : isOpen}
+            style={{ zIndex: 50 }}
+          >
             <ModalContent
               containerProps={{
                 justifyContent: "flex-end",

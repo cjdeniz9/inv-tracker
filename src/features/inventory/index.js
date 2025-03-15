@@ -53,7 +53,7 @@ export default function Inv() {
             )}
           </div>
         </div>
-        <div className="overflow-x-auto">
+        <div className="mb-14 overflow-x-auto">
           <table className="mb-3 overflow-scroll text-sm text-left">
             <Table />
           </table>
