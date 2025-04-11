@@ -6,7 +6,8 @@ import { useDispatch } from "react-redux";
 
 import { updateStatus } from "../context/inventorySlice";
 import { updateChartStatus } from "../features/dashboard/context/chartSlice";
-import { resetFilter } from "../context/filtersSlice";
+import { resetFilters } from "../context/filtersSlice";
+import { clearCheckboxes } from "../features/inventory/filters/context/filterSlice";
 
 import { Button } from "@chakra-ui/react";
 
@@ -27,7 +28,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(resetFilter());
+    dispatch(resetFilters());
+    dispatch(clearCheckboxes());
   }, []);
 
   return (

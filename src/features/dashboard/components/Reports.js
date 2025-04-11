@@ -5,7 +5,8 @@ import useHandleReport from "../hooks/useHandleReport";
 import { formatCurrency } from "../../../utils/formatCurrency";
 import { profitColor } from "../../../utils/chakraUI/profitColor";
 
-import { Box, Container, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, Flex, SimpleGrid, Tooltip } from "@chakra-ui/react";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 export default function Reports() {
   const {
@@ -66,11 +67,16 @@ export default function Reports() {
             return (
               <Container key={uuidv4()} bg="white" p={5}>
                 <Box>
-                  <p className="text-sm font-semibold mb-2">{item.title}</p>
+                  <div className="w-full flex justify-between">
+                    <p className="text-sm font-semibold mb-2">{item.title}</p>
+                    <Tooltip>
+                      <InfoOutlineIcon boxSize={3.5} color="#cfcfcf" />
+                    </Tooltip>
+                  </div>
                   <Flex color={profitColor(item.value)}>
                     <h5 className="font-semibold">{item.value}</h5>
                     <div>
-                      <span className="bg-[#F4FBF4] border-[.25px] border-[#1C9E20] rounded-3 px-2 ml-2.5 mb-1 text-xs font-medium">
+                      <span className="bg-[#F4FBF4] border-[.25px] border-[#1C9E20] rounded-2 px-2 ml-2.5 mb-1 text-xs font-medium">
                         {item.percentValue}
                       </span>
                     </div>

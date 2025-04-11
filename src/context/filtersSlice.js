@@ -23,14 +23,14 @@ export const filtersSlice = createSlice({
     clearSearch: (state) => {
       state.search = initialState.search;
     },
-    resetFilter: (state) => {
+    resetFilters: (state) => {
       state.search = "";
       state.status = "";
     },
   },
 });
 
-export const { addPathname, addSearch, addStatus, clearSearch, resetFilter } =
+export const { addPathname, addSearch, addStatus, clearSearch, resetFilters } =
   filtersSlice.actions;
 
 export const getPathname = (state) => state.filters.pathname;
