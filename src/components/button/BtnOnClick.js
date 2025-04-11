@@ -5,7 +5,8 @@ const BtnOnClick = ({ onClick, value, isDisabled }) => {
     <Button
       onClick={onClick}
       px={3}
-      fontSize={14}
+      fontSize={13}
+      fontWeight={600}
       border="1px"
       borderRadius={4}
       borderColor="#003eff"
@@ -19,7 +20,7 @@ const BtnOnClick = ({ onClick, value, isDisabled }) => {
         cursor: "not-allowed",
         border: "1px",
         borderRadius: "4px",
-        borderColor: "#cfcfcf",
+        borderColor: "#ededed",
         backgroundColor: "#fff",
         color: "#242424",
         _hover: {

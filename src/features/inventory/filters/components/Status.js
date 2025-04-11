@@ -1,27 +1,45 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { addStatus, getStatus } from "../context/filterSlice";
+import {
+  addStatus,
+  clearSearch,
+  getStatus,
+} from "../../../../context/filtersSlice";
 import { getInventory } from "../../../../context/inventorySlice";
 
-import DropdownMenu from "../../../../components/inputs/DropdownMenu";
+import DropdownMenu from "../../../../components/input/DropdownMenu";
 
 export default function Status() {
+  const dispatch = useDispatch();
+
   const inventory = useSelector(getInventory);
 
   const statusOptions = [
-    { label: "All", value: "" },
-    { label: "Unlisted", value: "Unlisted" },
-    { label: "Listed", value: "Listed" },
+    { title: "All", value: "" },
+    { title: "Unlisted", value: "Unlisted" },
+    { title: "Listed", value: "Listed" },
   ];
+
+  function handleDropdownOnClick(value) {
+    dispatch(addStatus(value));
+    dispatch(clearSearch());
+  }
 
   return (
     <DropdownMenu
+      disabled={!inventory.length && true}
       getState={getStatus}
-      label="Status"
+      pl={3}
+      iconFontSize="18px"
+      iconColor="#A1A5A4"
+      w="9.6rem"
+      labelFontSize="text-sm"
+      label="Status:"
+      titleFontSize="text-sm"
       title="All"
       options={statusOptions}
-      setState={addStatus}
-      disabled={!inventory.length && true}
+      minW="9.6rem"
+      handleClick={handleDropdownOnClick}
     />
   );
 }

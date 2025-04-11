@@ -4,10 +4,12 @@ import { Input } from "@chakra-ui/react";
 
 const SearchBar = ({
   title,
+  value,
   onChange,
   bg,
   border,
   borderColor,
+  borderRadius,
   color,
   focusBorder,
   fontWeight,
@@ -20,19 +22,25 @@ const SearchBar = ({
 
   return (
     <Input
-      placeholder={title}
       onChange={(e) => {
         dispatch(onChange(e.target.value));
       }}
+      isDisabled={disabled}
+      placeholder={title}
+      value={value}
       bg={bg}
       border={border}
       borderColor={borderColor}
+      borderRadius={borderRadius}
       focusBorderColor="#003EFF"
       fontSize={fontSize}
       px={px}
       transition="ease-in-out"
       transitionDuration="300ms"
       w={w}
+      _disabled={{
+        cursor: "not-allowed",
+      }}
       _focus={{
         fontSize: fontSize,
         borderWidth: focusBorder,
@@ -44,7 +52,6 @@ const SearchBar = ({
         color: color,
         fontWeight: fontWeight,
       }}
-      isDisabled={disabled}
     />
   );
 };

@@ -1,8 +1,8 @@
 import moment from "moment";
 import useHandleHeader from "../hooks/useHandleHeader";
 
-import { profitColor } from "../utils/profitColor";
-import { profitIcon } from "../utils/profitIcon";
+import { filterColor } from "../utils/filterColor";
+import { filterIcon } from "../utils/filterIcon";
 
 export default function Header() {
   const {
@@ -37,11 +37,11 @@ export default function Header() {
       <h3>${totalIncome}</h3>
       <div>
         <span
-          className={`block relative ${profitColor(
+          className={`block relative ${filterColor(
             adjustedProfitAmount
           )} font-medium text-lg`}
         >
-          {profitIcon(adjustedProfitAmount)} ${adjustedProfitAmount} (
+          {filterIcon(adjustedProfitAmount)} ${adjustedProfitAmount} (
           {checkAdjustedProfitPercent}%)
         </span>
         {headerValues.map((item, key) => {

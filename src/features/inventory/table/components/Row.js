@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-import CheckboxChild from "../../../../components/inputs/CheckboxChild";
+import CheckboxChild from "../../../../components/input/CheckboxChild";
 
 import { formatCurrency } from "../../../../utils/formatCurrency";
 import { formatDate } from "../../../../utils/formatDate";

@@ -81,7 +81,7 @@ export default function CreateItem() {
         borderRadius={3}
         _hover={{ bg: "#5388FE" }}
       >
-        <AddIcon boxSize={3} />
+        <AddIcon boxSize={2.5} />
       </Button>
 
       <Slide direction="right" in={modalCreate ? modalCreate : isOpen}>

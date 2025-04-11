@@ -11,23 +11,17 @@ const PORT = 8000;
 const app = express();
 app.use(cors());
 
-// const storedId = localStorage.getItem("id");
-
-// console.log(storedId);
-
 app.get("/product/:keyword", (req, res) => {
   sneaks.getProducts(req.params.keyword, 9, function (err, products) {
     res.json(products);
   });
 });
 
-app.get("/product/:id", (req, res) => {
-  sneaks.getProductPrices(req.params.id, function (err, product) {
-    res.json(product);
-  });
-});
-
-app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
+// app.get("/productPrice/:id", (req, res) => {
+//   sneaks.getProductPrices(req.params.id, function (err, product) {
+//     res.json(product);
+//   });
+// });
 
 const EasyPostClient = require("@easypost/api");
 
@@ -43,6 +37,7 @@ const client = new EasyPostClient(process.env.REACT_APP_EASYPOST_API_KEY);
 //   })();
 // });
 
+console.log(PORT);
 app.get("/trackingNumber/:num", (req, res) => {
   (async () => {
     const tracker = await client.Tracker.create({

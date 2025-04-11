@@ -47,14 +47,17 @@ export default function PurchaseDetails() {
   const name = Boolean(selected.selectedArray)
     ? product.name
     : selected.shoeName;
+  // const resellPrices = Object.hasOwn(selected, "lowestResellPrice")
+  //   ? {
+  //       goat:
+  //         selected.lowestResellPrice.goat === undefined
+  //           ? ""
+  //           : selected.lowestResellPrice.goat,
+  //       stockX: selected.lowestResellPrice.stockX,
+  //     }
+  //   : "";
   const resellPrices = Object.hasOwn(selected, "lowestResellPrice")
-    ? {
-        goat:
-          selected.lowestResellPrice.goat === undefined
-            ? ""
-            : selected.lowestResellPrice.goat,
-        stockX: selected.lowestResellPrice.stockX,
-      }
+    ? selected.lowestResellPrice
     : "";
   const sku = Boolean(selected.selectedArray) ? product.sku : selected.styleID;
 

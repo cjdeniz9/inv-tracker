@@ -6,7 +6,7 @@ import {
   getSelectedItems,
 } from "../../filters/context/filterSlice";
 
-import CheckboxParent from "../../../../components/inputs/CheckboxParent";
+import CheckboxParent from "../../../../components/input/CheckboxParent";
 
 export default function Header() {
   const dispatch = useDispatch();

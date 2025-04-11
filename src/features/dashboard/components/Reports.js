@@ -53,7 +53,7 @@ export default function Reports() {
   return (
     <Box border="1px" borderColor="#EDEDED" borderRadius={8} shadow="md" mt={8}>
       <Box p={3}>
-        <h2 className="text-xl font-semibold">Reports</h2>
+        <h5 className="font-semibold">Reports</h5>
         <SimpleGrid
           columns={2}
           bg="#EDEDED"
@@ -66,12 +66,14 @@ export default function Reports() {
             return (
               <Container key={uuidv4()} bg="white" p={5}>
                 <Box>
-                  <p className="text-sm font-semibold m-0">{item.title}</p>
-                  <Flex alignItems="center" color={profitColor(item.value)}>
-                    <h2 className="text-xl">{item.value}</h2>
-                    <span className="border rounded-[16px] px-2 ml-2 mb-1 text-xs font-medium">
-                      {item.percentValue}
-                    </span>
+                  <p className="text-sm font-semibold mb-2">{item.title}</p>
+                  <Flex color={profitColor(item.value)}>
+                    <h5 className="font-semibold">{item.value}</h5>
+                    <div>
+                      <span className="bg-[#F4FBF4] border-[.25px] border-[#1C9E20] rounded-3 px-2 ml-2.5 mb-1 text-xs font-medium">
+                        {item.percentValue}
+                      </span>
+                    </div>
                   </Flex>
                 </Box>
               </Container>

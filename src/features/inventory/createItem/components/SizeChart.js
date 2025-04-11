@@ -6,7 +6,7 @@ import {
 } from "../context/tabSlice";
 
 import BtnSize from "./BtnSize";
-import TabIndex from "../../../../components/tabs/TabIndex";
+import TabIndex from "../../../../components/tab/TabIndex";
 
 import {
   Divider,

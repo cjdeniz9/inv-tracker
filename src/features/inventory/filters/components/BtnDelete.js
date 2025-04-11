@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import useFetchChart from "../../../../hooks/useFetchChart";
 import useFetchInventory from "../../../../hooks/useFetchInventory";
 
-import {
-  addSelectedItems,
-  getPathname,
-  getSelectedItems,
-} from "../context/filterSlice";
+import { getPathname } from "../../../../context/filtersSlice";
+import { addSelectedItems, getSelectedItems } from "../context/filterSlice";
 import { updateChartInFirestore } from "../../../dashboard/context/chartSlice";
 import { deleteItemFromFirestore } from "../../../../context/inventorySlice";
 

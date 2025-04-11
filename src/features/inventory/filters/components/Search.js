@@ -1,15 +1,18 @@
 import { useSelector } from "react-redux";
 
-import { addSearch } from "../context/filterSlice";
+import { addSearch, getSearch } from "../../../../context/filtersSlice";
 import { getInventory } from "../../../../context/inventorySlice";
 
-import SearchBar from "../../../../components/inputs/SearchBar";
+import SearchBar from "../../../../components/input/SearchBar";
 
 export default function Search() {
   const inventory = useSelector(getInventory);
+  const search = useSelector(getSearch);
+
   return (
     <SearchBar
       title="Search"
+      value={search}
       onChange={addSearch}
       focusBorder="0px"
       w="27rem"

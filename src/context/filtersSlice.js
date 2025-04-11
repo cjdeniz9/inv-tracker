@@ -20,11 +20,17 @@ export const filtersSlice = createSlice({
     addStatus: (state, action) => {
       state.status = action.payload;
     },
-    resetFilter: () => initialState,
+    clearSearch: (state) => {
+      state.search = initialState.search;
+    },
+    resetFilter: (state) => {
+      state.search = "";
+      state.status = "";
+    },
   },
 });
 
-export const { addPathname, addSearch, addStatus, resetFilter } =
+export const { addPathname, addSearch, addStatus, clearSearch, resetFilter } =
   filtersSlice.actions;
 
 export const getPathname = (state) => state.filters.pathname;

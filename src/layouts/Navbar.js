@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 import { updateStatus } from "../context/inventorySlice";
 import { updateChartStatus } from "../features/dashboard/context/chartSlice";
-import { resetFilter } from "../features/inventory/filters/context/filterSlice";
+import { resetFilter } from "../context/filtersSlice";
 
 import { Button } from "@chakra-ui/react";
 
@@ -26,13 +26,8 @@ export default function Navbar() {
 
   const dispatch = useDispatch();
 
-  const isClient = typeof window !== "undefined";
-  let currentPathname = isClient ? window.location.pathname : "";
-
   useEffect(() => {
-    if (currentPathname !== "/") {
-      dispatch(resetFilter());
-    }
+    dispatch(resetFilter());
   }, []);
 
   return (

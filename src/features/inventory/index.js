@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import useFetchInventory from "../../hooks/useFetchInventory";
 
-import { addPathname } from "./filters/context/filterSlice";
+import { addPathname } from "../../context/filtersSlice";
 
 import CreateItem from "./createItem";
 import Filter from "./filters";

@@ -11,7 +11,7 @@ import {
   getPathname,
   getSearch,
   getStatus,
-} from "../filters/context/filterSlice";
+} from "../../../context/filtersSlice";
 import {
   getInventory,
   getInventoryStatus,
