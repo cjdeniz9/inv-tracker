@@ -6,7 +6,9 @@ import { formatCurrency } from "../../../utils/formatCurrency";
 import { profitColor } from "../../../utils/chakraUI/profitColor";
 
 import { Box, Container, Flex, SimpleGrid, Tooltip } from "@chakra-ui/react";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { InfoIcon } from "@chakra-ui/icons";
+import { profitBorderColor } from "../utils/profitBorderColor";
+import { profitBGColor } from "../utils/profitBGColor";
 
 export default function Reports() {
   const {
@@ -61,16 +63,20 @@ export default function Reports() {
   ];
 
   return (
-    <Box border="1px" borderColor="#ededed" borderRadius={8} shadow="md" mt={8}>
+    <Box
+      border="1px"
+      borderColor="rgb(227, 233, 237)"
+      borderRadius={4}
+      shadow="sm"
+    >
+      <h5 className="font-semibold p-3">Reports</h5>
       <Box p={3}>
-        <h5 className="font-semibold">Reports</h5>
         <SimpleGrid
           columns={2}
-          bg="#ededed"
+          bg="rgb(227, 233, 237)"
           gridGap="1px"
           border="1px"
           borderColor="#ededed"
-          mt={4}
         >
           {reportsGrid.map((item) => {
             return (
@@ -88,13 +94,19 @@ export default function Reports() {
                       py={3}
                       px={5}
                     >
-                      <InfoOutlineIcon boxSize={3.5} color="#cfcfcf" />
+                      <InfoIcon boxSize={3.5} color="#7a7a7a" />
                     </Tooltip>
                   </div>
                   <Flex color={profitColor(item.value)}>
                     <h5 className="font-semibold">{item.value}</h5>
                     <div>
-                      <span className="bg-[#f4fbf4] border-[.25px] border-[#1c9e20] rounded-2 px-2 ml-2.5 mb-1 text-xs font-medium">
+                      <span
+                        className={`${profitBGColor(
+                          item.value
+                        )} border-[.25px] ${profitBorderColor(
+                          item.value
+                        )} rounded px-2 ml-2.5 mb-1 text-xs font-medium`}
+                      >
                         {item.percentValue}
                       </span>
                     </div>

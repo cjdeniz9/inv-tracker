@@ -1,8 +1,10 @@
 import moment from "moment";
 import useHandleHeader from "../hooks/useHandleHeader";
 
-import { filterColor } from "../utils/filterColor";
-import { filterIcon } from "../utils/filterIcon";
+import { profitColor } from "../../../utils/profitColor";
+import { profitIcon } from "../../../utils/profitIcon";
+import { Tooltip } from "@chakra-ui/react";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 export default function Header() {
   const {
@@ -33,22 +35,41 @@ export default function Header() {
 
   return (
     <div className="inline-block">
-      <h4>Inventory Profit</h4>
+      <div className="flex">
+        <h4 className="mr-2">Your Inventory Profit</h4>
+        <div>
+          <Tooltip
+            hasArrow
+            label="Profit is the revenue from inventory sales minus the total cost."
+            bg="#fafafa"
+            color="#242424"
+            fontSize={12}
+            fontWeight={400}
+            py={3}
+            px={5}
+          >
+            <InfoOutlineIcon boxSize={3.5} color="#338FFF" />
+          </Tooltip>
+        </div>
+      </div>
+
       <h3>${totalIncome}</h3>
       <div>
-        <span
-          className={`block relative ${filterColor(
+        <div
+          className={`flex items-center mb-1 ${profitColor(
             adjustedProfitAmount
           )} font-medium text-lg`}
         >
-          {filterIcon(adjustedProfitAmount)} ${adjustedProfitAmount} (
-          {checkAdjustedProfitPercent}%)
-        </span>
+          <span className="mr-1.5">{profitIcon(adjustedProfitAmount)}</span>
+          <span>
+            ${adjustedProfitAmount} ({checkAdjustedProfitPercent}%)
+          </span>
+        </div>
         {headerValues.map((item, key) => {
           return (
             <span
               key={item.id}
-              className="block relative text-quick-silver font-medium"
+              className="block relative font-medium text-quick-silver"
             >
               {item.value} {item.text}
             </span>

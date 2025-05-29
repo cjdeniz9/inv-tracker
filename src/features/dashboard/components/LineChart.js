@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Chart as ChartJS,
@@ -13,12 +13,14 @@ import {
 
 import { Line } from "react-chartjs-2";
 
-import { getChart } from "../context/chartSlice";
+import {
+  deleteItemFromFirestore,
+  getChart,
+  getFilteredChart,
+} from "../context/chartSlice";
 
 import { formatCurrency } from "../../../utils/formatCurrency";
 import { formatDate } from "../../../utils/formatDate";
-import useFillInDates from "../hooks/useFillInDates";
-import useFetchChart from "../../../hooks/useFetchChart";
 
 ChartJS.register(
   CategoryScale,
@@ -32,14 +34,27 @@ ChartJS.register(
 
 export default function LineChart() {
   const chart = useSelector(getChart);
+  const filteredChart = useSelector(getFilteredChart);
 
-  const {} = useFillInDates();
+  const lineChartData = filteredChart.length === 0 ? chart : filteredChart;
+
+  // Removes data that is equal to 0
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const cleaningChartData = chart.filter((i) => i.item.profit === 0);
+
+  //   cleaningChartData.map((i) => dispatch(deleteItemFromFirestore(i.id)));
+  // }, []);
+
+  // const {} = useFillInDates();
 
   // Tooltip.positioners.cursor = function (chartElements, coordinates) {
   //   return coordinates;
   // };
 
   const options = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: {
@@ -86,15 +101,15 @@ export default function LineChart() {
     },
   };
 
-  const labels = chart.map((data) => {
-    return formatDate(data.item.date);
+  const labels = lineChartData.map((i) => {
+    return formatDate(i.item.date);
   });
 
   const data = {
     labels,
     datasets: [
       {
-        data: chart.map((data) => data.item.profit),
+        data: lineChartData.map((i) => i.item.profit),
         borderColor: "rgba(72, 187, 120, 1)",
         pointStyle: false,
       },

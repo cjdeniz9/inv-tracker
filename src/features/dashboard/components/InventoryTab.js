@@ -71,7 +71,7 @@ export default function InventoryTab() {
     }
 
     return (
-      <div>
+      <div className="px-3">
         <h5 className="text-lg mb-0">No items found</h5>
         <span className="text-sm text-quick-silver">{content}</span>
       </div>
@@ -89,8 +89,8 @@ export default function InventoryTab() {
           )}
         </div>
         <div className="w-4/5 flex justify-between px-1">
-          <div className="w-5/6">
-            <div className="flex mb-2.5">
+          <div className="w-5/6 mt-1">
+            <div className="flex mb-1.5">
               <span className="text-sm text-raisin-black truncate mr-2.5">
                 {name}
               </span>
@@ -135,14 +135,14 @@ export default function InventoryTab() {
           )}
         </div>
         <div className="w-4/5 flex justify-between px-1">
-          <div className="w-5/6">
-            <div className="flex place-content-between mb-2.5">
+          <div className="w-5/6 mt-1">
+            <div className="w-full flex place-content-between mb-1.5">
               <span className="text-sm text-raisin-black truncate">{name}</span>
             </div>
-            <div className="flex items-center text-[#1A7FFF] font-medium">
+            <div className="flex items-center text-[#3a9df8] font-medium">
               <div className="mr-1.5">{<FaArrowTrendUp />}</div>
               <div>
-                <span>${value}</span>
+                <span>{formatCurrency(value)}</span>
               </div>
             </div>
           </div>

@@ -90,8 +90,6 @@ export default function PurchaseDetails() {
       timestamp: serverTimestamp(),
     };
 
-    console.log(item);
-
     dispatch(addItemToFirestore(item));
 
     onClose();

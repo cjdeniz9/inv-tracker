@@ -2,18 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { db } from "../../../firebase";
 import {
-  addDoc,
   getDocs,
   collection,
   doc,
   orderBy,
   updateDoc,
-  deleteDoc,
   query,
+  deleteDoc,
 } from "firebase/firestore";
 
 const initialState = {
   chartData: [],
+  dateFilter: "",
+  filteredChartData: [],
   status: "idle",
   error: null,
 };
@@ -39,10 +40,23 @@ export const updateChartInFirestore = createAsyncThunk(
   }
 );
 
+export const deleteItemFromFirestore = createAsyncThunk(
+  "dashboard/deleteItemFromFirestore",
+  async (id) => {
+    return await deleteDoc(doc(db, "dashboard", id));
+  }
+);
+
 export const chartSlice = createSlice({
   name: "chart",
   initialState,
   reducers: {
+    addDateFilter: (state, action) => {
+      state.dateFilter = action.payload;
+    },
+    addFilteredChartData: (state, action) => {
+      state.filteredChartData = action.payload;
+    },
     updateChartStatus: (state, action) => {
       state.status = action.payload;
     },
@@ -66,11 +80,14 @@ export const chartSlice = createSlice({
   },
 });
 
-export const { updateChartStatus } = chartSlice.actions;
+export const { addDateFilter, addFilteredChartData, updateChartStatus } =
+  chartSlice.actions;
 
 export const getChartStatus = (state) => state.chart.status;
 export const getChartError = (state) => state.chart.error;
 
 export const getChart = (state) => state.chart.chartData;
+export const getDateFilter = (state) => state.chart.dateFilter;
+export const getFilteredChart = (state) => state.chart.filteredChartData;
 
 export default chartSlice.reducer;
