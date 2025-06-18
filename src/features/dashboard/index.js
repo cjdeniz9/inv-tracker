@@ -8,9 +8,6 @@ import Reports from "../../features/dashboard/components/Reports";
 
 import useFetchChart from "../../hooks/useFetchChart";
 import useFetchInventory from "../../hooks/useFetchInventory";
-
-import { Box } from "@chakra-ui/react";
-import DateRange from "./components/DateRange";
 import useFilteredChart from "./hooks/useFilteredChart";
 
 export default function Dash() {
@@ -39,13 +36,7 @@ export default function Dash() {
             <div className="h-[196px] mt-12">
               <Chart />
             </div>
-            <div className="flex mt-8">
-              {/* <DateRange /> */}
-              {/* <div className="grid grid-cols-6 divide-x divide-gray-200 border-1 rounded-sm text-center"> */}
-              {/* <div className="grid grid-cols-6 gap-[1px] p-[1px] divide-x-5 divide-solid divide-black border-1 rounded-sm"> */}
-              {chartFilter}
-              {/* </div> */}
-            </div>
+            <div className="flex mt-6">{chartFilter}</div>
             <div className="mt-4">
               <Reports />
             </div>

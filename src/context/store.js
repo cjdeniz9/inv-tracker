@@ -8,15 +8,15 @@ import filtersReducer from "../context/filtersSlice";
 import filteredItemReducer from "./filteredItemSlice";
 import inventoryReducer from "./inventorySlice";
 import keywordReducer from "./keywordSlice";
-import listingReducer from "../features/listings/context/listingSlice";
-import productReducer from "../features/inventory/createItem/context/productSlice";
-import resultsReducer from "../features/inventory/createItem/context/resultsSlice";
-import saleReducer from "../features/listings/context/saleSlice";
-import selectedReducer from "../features/inventory/createItem/context/selectedSlice";
+import listingReducer from "../features/item/components/listings/context/listingSlice";
+import productReducer from "../features/inventory/components/createItem/context/productSlice";
+import resultsReducer from "../features/inventory/components/createItem/context/resultsSlice";
+import saleReducer from "../features/item/components/listings/context/saleSlice";
+import selectedReducer from "../features/inventory/components/createItem/context/selectedSlice";
 import shipmentReducer from "./shipmentSlice";
 import sizeReducer from "./sizeSlice";
-import showReducer from "../features/inventory/createItem/context/showSlice";
-import tabReducer from "../features/inventory/createItem/context/tabSlice";
+import showReducer from "../features/inventory/components/createItem/context/showSlice";
+import tabReducer from "../features/inventory/components/createItem/context/tabSlice";
 import tableReducer from "../features/inventory/table/context/tableSlice";
 
 export const store = configureStore({

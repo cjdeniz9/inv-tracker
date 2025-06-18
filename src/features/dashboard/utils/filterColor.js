@@ -1,6 +1,6 @@
 export const filterColor = (value) => {
   if (value === "Gains") {
-    return "text-[#48bb78]";
+    return "text-[#21b478]";
   } else if (value === "Losses") {
     return "text-[#ff6a3a]";
   } else {

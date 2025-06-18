@@ -37,7 +37,6 @@ const client = new EasyPostClient(process.env.REACT_APP_EASYPOST_API_KEY);
 //   })();
 // });
 
-console.log(PORT);
 app.get("/trackingNumber/:num", (req, res) => {
   (async () => {
     const tracker = await client.Tracker.create({
@@ -46,3 +45,11 @@ app.get("/trackingNumber/:num", (req, res) => {
     res.json(tracker);
   })();
 });
+
+try {
+  app.listen(PORT, () => {
+    console.log(`Server is running at port: ${PORT}`);
+  });
+} catch (e) {
+  console.error(e);
+}

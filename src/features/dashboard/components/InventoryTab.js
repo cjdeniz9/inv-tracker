@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { toggleModalCreate } from "../../inventory/createItem/context/showSlice";
+import { toggleModalCreate } from "../../inventory/components/createItem/context/showSlice";
 import { getInventory } from "../../../context/inventorySlice";
 import {
   addSearch,
@@ -318,6 +318,7 @@ export default function InventoryTab() {
             <DropdownMenu
               getState={getStatus}
               disabled={!inventory.length && true}
+              fontWeight="normal"
               pl={2.5}
               iconColor="#7a7a7a"
               iconFontSize="16px"

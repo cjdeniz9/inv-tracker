@@ -16,14 +16,14 @@ import {
 } from "../../context/inventorySlice";
 import { removeTrackingNum } from "../../context/shipmentSlice";
 
-import ItemDetails from "../itemDetails/index";
-import ItemHeader from "../itemHeader/index";
-import ItemTimeline from "../itemTimeline/index";
-import Listings from "../listings/index";
+import Details from "./components/details/index";
+import Header from "./components/header";
+import Listings from "./components/listings/index";
 import PackageMap from "../packageMap/index";
 import PurchaseDetails from "../purchaseDetails/index";
 import TrackShipment from "../trackShipment/index";
 import TrackingDetails from "../trackingDetails";
+import Timeline from "./components/timeline/index";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
 
 export default function Item() {
@@ -79,22 +79,22 @@ export default function Item() {
     inventoryStatus === "complete" && (
       <>
         <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
-          <ItemHeader />
+          <Header />
           <main className="lg:w-full lg:flex ">
             <div className="tablet-screen:w-4/12 w-full">
               <div id="feed" className="tablet-screen:px-7">
-                <ItemTimeline />
+                <Timeline />
                 {(location.pathname === `/${itemId}` ||
                   location.pathname === `/sales/${saleId}`) && (
                   <>
                     <TrackShipment />
-                    <PackageMap />
+                    <PackageMap marginTop={3} height="38vh" width="100%" />
                   </>
                 )}
               </div>
             </div>
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
-              <ItemDetails />
+              <Details />
               <div className="w-full flex justify-between mt-8">
                 {location.pathname === `/packages/${saleId}` ? (
                   <>

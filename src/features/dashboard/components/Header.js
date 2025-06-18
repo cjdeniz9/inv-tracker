@@ -1,9 +1,12 @@
-import moment from "moment";
 import useHandleHeader from "../hooks/useHandleHeader";
 
 import { profitColor } from "../../../utils/profitColor";
 import { profitIcon } from "../../../utils/profitIcon";
+
+import moment from "moment";
+
 import { Tooltip } from "@chakra-ui/react";
+
 import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 export default function Header() {

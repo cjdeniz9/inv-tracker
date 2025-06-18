@@ -1,36 +1,115 @@
 export default function InventoryTableHead() {
-  const tableHead = [
-    {
-      id: 1,
-      name: "Name",
-      prNum: "",
-    },
-    {
-      id: 2,
-      name: "Status",
-      prNum: "pl-20",
-    },
-    {
-      id: 3,
-      name: "Tracking Code",
-      prNum: "pl-16",
-    },
-    {
-      id: 4,
-      name: "Estimated Delivery",
-      prNum: "pl-20",
-    },
-    {
-      id: 5,
-      name: "Carrier",
-      prNum: "pl-16",
-    },
-    {
-      id: 6,
-      name: "Date Added",
-      prNum: "pl-16",
-    },
-  ];
+  const tableHead = {
+    inventory: [
+      {
+        id: 1,
+        name: "Name",
+        prNum: "",
+      },
+      {
+        id: 2,
+        name: "Brand",
+        prNum: "pl-20",
+      },
+      {
+        id: 3,
+        name: "Size",
+        prNum: "pl-16",
+      },
+      {
+        id: 4,
+        name: "Style ID",
+        prNum: "pl-20",
+      },
+      {
+        id: 5,
+        name: "Status",
+        prNum: "pl-20",
+      },
+      {
+        id: 6,
+        name: "Colorway",
+        prNum: "pl-16",
+      },
+      {
+        id: 7,
+        name: "Place of Purchase",
+        prNum: "pl-16",
+      },
+      {
+        id: 8,
+        name: "Purchase Date",
+        prNum: "pl-20",
+      },
+      {
+        id: 9,
+        name: "Sold Date",
+        prNum: "pl-20",
+      },
+      {
+        id: 10,
+        name: "Price",
+        prNum: "pl-24",
+      },
+      {
+        id: 11,
+        name: "Listing Price",
+        prNum: "pl-24",
+      },
+      {
+        id: 12,
+        name: "Sale Price",
+        prNum: "pl-20",
+      },
+      {
+        id: 13,
+        name: "Platform",
+        prNum: "pl-20",
+      },
+      {
+        id: 14,
+        name: "Condition",
+        prNum: "pl-20",
+      },
+      {
+        id: 15,
+        name: "Notes",
+        prNum: "px-16",
+      },
+    ],
+    packages: [
+      {
+        id: 1,
+        name: "Name",
+        prNum: "",
+      },
+      {
+        id: 2,
+        name: "Status",
+        prNum: "pl-20",
+      },
+      {
+        id: 3,
+        name: "Tracking Code",
+        prNum: "pl-16",
+      },
+      {
+        id: 4,
+        name: "Estimated Delivery",
+        prNum: "pl-20",
+      },
+      {
+        id: 5,
+        name: "Carrier",
+        prNum: "pl-16",
+      },
+      {
+        id: 6,
+        name: "Date Added",
+        prNum: "pl-16",
+      },
+    ],
+  };
 
   return (
     <thead className="bg-white border-b text-sm text-gray-700">

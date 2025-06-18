@@ -27,8 +27,9 @@ export default function Status() {
 
   return (
     <DropdownMenu
-      disabled={!inventory.length && true}
       getState={getStatus}
+      disabled={!inventory.length && true}
+      fontWeight="normal"
       pl={3}
       iconFontSize="18px"
       iconColor="#A1A5A4"

@@ -7,6 +7,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 const DropdownMenu = ({
   getState,
   disabled,
+  fontWeight,
   pl,
   iconFontSize,
   iconColor,
@@ -34,7 +35,7 @@ const DropdownMenu = ({
         color="#242424"
         display="flex"
         fontSize="xs"
-        fontWeight="normal"
+        fontWeight={fontWeight}
         pl={pl}
         pr={2}
         rightIcon={

@@ -110,7 +110,7 @@ export default function LineChart() {
     datasets: [
       {
         data: lineChartData.map((i) => i.item.profit),
-        borderColor: "rgba(72, 187, 120, 1)",
+        borderColor: "rgb(33, 180, 120)",
         pointStyle: false,
       },
     ],

@@ -6,7 +6,7 @@ import useFetchInventory from "../../hooks/useFetchInventory";
 
 import { addPathname } from "../../context/filtersSlice";
 
-import CreateItem from "./createItem";
+import CreateItem from "./components/createItem";
 import Filter from "./filters";
 import Header from "./header";
 import Table from "./table";
@@ -54,7 +54,7 @@ export default function Inv() {
           </div>
         </div>
         <div className="mb-14 overflow-x-auto">
-          <table className="mb-3 overflow-scroll text-sm text-left">
+          <table className="mb-3 w-full overflow-scroll text-sm text-left">
             <Table />
           </table>
         </div>

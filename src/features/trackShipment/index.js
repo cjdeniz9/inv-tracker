@@ -80,11 +80,11 @@ export default function TrackShipment() {
 
       const data = await response.json();
 
-      console.log(response);
-      console.log(data);
+      // console.log(response);
+      // console.log(data);
 
-      // setShipmentDetails(data);
-      // getGeocoding(data);
+      setShipmentDetails(data);
+      getGeocoding(data);
     } catch (error) {
       console.error(error.response);
     }

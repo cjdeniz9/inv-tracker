@@ -2,13 +2,14 @@ import { v4 as uuidv4 } from "uuid";
 
 import useHandleReport from "../hooks/useHandleReport";
 
+import { profitBGColor } from "../utils/profitBGColor";
+import { profitBorderColor } from "../utils/profitBorderColor";
 import { formatCurrency } from "../../../utils/formatCurrency";
 import { profitColor } from "../../../utils/chakraUI/profitColor";
 
 import { Box, Container, Flex, SimpleGrid, Tooltip } from "@chakra-ui/react";
+
 import { InfoIcon } from "@chakra-ui/icons";
-import { profitBorderColor } from "../utils/profitBorderColor";
-import { profitBGColor } from "../utils/profitBGColor";
 
 export default function Reports() {
   const {

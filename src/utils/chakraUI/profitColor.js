@@ -4,7 +4,6 @@ export const profitColor = (value) => {
   if (num < 0) {
     return "#ff6a3a";
   } else {
-    return "#48bb78";
-    // return "#00a859";
+    return "#21b478";
   }
 };
