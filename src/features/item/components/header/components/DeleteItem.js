@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import useDeleteItem from "../hooks/useDeleteItem";
+import useFetchShipment from "../../../hooks/useFetchShipment";
 
 import {
   Button,
@@ -17,7 +18,86 @@ import {
 export default function DeleteItem() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const location = useLocation();
+
+  const path = location.pathname.split("/")[1];
+
   const { deleteItem } = useDeleteItem();
+  const { deleteShipment } = useFetchShipment();
+
+  const ModalDelete = ({ type, text, onClick }) => {
+    return (
+      <ModalContent>
+        <ModalHeader fontWeight="bold">Delete {type}</ModalHeader>
+        <ModalBody>
+          <Text fontSize={17}>{text}</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            mr={2}
+            onClick={() => {
+              onClose();
+            }}
+            variant="outline"
+            px={3}
+            borderRadius={4}
+            borderColor={"#CFCFCF"}
+          >
+            Cancel
+          </Button>
+          <Link to="/">
+            <Button
+              onClick={() => {
+                onClick();
+              }}
+              colorScheme="red"
+              px={3}
+              borderRadius={4}
+              borderColor={"#CFCFCF"}
+            >
+              Yes
+            </Button>
+          </Link>
+        </ModalFooter>
+      </ModalContent>
+    );
+  };
+  //   return (
+  //     <ModalContent>
+  //       <ModalHeader fontWeight="bold">Delete shipment</ModalHeader>
+  //       <ModalBody>
+  //         <Text fontSize={17}>
+  //           Are you sure you want to delete this package?
+  //         </Text>
+  //       </ModalBody>
+  //       <ModalFooter>
+  //         <Button
+  //           mr={2}
+  //           onClick={onClose}
+  //           variant="outline"
+  //           px={3}
+  //           borderRadius={4}
+  //           borderColor={"#CFCFCF"}
+  //         >
+  //           Cancel
+  //         </Button>
+  //         <Link to="/">
+  //           <Button
+  //             onClick={() => {
+  //               deleteShipment();
+  //             }}
+  //             colorScheme="red"
+  //             px={3}
+  //             borderRadius={4}
+  //             borderColor={"#CFCFCF"}
+  //           >
+  //             Yes
+  //           </Button>
+  //         </Link>
+  //       </ModalFooter>
+  //     </ModalContent>
+  //   );
+  // };
 
   return (
     <>
@@ -37,39 +117,19 @@ export default function DeleteItem() {
 
       <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontWeight="bold">Delete item</ModalHeader>
-          <ModalBody>
-            <Text fontSize={17}>
-              Are you sure you want to delete this item?
-            </Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              mr={2}
-              onClick={onClose}
-              variant="outline"
-              px={3}
-              borderRadius={4}
-              borderColor={"#CFCFCF"}
-            >
-              Cancel
-            </Button>
-            <Link to="/">
-              <Button
-                onClick={() => {
-                  deleteItem();
-                }}
-                colorScheme="red"
-                px={3}
-                borderRadius={4}
-                borderColor={"#CFCFCF"}
-              >
-                Yes
-              </Button>
-            </Link>
-          </ModalFooter>
-        </ModalContent>
+        {path === "packages" ? (
+          <ModalDelete
+            type="shipment"
+            text="Are you sure you want to delete this package?"
+            onClick={deleteShipment}
+          />
+        ) : (
+          <ModalDelete
+            type="item"
+            text="Are you sure you want to delete this item?"
+            onClick={deleteItem}
+          />
+        )}
       </Modal>
     </>
   );

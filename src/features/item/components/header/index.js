@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { useLocation } from "react-router-dom";
 
@@ -15,8 +15,6 @@ import EditItem from "./components/EditItem";
 import Breadcrumb from "../../../../components/header/Breadcrumb";
 
 export default function Header() {
-  const dispatch = useDispatch();
-
   let location = useLocation();
 
   const filteredId = useSelector(getFilteredId);
@@ -57,13 +55,13 @@ export default function Header() {
             {item.name}
           </h1>
         </div>
-        {location.pathname !== `/packages/${filteredId}` && (
-          <div>
-            {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
-            <EditItem />
-            <DeleteItem />
-          </div>
-        )}
+        {/* {location.pathname !== `/packages/${filteredId}` && ( */}
+        <div>
+          {/* {item.img === "" ? <UploadImage /> : <ChangeImage />} */}
+          <EditItem />
+          <DeleteItem />
+        </div>
+        {/* )} */}
       </div>
     </div>
   );

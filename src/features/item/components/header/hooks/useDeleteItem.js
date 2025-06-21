@@ -17,26 +17,31 @@ export default function useDeleteItem() {
 
   const { chart } = useFetchChart();
 
-  const filteredId = useSelector(getFilteredId);
-  const filteredItem = useSelector(getFilteredItem);
+  const id = useSelector(getFilteredId);
+  const item = useSelector(getFilteredItem);
 
-  const deleteItem = () => {
+  function removeSaleFromChart() {
     const matchFound = chart.filter((i) => {
-      if (i.item.date.includes(filteredItem.saleDate)) {
+      if (i.item.date.includes(item.saleDate)) {
         return i;
       }
     });
 
     const newProfit =
-      Number(matchFound[0].item.profit) - Number(filteredItem.salePrice);
+      Number(matchFound[0].item.profit) - Number(item.salePrice);
 
     const data = {
       id: matchFound[0].id,
       profit: newProfit,
     };
 
-    dispatch(deleteItemFromFirestore(filteredId));
     dispatch(updateChartInFirestore(data));
+  }
+
+  const deleteItem = () => {
+    item.status === "Sold" && removeSaleFromChart();
+
+    dispatch(deleteItemFromFirestore(id));
     dispatch(updateStatus("idle"));
   };
 
