@@ -7,20 +7,14 @@ import { deleteField, doc, updateDoc } from "firebase/firestore";
 
 import { getFilteredId } from "../../../context/filteredItemSlice";
 import { updateStatus } from "../../../context/inventorySlice";
-import {
-  getTrackingNum,
-  removeTrackingNum,
-} from "../../../context/shipmentSlice";
 
 export default function useFetchShipment() {
   const dispatch = useDispatch();
 
-  const filteredId = useSelector(getFilteredId);
-  const trackingNum = useSelector(getTrackingNum);
+  const id = useSelector(getFilteredId);
 
   const [shipmentDetails, setShipmentDetails] = useState([]);
-
-  const id = filteredId;
+  const [trackingNum, setTrackingNum] = useState("");
 
   async function getGeocoding(value) {
     const zipcode = value.tracking_details.slice(-1)[0].tracking_location.zip;
@@ -41,7 +35,7 @@ export default function useFetchShipment() {
     dispatch(updateStatus("idle"));
   }
 
-  async function addShipment(e) {
+  async function addShipment(e, trackingNum) {
     e.preventDefault();
 
     try {
@@ -55,6 +49,7 @@ export default function useFetchShipment() {
 
       const data = await response.json();
 
+      setTrackingNum(trackingNum);
       setShipmentDetails(data);
       getGeocoding(data);
     } catch (error) {
@@ -77,7 +72,6 @@ export default function useFetchShipment() {
       },
     });
 
-    dispatch(removeTrackingNum());
     dispatch(updateStatus("idle"));
 
     setShipmentDetails([]);

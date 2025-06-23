@@ -1,11 +1,14 @@
+import { useState } from "react";
+
 import { useSelector } from "react-redux";
 
-import { getFilteredItem } from "../../context/filteredItemSlice";
+import { getFilteredItem } from "../../../../context/filteredItemSlice";
+
+import useFetchShipment from "../../../item/hooks/useFetchShipment";
 
 import DeletePackage from "./components/DeletePackage";
 import TrackingCodeInput from "./components/TrackingCodeInput";
-import useFetchShipment from "../item/hooks/useFetchShipment";
-import BtnSubmit from "../../components/form/BtnSubmit";
+import BtnSubmit from "../../../../components/form/BtnSubmit";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
@@ -13,15 +16,22 @@ import { faBox } from "@fortawesome/free-solid-svg-icons";
 export default function TrackShipment() {
   const { addShipment } = useFetchShipment();
 
-  const filteredItem = useSelector(getFilteredItem);
+  const item = useSelector(getFilteredItem);
+
+  const [trackingNum, setTrackingNum] = useState("");
 
   return (
     <div className="mt-6">
       <h4 className="font-semibold">Tracking</h4>
-      {typeof filteredItem.shippingInfo === "undefined" ? (
+      {typeof item.shippingInfo === "undefined" ? (
         <div className="mt-4">
-          <form onSubmit={addShipment} id="shipmentForm">
-            <TrackingCodeInput />
+          <form
+            onSubmit={(e) => {
+              addShipment(e, trackingNum);
+            }}
+            id="shipmentForm"
+          >
+            <TrackingCodeInput value={trackingNum} onChange={setTrackingNum} />
             <div className="mt-7 flex flex-row-reverse">
               <BtnSubmit form="shipmentForm" value="Add tracking code" />
             </div>
@@ -35,11 +45,11 @@ export default function TrackShipment() {
           <div className="w-full flex justify-between">
             <div>
               <span className="text-xl font-medium text-blue-ryb">
-                {filteredItem.shippingInfo.trackingNum}
+                {item.shippingInfo.trackingNum}
               </span>{" "}
               <br />
               <span className="text-raisin-black">
-                {filteredItem.shippingInfo.trackingDetails.slice(-1)[0].message}
+                {item.shippingInfo.trackingDetails.slice(-1)[0].message}
               </span>
             </div>
             <div>

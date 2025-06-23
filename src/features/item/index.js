@@ -1,13 +1,10 @@
 import { useEffect } from "react";
 
-import { useLocation, useParams } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  getFilteredItem,
-  setFilteredItem,
-} from "../../context/filteredItemSlice";
+import { useLocation, useParams } from "react-router-dom";
+
+import { setFilteredItem } from "../../context/filteredItemSlice";
 import {
   getInventory,
   getInventoryStatus,
@@ -17,12 +14,11 @@ import {
 import { removeTrackingNum } from "../../context/shipmentSlice";
 
 import Details from "./components/details/index";
+import DetailList from "./components/details/components/DetailList";
+import GoogleMap from "./components/shipping/components/GoogleMap";
 import Header from "./components/header";
 import Listings from "./components/listings/index";
-import PackageMap from "../packageMap/index";
-import PurchaseDetails from "../purchaseDetails/index";
-import TrackShipment from "../trackShipment/index";
-import TrackingDetails from "../trackingDetails";
+import TrackShipment from "./components/shipping/index";
 import Timeline from "./components/timeline/index";
 // import MobileProductDetail from "../components/Items/MobileProductDetail";
 
@@ -30,6 +26,8 @@ export default function Item() {
   const dispatch = useDispatch();
 
   let location = useLocation();
+
+  const path = location.pathname.split("/")[1];
 
   const inv = useSelector(getInventory);
   const inventoryStatus = useSelector(getInventoryStatus);
@@ -55,26 +53,6 @@ export default function Item() {
     return () => dispatch(removeTrackingNum());
   }, []);
 
-  // async function fetchShipment() {
-  //   console.log("w");
-  //   try {
-  //     const response = await fetch("http://localhost:8000/product/travis");
-
-  //     if (!response.ok) {
-  //       throw new Error("Could not fetch resource");
-  //     }
-
-  //     console.log(response);
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  // fetchShipment();
-
   return (
     inventoryStatus === "complete" && (
       <>
@@ -84,11 +62,10 @@ export default function Item() {
             <div className="tablet-screen:w-4/12 w-full">
               <div id="feed" className="tablet-screen:px-7">
                 <Timeline />
-                {(location.pathname === `/${itemId}` ||
-                  location.pathname === `/sales/${saleId}`) && (
+                {(path === itemId || path === "sales") && (
                   <>
                     <TrackShipment />
-                    <PackageMap marginTop={3} height="38vh" width="100%" />
+                    <GoogleMap marginTop={3} height="38vh" width="100%" />
                   </>
                 )}
               </div>
@@ -96,16 +73,12 @@ export default function Item() {
             <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
               <Details />
               <div className="w-full flex justify-between mt-8">
-                {location.pathname === `/packages/${saleId}` ? (
-                  <>
-                    <TrackingDetails />
-                    <PackageMap height={54} width="1/2" />
-                  </>
-                ) : (
-                  <>
-                    <Listings />
-                    <PurchaseDetails />
-                  </>
+                {path !== "packages" && <Listings />}
+                <DetailList />
+                {path === "packages" && (
+                  <div className="w-[50%]">
+                    <GoogleMap marginTop={3} height="38vh" width="100%" />
+                  </div>
                 )}
               </div>
             </div>

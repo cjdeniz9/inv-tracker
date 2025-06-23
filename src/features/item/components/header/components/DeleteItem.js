@@ -62,42 +62,6 @@ export default function DeleteItem() {
       </ModalContent>
     );
   };
-  //   return (
-  //     <ModalContent>
-  //       <ModalHeader fontWeight="bold">Delete shipment</ModalHeader>
-  //       <ModalBody>
-  //         <Text fontSize={17}>
-  //           Are you sure you want to delete this package?
-  //         </Text>
-  //       </ModalBody>
-  //       <ModalFooter>
-  //         <Button
-  //           mr={2}
-  //           onClick={onClose}
-  //           variant="outline"
-  //           px={3}
-  //           borderRadius={4}
-  //           borderColor={"#CFCFCF"}
-  //         >
-  //           Cancel
-  //         </Button>
-  //         <Link to="/">
-  //           <Button
-  //             onClick={() => {
-  //               deleteShipment();
-  //             }}
-  //             colorScheme="red"
-  //             px={3}
-  //             borderRadius={4}
-  //             borderColor={"#CFCFCF"}
-  //           >
-  //             Yes
-  //           </Button>
-  //         </Link>
-  //       </ModalFooter>
-  //     </ModalContent>
-  //   );
-  // };
 
   return (
     <>

@@ -1,14 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-
-import { addTrackingNum, getTrackingNum } from "../../../context/shipmentSlice";
-
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
-export default function TrackingCodeInput() {
-  const dispatch = useDispatch();
-
-  const trackingNum = useSelector(getTrackingNum);
-
+export default function TrackingCodeInput({ value, onChange }) {
   return (
     <FormControl>
       <FormLabel fontSize={12} fontWeight="none" color="#718096">
@@ -16,9 +8,9 @@ export default function TrackingCodeInput() {
       </FormLabel>
       <Input
         type="text"
-        value={trackingNum}
+        value={value}
         onChange={(e) => {
-          dispatch(addTrackingNum(e.target.value));
+          onChange(e.target.value);
         }}
         fontSize={17}
         _focusVisible={{

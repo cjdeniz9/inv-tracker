@@ -6,8 +6,8 @@ import { getFilteredItem } from "../../../../context/filteredItemSlice";
 import MarkAsMenu from "./components/MarkAsMenu";
 import SaleDetails from "./components/SaleDetails";
 import EditListed from "./components/EditListed";
-import AlertNotif from "../../../../components/alert/AlertNotif";
 import StatusBadge from "./components/StatusBadge";
+import AlertNotif from "../../../../components/alert/AlertNotif";
 
 export default function Listings() {
   const filteredItem = useSelector(getFilteredItem);
