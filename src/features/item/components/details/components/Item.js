@@ -34,14 +34,9 @@ export default function Item() {
       </div>
       <div className="2xl:w-[20%] w-[29%] flex flex-row-reverse py-3 pr-5">
         {item.img === undefined ? (
-          <BoxedImg width="150px" img={AltLogo} title="alt-logo" padding={10} />
+          <BoxedImg img={AltLogo} title="alt-logo" p={10} />
         ) : (
-          <BoxedImg
-            width="150px"
-            img={item.img}
-            title="item-logo"
-            padding={4}
-          />
+          <BoxedImg img={item.img} title="item-logo" p={5} />
         )}
       </div>
     </div>

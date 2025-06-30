@@ -1,10 +1,10 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 
-const BoxedImg = ({ w, img, title, p }) => {
+const BoxedImg = ({ img, title, p }) => {
   return (
-    <Box w={w} className="grid place-content-center">
+    <div className="grid place-content-center bg-white rounded-md">
       <Image src={img} alt={title} p={p} />
-    </Box>
+    </div>
   );
 };
 

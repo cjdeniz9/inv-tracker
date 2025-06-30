@@ -38,7 +38,7 @@ export default function Navbar() {
   };
 
   const tabBackground = (tab) => {
-    return path === tab ? "#e0e9ff" : "#cfcfcf";
+    return path === tab ? "#e0e9ff" : "#ededed";
   };
 
   useEffect(() => {

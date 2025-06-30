@@ -19,15 +19,12 @@ export default function CreateInventory() {
     content = (
       <>
         <Search />
-        <div className="fixed right-64 bottom-16 z-0">
+        {/* <div className="fixed right-64 bottom-16 z-0">
           <div className="text-center">
-            <img
-              src="https://app.scoutapp.ai/assets/images/package_box.svg"
-              alt="search-img"
-            />
-            <p className="text-xl mt-10">Search item to get started</p>
+            <Image src={searchImg} alt="search-img" w={32} />
+            <p className="text-xl mt-4">Search item to get started</p>
           </div>
-        </div>
+        </div> */}
       </>
     );
   }
