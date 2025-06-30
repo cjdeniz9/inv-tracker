@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
-import { updateStatus } from "../context/inventorySlice";
-import { updateChartStatus } from "../features/dashboard/context/chartSlice";
 import { resetFilters } from "../context/filtersSlice";
 import { clearCheckboxes } from "../features/inventory/filters/context/filterSlice";
 
@@ -27,10 +25,79 @@ export default function Navbar() {
 
   const dispatch = useDispatch();
 
+  const location = useLocation();
+
+  const path = location.pathname;
+
+  const tabIcon = (tab) => {
+    return path === tab ? "text-blue-ryb" : "text-granite-gray";
+  };
+
+  const tabText = (tab) => {
+    return path === tab ? "text-blue-ryb" : "text-[#242424]";
+  };
+
+  const tabBackground = (tab) => {
+    return path === tab ? "#e0e9ff" : "#cfcfcf";
+  };
+
   useEffect(() => {
     dispatch(resetFilters());
     dispatch(clearCheckboxes());
   }, []);
+
+  const tabList = [
+    {
+      link: "/dashboard",
+      icon: faTable,
+      name: "Dashboard",
+    },
+    {
+      link: "/",
+      icon: faBoxOpen,
+      name: "Inventory",
+    },
+    {
+      link: "/sales",
+      icon: faSackDollar,
+      name: "Sales",
+    },
+    {
+      link: "/packages",
+      icon: faBox,
+      name: "Packages",
+    },
+  ];
+
+  const Tab = ({ link, icon, name }) => {
+    return (
+      <li>
+        <Link
+          to={link}
+          className={`w-[90%] flex no-underline font-normal text-gray-900 rounded-lg`}
+        >
+          <Button
+            w="full"
+            bg="none"
+            _hover={{
+              bg: tabBackground(link),
+            }}
+          >
+            <div className="w-full text-left">
+              <FontAwesomeIcon icon={icon} className={tabIcon(link)} />
+              <span className={`font-normal ml-4 ${tabText(link)}`}>
+                {name}
+              </span>
+            </div>
+          </Button>
+        </Link>
+      </li>
+    );
+  };
+
+  const tabs = tabList.map((i) => {
+    return <Tab link={i.link} icon={i.icon} name={i.name} />;
+  });
 
   return (
     <>
@@ -84,73 +151,7 @@ export default function Navbar() {
               Tracker
             </span>
           </a>
-          <ul className="space-y-3 p-0 ml-5">
-            <li>
-              <Link
-                to="/dashboard"
-                className="w-[90%] flex no-underline font-normal text-gray-900 rounded-lg hover:bg-american-silver"
-              >
-                <Button
-                  w="full"
-                  bg="none"
-                  _hover={{
-                    bg: "#CFCFCF",
-                  }}
-                >
-                  <div className="w-full text-left">
-                    <FontAwesomeIcon
-                      icon={faTable}
-                      className="text-granite-gray"
-                    />
-                    <span className="font-normal ml-4 text-[#242424]">
-                      Dashboard
-                    </span>
-                  </div>
-                </Button>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/"
-                onClick={() => {
-                  dispatch(updateChartStatus("idle"));
-                  dispatch(updateStatus("idle"));
-                }}
-                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
-              >
-                <FontAwesomeIcon
-                  icon={faBoxOpen}
-                  className="text-granite-gray"
-                />
-                <span className="ml-3 text-[#242424]">Inventory</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/sales"
-                onClick={() => {
-                  dispatch(updateChartStatus("idle"));
-                  dispatch(updateStatus("idle"));
-                }}
-                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
-              >
-                <FontAwesomeIcon
-                  icon={faSackDollar}
-                  className="text-granite-gray"
-                />
-                <span className="ml-4 text-[#242424]">Sales</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/packages"
-                className="w-[90%] flex no-underline items-center py-2 px-3 text-base font-normal text-gray-900 rounded-lg hover:bg-american-silver"
-              >
-                <FontAwesomeIcon icon={faBox} className="text-granite-gray" />
-                <span className="ml-4 text-[#242424]">Packages</span>
-              </Link>
-            </li>
-          </ul>
+          <ul className="space-y-3 p-0 ml-5">{tabs}</ul>
         </div>
       </aside>
     </>

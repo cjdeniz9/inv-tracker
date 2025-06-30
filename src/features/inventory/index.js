@@ -12,7 +12,7 @@ import Header from "./header";
 import Table from "./table";
 import BtnDelete from "./filters/components/BtnDelete";
 
-import EmptyTable from "./components/EmptyTable";
+import EmptyTable from "./table/components/EmptyTable";
 
 export default function Inv() {
   const isClient = typeof window !== "undefined";
@@ -58,7 +58,7 @@ export default function Inv() {
             <Table />
           </table>
         </div>
-        <EmptyTable />
+        <EmptyTable path={pathname} />
       </div>
     )
   );
