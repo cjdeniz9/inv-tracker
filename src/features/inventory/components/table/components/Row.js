@@ -5,15 +5,15 @@ import { Link, useLocation } from "react-router-dom";
 import {
   addSelectedItems,
   getSelectedItems,
-} from "../../filters/context/filterSlice";
-import { getPathname } from "../../../../context/filtersSlice";
+} from "../../../components/filters/context/filterSlice";
+import { getPathname } from "../../../../../context/filtersSlice";
 
-import CheckboxChild from "../../../../components/input/CheckboxChild";
+import CheckboxChild from "../../../../../components/input/CheckboxChild";
 
-import { formatCurrency } from "../../../../utils/formatCurrency";
-import { formatDate } from "../../../../utils/formatDate";
-import { statusColor } from "../../../../utils/statusColor";
-import { statusIcon } from "../../../../utils/statusIcon";
+import { formatCurrency } from "../../../../../utils/formatCurrency";
+import { formatDate } from "../../../../../utils/formatDate";
+import { statusColor } from "../../../../../utils/statusColor";
+import { statusIcon } from "../../../../../utils/statusIcon";
 
 import moment from "moment";
 

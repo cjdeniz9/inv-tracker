@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 
-import { addSearch, getSearch } from "../../../../context/filtersSlice";
-import { getInventory } from "../../../../context/inventorySlice";
+import { addSearch, getSearch } from "../../../../../context/filtersSlice";
+import { getInventory } from "../../../../../context/inventorySlice";
 
-import SearchBar from "../../../../components/input/SearchBar";
+import SearchBar from "../../../../../components/input/SearchBar";
 
 export default function Search() {
   const inventory = useSelector(getInventory);

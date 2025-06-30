@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { resetFilters } from "../context/filtersSlice";
-import { clearCheckboxes } from "../features/inventory/filters/context/filterSlice";
+import { clearCheckboxes } from "../features/inventory/components/filters/context/filterSlice";
 
 import { Button } from "@chakra-ui/react";
 

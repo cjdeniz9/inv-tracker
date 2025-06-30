@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import chartReducer from "../features/dashboard/context/chartSlice";
 import dashboardReducer from "../features/dashboard/context/dashboardSlice";
 import errorReducer from "./errorSlice";
-import filterReducer from "../features/inventory/filters/context/filterSlice";
+import filterReducer from "../features/inventory/components/filters/context/filterSlice";
 import filtersReducer from "../context/filtersSlice";
 import filteredItemReducer from "./filteredItemSlice";
 import inventoryReducer from "./inventorySlice";
@@ -17,7 +17,7 @@ import shipmentReducer from "./shipmentSlice";
 import sizeReducer from "./sizeSlice";
 import showReducer from "../features/inventory/components/createItem/context/showSlice";
 import tabReducer from "../features/inventory/components/createItem/context/tabSlice";
-import tableReducer from "../features/inventory/table/context/tableSlice";
+import tableReducer from "../features/inventory/components/table/context/tableSlice";
 
 export const store = configureStore({
   reducer: {

@@ -7,12 +7,12 @@ import useFetchInventory from "../../hooks/useFetchInventory";
 import { addPathname } from "../../context/filtersSlice";
 
 import CreateItem from "./components/createItem";
-import Filter from "./filters";
-import Header from "./header";
-import Table from "./table";
-import BtnDelete from "./filters/components/BtnDelete";
+import Filter from "./components/filters/index";
+import Header from "../inventory/components/header/index";
+import Table from "../inventory/components/table/index";
+import BtnDelete from "../inventory/components/filters/components/BtnDelete";
 
-import EmptyTable from "./table/components/EmptyTable";
+import EmptyTable from "../inventory/components/table/components/EmptyTable";
 
 export default function Inv() {
   const isClient = typeof window !== "undefined";

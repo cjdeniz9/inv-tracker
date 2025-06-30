@@ -7,12 +7,12 @@ import {
   getPathname,
   getSearch,
   getStatus,
-} from "../../../context/filtersSlice";
+} from "../../../../context/filtersSlice";
 import {
   getInventory,
   getInventoryStatus,
   getInventoryError,
-} from "../../../context/inventorySlice";
+} from "../../../../context/inventorySlice";
 
 import Header from "./components/Header";
 import Row from "./components/Row";

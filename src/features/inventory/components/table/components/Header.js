@@ -4,10 +4,10 @@ import { getTableCurrent } from "../context/tableSlice";
 import {
   addSelectedItems,
   getSelectedItems,
-} from "../../filters/context/filterSlice";
-import { getPathname } from "../../../../context/filtersSlice";
+} from "../../../components/filters/context/filterSlice";
+import { getPathname } from "../../../../../context/filtersSlice";
 
-import CheckboxParent from "../../../../components/input/CheckboxParent";
+import CheckboxParent from "../../../../../components/input/CheckboxParent";
 
 export default function Header() {
   const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 
-import { getPathname } from "../../../context/filtersSlice";
+import { getPathname } from "../../../../context/filtersSlice";
 
-import Search from "./components/Search";
-import Status from "./components/Status";
+import Search from "../filters/components/Search";
+import Status from "../filters/components/Status";
 
 export default function Filter() {
   const pathname = useSelector(getPathname);

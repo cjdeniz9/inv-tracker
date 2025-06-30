@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import useFetchChart from "../../../../hooks/useFetchChart";
-import useFetchInventory from "../../../../hooks/useFetchInventory";
+import useFetchChart from "../../../../../hooks/useFetchChart";
+import useFetchInventory from "../../../../../hooks/useFetchInventory";
 
-import { getPathname } from "../../../../context/filtersSlice";
 import { addSelectedItems, getSelectedItems } from "../context/filterSlice";
-import { updateChartInFirestore } from "../../../dashboard/context/chartSlice";
-import { deleteItemFromFirestore } from "../../../../context/inventorySlice";
+import { getPathname } from "../../../../../context/filtersSlice";
+import { deleteItemFromFirestore } from "../../../../../context/inventorySlice";
+import { updateChartInFirestore } from "../../../../dashboard/context/chartSlice";
 
-import BtnOnClick from "../../../../components/button/BtnOnClick";
+import BtnOnClick from "../../../../../components/button/BtnOnClick";
 
 export default function BtnDelete() {
   const dispatch = useDispatch();

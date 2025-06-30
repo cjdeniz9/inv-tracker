@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { getTableCurrent } from "../context/tableSlice";
 
-import emptyTable from "../../../../assets/images/search-img.png";
+import emptyTable from "../../../../../assets/images/search-img.png";
 
 import { Image, Text } from "@chakra-ui/react";
 
@@ -23,7 +23,7 @@ export default function EmptyTable({ path }) {
     !currentTable.length && (
       <>
         <div className="flex items-center justify-center">
-          <Image src={emptyTable} alt="empty-table" boxSize="xs" mb={9} />
+          <Image src={emptyTable} alt="empty-table" boxSize="xs" mb={7} />
         </div>
         <div className="flex items-center justify-center">
           <Text px={4} fontSize="lg">

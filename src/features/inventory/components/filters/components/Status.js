@@ -4,10 +4,10 @@ import {
   addStatus,
   clearSearch,
   getStatus,
-} from "../../../../context/filtersSlice";
-import { getInventory } from "../../../../context/inventorySlice";
+} from "../../../../../context/filtersSlice";
+import { getInventory } from "../../../../../context/inventorySlice";
 
-import DropdownMenu from "../../../../components/input/DropdownMenu";
+import DropdownMenu from "../../../../../components/input/DropdownMenu";
 
 export default function Status() {
   const dispatch = useDispatch();
