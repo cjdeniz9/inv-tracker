@@ -40,8 +40,8 @@ export const updateChartInFirestore = createAsyncThunk(
   }
 );
 
-export const deleteItemFromFirestore = createAsyncThunk(
-  "dashboard/deleteItemFromFirestore",
+export const deleteSaleFromFirestore = createAsyncThunk(
+  "dashboard/deleteSaleFromFirestore",
   async (id) => {
     return await deleteDoc(doc(db, "dashboard", id));
   }

@@ -50,7 +50,7 @@ export default function Header() {
     <div className="pb-4">
       {header}
       <div className="flex w-full justify-between pt-3">
-        <div>
+        <div className="w-5/6">
           <h1 className="phone-screen:text-2xl tablet-screen:text-3xl xl:text-4xl">
             {item.name}
           </h1>

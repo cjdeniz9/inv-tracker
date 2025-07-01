@@ -4,9 +4,12 @@ import useFetchChart from "../../../../../hooks/useFetchChart";
 import useFetchInventory from "../../../../../hooks/useFetchInventory";
 
 import { addSelectedItems, getSelectedItems } from "../context/filterSlice";
+import {
+  deleteSaleFromFirestore,
+  updateChartInFirestore,
+} from "../../../../dashboard/context/chartSlice";
 import { getPathname } from "../../../../../context/filtersSlice";
 import { deleteItemFromFirestore } from "../../../../../context/inventorySlice";
-import { updateChartInFirestore } from "../../../../dashboard/context/chartSlice";
 
 import BtnOnClick from "../../../../../components/button/BtnOnClick";
 
@@ -52,12 +55,18 @@ export default function BtnDelete() {
         // Subtract the amounts
         const updatedAmount = compareDate.item.profit - entry.totalAmount;
 
-        return {
-          id: compareDate.id,
-          updatedAmount,
-        };
+        if (updatedAmount === 0) {
+          dispatch(deleteSaleFromFirestore(compareDate.id));
+        } else {
+          return {
+            id: compareDate.id,
+            updatedAmount,
+          };
+        }
       });
-      comparisonResult.map((i) => dispatch(updateChartInFirestore(i)));
+
+      comparisonResult.length &&
+        comparisonResult.map((i) => dispatch(updateChartInFirestore(i)));
     }
 
     dispatch(addSelectedItems([]));

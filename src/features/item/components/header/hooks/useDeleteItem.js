@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateChartInFirestore } from "../../../../dashboard/context/chartSlice";
+import {
+  deleteSaleFromFirestore,
+  updateChartInFirestore,
+} from "../../../../dashboard/context/chartSlice";
 import {
   getFilteredId,
   getFilteredItem,
@@ -21,21 +24,25 @@ export default function useDeleteItem() {
   const item = useSelector(getFilteredItem);
 
   function removeSaleFromChart() {
-    const matchFound = chart.filter((i) => {
+    const comparisonResult = chart.filter((i) => {
       if (i.item.date.includes(item.saleDate)) {
         return i;
       }
     });
 
-    const newProfit =
-      Number(matchFound[0].item.profit) - Number(item.salePrice);
+    const updatedAmount =
+      Number(comparisonResult[0].item.profit) - Number(item.salePrice);
 
-    const data = {
-      id: matchFound[0].id,
-      profit: newProfit,
-    };
+    if (updatedAmount === 0) {
+      dispatch(deleteSaleFromFirestore(comparisonResult[0].id));
+    } else {
+      const data = {
+        id: comparisonResult[0].id,
+        profit: updatedAmount,
+      };
 
-    dispatch(updateChartInFirestore(data));
+      dispatch(updateChartInFirestore(data));
+    }
   }
 
   const deleteItem = () => {
