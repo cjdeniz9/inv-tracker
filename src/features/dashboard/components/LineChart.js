@@ -1,4 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import { useSelector } from "react-redux";
+
+import useFilteredChart from "../hooks/useFilteredChart";
+
+import { getFilteredChart } from "../context/chartSlice";
+
+import { formatCurrency } from "../../../utils/formatCurrency";
+import { formatDate } from "../../../utils/formatDate";
 
 import {
   Chart as ChartJS,
@@ -13,15 +22,6 @@ import {
 
 import { Line } from "react-chartjs-2";
 
-import {
-  deleteItemFromFirestore,
-  getChart,
-  getFilteredChart,
-} from "../context/chartSlice";
-
-import { formatCurrency } from "../../../utils/formatCurrency";
-import { formatDate } from "../../../utils/formatDate";
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -33,12 +33,17 @@ ChartJS.register(
 );
 
 export default function LineChart() {
-  const chart = useSelector(getChart);
+  const { handleFilterOnClick } = useFilteredChart();
+
   const filteredChart = useSelector(getFilteredChart);
 
-  const lineChartData = filteredChart.length === 0 ? chart : filteredChart;
+  useEffect(() => {
+    handleFilterOnClick("All");
+  }, []);
 
+  // Clean chart data
   // Removes data that is equal to 0
+
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -46,12 +51,6 @@ export default function LineChart() {
 
   //   cleaningChartData.map((i) => dispatch(deleteItemFromFirestore(i.id)));
   // }, []);
-
-  // const {} = useFillInDates();
-
-  // Tooltip.positioners.cursor = function (chartElements, coordinates) {
-  //   return coordinates;
-  // };
 
   const options = {
     maintainAspectRatio: false,
@@ -101,7 +100,7 @@ export default function LineChart() {
     },
   };
 
-  const labels = lineChartData.map((i) => {
+  const labels = filteredChart.map((i) => {
     return formatDate(i.item.date);
   });
 
@@ -109,7 +108,7 @@ export default function LineChart() {
     labels,
     datasets: [
       {
-        data: lineChartData.map((i) => i.item.profit),
+        data: filteredChart.map((i) => i.item.profit),
         borderColor: "rgb(33, 180, 120)",
         pointStyle: false,
       },

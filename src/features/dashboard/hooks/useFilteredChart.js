@@ -17,6 +17,8 @@ export default function useFilteredChart() {
   const chart = useSelector(getChart);
   const dateFilter = useSelector(getDateFilter);
 
+  const date = moment().format("YYYY-MM-DD");
+
   const prevDate = (value) => {
     return moment().subtract(value, "d").format("YYYY-MM-DD");
   };
@@ -24,16 +26,18 @@ export default function useFilteredChart() {
   const monthToDate = moment().startOf("month").format("YYYY-MM-DD");
   const yearToDate = moment().startOf("year").format("YYYY-MM-DD");
 
+  const isChartEmpty = chart.length === 0 || chart.length === 1 ? date : "";
+
   const dateRange = [
     { name: "24HRS", value: prevDate(1) },
     { name: "1W", value: prevDate(7) },
     { name: "1M", value: prevDate(31) },
     { name: "MTD", value: monthToDate },
     { name: "YTD", value: yearToDate },
-    { name: "All", value: "" },
+    { name: "All", value: isChartEmpty },
   ];
 
-  const handleFilterOnClick = (startDate) => {
+  const handleFilterOnClick = (filter, startDate) => {
     const endDate = moment().format("YYYY-MM-DD");
 
     const filterChart = chart.filter((i) => {
@@ -70,15 +74,15 @@ export default function useFilteredChart() {
       {
         id: "start",
         item: {
-          date: filterChart[0].item.date,
-          profit: filterChart[0].item.profit,
+          date: startDate === "" ? date : startDate,
+          profit: 0,
         },
       },
       {
         id: "end",
         item: {
-          date: endDate,
-          profit: 0,
+          date: filterChart[0].item.date,
+          profit: filterChart[0].item.profit,
         },
       },
     ];
@@ -93,7 +97,7 @@ export default function useFilteredChart() {
       filteredChart = filterChart;
     }
 
-    dispatch(addDateFilter(startDate));
+    dispatch(addDateFilter(filter));
     dispatch(addFilteredChartData(filteredChart));
   };
 
@@ -101,18 +105,18 @@ export default function useFilteredChart() {
     return (
       <Button
         onClick={() => {
-          handleFilterOnClick(value);
+          handleFilterOnClick(name, value);
         }}
-        bg={value === dateFilter && "#003eff"}
+        bg={name === dateFilter && "#003eff"}
         border="1px"
-        borderColor={value === dateFilter ? "#003eff" : "#eeeeee"}
+        borderColor={name === dateFilter ? "#003eff" : "#eeeeee"}
         borderLeftRadius={name === "24HRS" ? 2 : 0}
         borderRightRadius={name === "All" ? 2 : 0}
         marginRight="-1px"
         px={3}
         height={9}
         _hover={
-          value === dateFilter
+          name === dateFilter
             ? {
                 borderColor: "#5388fe",
                 backgroundColor: "#5388fe",
@@ -125,7 +129,7 @@ export default function useFilteredChart() {
       >
         <span
           className={`${
-            value === dateFilter && "text-white"
+            name === dateFilter && "text-white"
           } text-xs font-semibold`}
         >
           {name}
@@ -138,5 +142,5 @@ export default function useFilteredChart() {
     return <FilterOptions name={i.name} value={i.value} />;
   });
 
-  return { chartFilter };
+  return { handleFilterOnClick, chartFilter };
 }

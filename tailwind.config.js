@@ -29,10 +29,10 @@ module.exports = {
       gridTemplateColumns: {
         13: "repeat(13, minmax(0, 1fr))",
       },
-      screens: {
-        "phone-screen": "557px",
-        "tablet-screen": "991px",
-      },
+      // screens: {
+      //   "phone-screen": "557px",
+      //   "tablet-screen": "991px",
+      // },
     },
   },
   plugins: [require("flowbite/plugin")],

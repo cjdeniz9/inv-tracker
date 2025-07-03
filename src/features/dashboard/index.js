@@ -30,8 +30,8 @@ export default function Dash() {
   return (
     !isLoading && (
       <>
-        <div className="tablet-screen:ml-52 flex">
-          <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
+        <div className="lg:ml-52 flex">
+          <div className="lg:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
             <Header />
             <div className="h-[196px] mt-12">
               <Chart />
@@ -41,7 +41,7 @@ export default function Dash() {
               <Reports />
             </div>
           </div>
-          <div className="xl:block 2xl:w-[43%] hidden w-5/12">
+          <div className="lg:block 2l:w-[43%] hidden w-5/12">
             <InventoryTab />
           </div>
         </div>

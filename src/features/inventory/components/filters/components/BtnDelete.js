@@ -9,7 +9,10 @@ import {
   updateChartInFirestore,
 } from "../../../../dashboard/context/chartSlice";
 import { getPathname } from "../../../../../context/filtersSlice";
-import { deleteItemFromFirestore } from "../../../../../context/inventorySlice";
+import {
+  deleteItemFromFirestore,
+  updateStatus,
+} from "../../../../../context/inventorySlice";
 
 import BtnOnClick from "../../../../../components/button/BtnOnClick";
 
@@ -69,8 +72,9 @@ export default function BtnDelete() {
         comparisonResult.map((i) => dispatch(updateChartInFirestore(i)));
     }
 
-    dispatch(addSelectedItems([]));
     handleFetchInventory();
+
+    dispatch(addSelectedItems([]));
   };
 
   return (
