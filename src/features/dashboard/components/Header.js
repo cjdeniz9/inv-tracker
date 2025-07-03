@@ -39,7 +39,9 @@ export default function Header() {
   return (
     <div className="inline-block">
       <div className="flex">
-        <h4 className="mr-2">Your Inventory Profit</h4>
+        <h4 className="lg:text-2xl lg:leading-7 lg:mr-2 mr-2.5 text-3xl">
+          Your Inventory Profit
+        </h4>
         <div>
           <Tooltip
             hasArrow
@@ -51,19 +53,20 @@ export default function Header() {
             py={3}
             px={5}
           >
-            <InfoOutlineIcon boxSize={3.5} color="#338FFF" />
+            <InfoOutlineIcon boxSize={{ base: 4, lg: 3.5 }} color="#338FFF" />
           </Tooltip>
         </div>
       </div>
-
-      <h3>${totalIncome}</h3>
+      <h3 className="lg:text-[28px] lg:leading-8 text-3xl">${totalIncome}</h3>
       <div>
         <div
-          className={`flex items-center mb-1 ${profitColor(
+          className={`lg:text-lg lg:mb-1 flex items-center mb-1.5 ${profitColor(
             adjustedProfitAmount
-          )} font-medium text-lg`}
+          )} text-2xl font-medium`}
         >
-          <span className="mr-1.5">{profitIcon(adjustedProfitAmount)}</span>
+          <span className="lg:mr-1.5 mr-2">
+            {profitIcon(adjustedProfitAmount)}
+          </span>
           <span>
             ${adjustedProfitAmount} ({checkAdjustedProfitPercent}%)
           </span>
@@ -72,7 +75,7 @@ export default function Header() {
           return (
             <span
               key={item.id}
-              className="block relative font-medium text-quick-silver"
+              className="lg:text-base block relative text-lg font-medium text-quick-silver"
             >
               {item.value} {item.text}
             </span>

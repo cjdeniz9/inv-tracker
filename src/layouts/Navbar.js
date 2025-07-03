@@ -71,7 +71,7 @@ export default function Navbar() {
 
   const Tab = ({ link, icon, name }) => {
     return (
-      <li>
+      <li className="max-lg:pb-6 max-md:pb-3">
         <Link
           to={link}
           className={`w-[90%] flex no-underline font-normal text-gray-900 rounded-lg`}
@@ -83,11 +83,24 @@ export default function Navbar() {
               bg: tabBackground(link),
             }}
           >
-            <div className="w-full text-left">
-              <FontAwesomeIcon icon={icon} className={tabIcon(link)} />
-              <span className={`font-normal ml-4 ${tabText(link)}`}>
-                {name}
-              </span>
+            <div className="flex w-full">
+              <div className="lg:w-1/4 md:w-[14%] w-1/6 flex items-center">
+                <FontAwesomeIcon
+                  icon={icon}
+                  className={`lg:text-base md:text-3xl text-2xl ${tabIcon(
+                    link
+                  )}`}
+                />
+              </div>
+              <div className="">
+                <span
+                  className={`lg:text-base text-3xl font-normal ${tabText(
+                    link
+                  )}`}
+                >
+                  {name}
+                </span>
+              </div>
             </div>
           </Button>
         </Link>
@@ -107,7 +120,7 @@ export default function Navbar() {
         data-drawer-toggle="logo-sidebar"
         aria-controls="logo-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg tablet-screen:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
         <svg
@@ -135,19 +148,19 @@ export default function Navbar() {
 
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-52 h-screen transition-transform ${
+        className={`lg:w-52 fixed top-0 left-0 z-40 w-full h-screen transition-transform ${
           isOpen ? "-translate-x-0" : "-translate-x-full"
-        } tablet-screen:translate-x-0`}
+        } lg:translate-x-0`}
         aria-label="Sidebar"
       >
-        <div className="h-screen py-4 overflow-y-auto bg-gray-50">
+        <div className="lg:py-6 md:py-14 max-lg:px-8 max-md:px-3 h-screen py-10 overflow-y-auto bg-gray-50">
           <a href="#" className="flex items-center pl-8 mb-5 no-underline">
             <img
               src={trackerLogo}
-              className="h-6 mr-3 sm:h-7"
+              className="lg:h-7 h-12 mr-3"
               alt="Tracker Logo"
             />
-            <span className="self-center text-xl text-black font-semibold whitespace-nowrap">
+            <span className="lg:block hidden self-center text-xl text-black font-semibold whitespace-nowrap">
               Tracker
             </span>
           </a>

@@ -31,17 +31,17 @@ export default function Dash() {
     !isLoading && (
       <>
         <div className="lg:ml-52 flex">
-          <div className="lg:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
+          <div className="xl:w-7/12 2xl:w-[57%] w-full h-screen py-4 px-4 overflow-auto">
             <Header />
             <div className="h-[196px] mt-12">
               <Chart />
             </div>
-            <div className="flex mt-6">{chartFilter}</div>
+            <div className="lg:mt-6 flex mt-9">{chartFilter}</div>
             <div className="mt-4">
               <Reports />
             </div>
           </div>
-          <div className="lg:block 2l:w-[43%] hidden w-5/12">
+          <div className="xl:block 2xl:w-[43%] hidden w-5/12">
             <InventoryTab />
           </div>
         </div>

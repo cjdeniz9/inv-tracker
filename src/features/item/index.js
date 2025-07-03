@@ -56,11 +56,11 @@ export default function Item() {
   return (
     inventoryStatus === "complete" && (
       <>
-        <div className="md:block tablet-screen:ml-[13.5rem] hidden p-3 overflow-auto">
+        <div className="md:block lg:ml-[13.5rem] hidden p-3 overflow-auto">
           <Header />
           <main className="lg:w-full lg:flex ">
-            <div className="tablet-screen:w-4/12 w-full">
-              <div id="feed" className="tablet-screen:px-7">
+            <div className="lg:w-4/12 w-full">
+              <div id="feed" className="lg:px-7">
                 <Timeline />
                 {(path === itemId || path === "sales") && (
                   <>
@@ -70,7 +70,7 @@ export default function Item() {
                 )}
               </div>
             </div>
-            <div className="lg:order-first tablet-screen:w-8/12 tablet-screen:py-1 w-full py-12">
+            <div className="lg:order-first lg:w-8/12 lg:py-1 w-full py-12">
               <Details />
               <div className="w-full flex justify-between mt-8">
                 {path !== "packages" && <Listings />}

@@ -40,7 +40,7 @@ export default function Inv() {
 
   return (
     !isLoading && (
-      <div className="tablet-screen:ml-52 h-[95vh] p-4">
+      <div className="lg:ml-52 h-[95vh] p-4">
         <Header />
         <div className="flex w-full pt-3">
           <Filter />

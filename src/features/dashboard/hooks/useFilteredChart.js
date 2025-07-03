@@ -113,8 +113,8 @@ export default function useFilteredChart() {
         borderLeftRadius={name === "24HRS" ? 2 : 0}
         borderRightRadius={name === "All" ? 2 : 0}
         marginRight="-1px"
-        px={3}
-        height={9}
+        px={{ base: 5, lg: 3 }}
+        height={{ base: 12, lg: 9 }}
         _hover={
           name === dateFilter
             ? {
@@ -130,7 +130,7 @@ export default function useFilteredChart() {
         <span
           className={`${
             name === dateFilter && "text-white"
-          } text-xs font-semibold`}
+          } lg:text-xs text-sm font-semibold`}
         >
           {name}
         </span>

@@ -70,10 +70,12 @@ export default function Reports() {
       borderRadius={4}
       shadow="sm"
     >
-      <h5 className="font-semibold p-3">Reports</h5>
+      <h5 className="lg:text-xl lg:leading-6 text-2xl font-semibold p-3">
+        Reports
+      </h5>
       <Box p={3}>
         <SimpleGrid
-          columns={2}
+          columns={{ base: 1, sm: 2, md: 2, lg: 2 }}
           bg="rgb(227, 233, 237)"
           gridGap="1px"
           border="1px"
@@ -84,7 +86,9 @@ export default function Reports() {
               <Container key={uuidv4()} bg="white" p={5}>
                 <Box>
                   <div className="w-full mb-1.5 flex justify-between items-center">
-                    <p className="text-sm font-semibold mb-2">{item.title}</p>
+                    <p className="lg:text-sm text-md font-semibold mb-2">
+                      {item.title}
+                    </p>
                     <Tooltip
                       hasArrow
                       label={item.tooltip}
@@ -95,18 +99,23 @@ export default function Reports() {
                       py={3}
                       px={5}
                     >
-                      <InfoIcon boxSize={3.5} color="#7a7a7a" />
+                      <InfoIcon
+                        boxSize={{ base: 4, lg: 3.5 }}
+                        color="#7a7a7a"
+                      />
                     </Tooltip>
                   </div>
                   <Flex color={profitColor(item.value)}>
-                    <h5 className="font-semibold">{item.value}</h5>
-                    <div>
+                    <h5 className="lg:text-xl lg:leading-6 text-2xl font-semibold">
+                      {item.value}
+                    </h5>
+                    <div className="flex items-center">
                       <span
                         className={`${profitBGColor(
                           item.value
                         )} border-[.25px] ${profitBorderColor(
                           item.value
-                        )} rounded px-2 ml-2.5 mb-1 text-xs font-medium`}
+                        )} rounded px-2 ml-2.5 mb-1 lg:text-xs text-sm font-medium`}
                       >
                         {item.percentValue}
                       </span>
