@@ -12,6 +12,7 @@ const DropdownMenu = ({
   iconFontSize,
   iconColor,
   w,
+  respW,
   labelFontSize,
   labelColor,
   label,
@@ -19,6 +20,7 @@ const DropdownMenu = ({
   title,
   options,
   minW,
+  respMinW,
   handleClick,
 }) => {
   const state = useSelector(getState);
@@ -39,11 +41,14 @@ const DropdownMenu = ({
         pl={pl}
         pr={2}
         rightIcon={
-          <ChevronDownIcon fontSize={iconFontSize} color={iconColor} ml={1} />
+          <ChevronDownIcon
+            fontSize={iconFontSize}
+            color={iconColor}
+            ml={0.75}
+          />
         }
         textAlign="unset"
-        w={w}
-        // minW="9.75rem"
+        w={{ base: w, lg: respW }}
         _active={{
           color: "#7A7A7A",
         }}
@@ -58,11 +63,13 @@ const DropdownMenu = ({
         }}
       >
         <div className="flex items-center">
-          <div className={`mr-1.5 ${labelFontSize} ${labelColor}`}>{label}</div>
-          <div className={titleFontSize}>{state === "" ? title : state}</div>
+          <div className={`${labelFontSize} ${labelColor} mr-1.5`}>{label}</div>
+          <div className={`${titleFontSize} overflow-hidden text-clip`}>
+            {state === "" ? title : state}
+          </div>
         </div>
       </MenuButton>
-      <MenuList minW={minW}>
+      <MenuList minW={{ base: minW, lg: respMinW }}>
         {options.map((item) => {
           return (
             <MenuItem

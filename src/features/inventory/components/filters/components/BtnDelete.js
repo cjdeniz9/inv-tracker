@@ -9,12 +9,11 @@ import {
   updateChartInFirestore,
 } from "../../../../dashboard/context/chartSlice";
 import { getPathname } from "../../../../../context/filtersSlice";
-import {
-  deleteItemFromFirestore,
-  updateStatus,
-} from "../../../../../context/inventorySlice";
+import { deleteItemFromFirestore } from "../../../../../context/inventorySlice";
 
 import BtnOnClick from "../../../../../components/button/BtnOnClick";
+
+import { MinusIcon } from "@chakra-ui/icons";
 
 export default function BtnDelete() {
   const dispatch = useDispatch();
@@ -80,7 +79,8 @@ export default function BtnDelete() {
   return (
     <BtnOnClick
       onClick={handleDelete}
-      value="Delete"
+      value={<MinusIcon boxSize={2.5} />}
+      respValue="Delete"
       isDisabled={!selectedItems.length ? true : false}
     />
   );

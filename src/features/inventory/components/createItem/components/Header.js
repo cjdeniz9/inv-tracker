@@ -11,9 +11,11 @@ import {
 } from "../context/showSlice";
 import { getSize } from "../../../../../context/sizeSlice";
 
-import { Button, Flex, Heading, Icon } from "@chakra-ui/react";
+import { Button, Flex, Heading, Icon, IconButton } from "@chakra-ui/react";
 
-export default function Header() {
+import { CloseIcon } from "@chakra-ui/icons";
+
+export default function Header({ handleClose }) {
   const dispatch = useDispatch();
 
   const createInventory = useSelector(getCreateInventory);
@@ -38,11 +40,20 @@ export default function Header() {
   }
 
   return (
-    <>
+    <Flex width="full">
       {createInventory === true && (
-        <Heading fontSize="1.5rem" fontWeight="600" lineHeight="30px" mt={3}>
-          Create inventory
-        </Heading>
+        <Flex justifyContent="space-between" mt={3} width="full">
+          <Heading fontSize="1.5rem" fontWeight="600" lineHeight="30px">
+            Create inventory
+          </Heading>
+          <IconButton
+            onClick={handleClose}
+            bg="none"
+            display={{ base: "block", lg: "none" }}
+            icon={<CloseIcon />}
+            size="sm"
+          />
+        </Flex>
       )}
       {productDetails === true && (
         <Button onClick={handleReturn} p={0} bg="none" _hover={{ bg: "none" }}>
@@ -56,6 +67,6 @@ export default function Header() {
           </Flex>
         </Button>
       )}
-    </>
+    </Flex>
   );
 }

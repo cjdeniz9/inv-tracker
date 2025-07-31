@@ -1,6 +1,6 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Center } from "@chakra-ui/react";
 
-const BtnOnClick = ({ onClick, value, isDisabled }) => {
+const BtnOnClick = ({ onClick, value, respValue, isDisabled }) => {
   return (
     <Button
       onClick={onClick}
@@ -8,7 +8,7 @@ const BtnOnClick = ({ onClick, value, isDisabled }) => {
       fontSize={13}
       fontWeight={600}
       border="1px"
-      borderRadius={4}
+      borderRadius={3}
       borderColor="#003eff"
       backgroundColor="#003eff"
       color="#fff"
@@ -19,7 +19,7 @@ const BtnOnClick = ({ onClick, value, isDisabled }) => {
       _disabled={{
         cursor: "not-allowed",
         border: "1px",
-        borderRadius: "4px",
+        borderRadius: "3px",
         borderColor: "#ededed",
         backgroundColor: "#fff",
         color: "#242424",
@@ -29,7 +29,8 @@ const BtnOnClick = ({ onClick, value, isDisabled }) => {
       }}
       disabled={isDisabled}
     >
-      {value}
+      <Center display={{ base: "block", lg: "none" }}>{value}</Center>
+      <Center display={{ base: "none", lg: "block" }}>{respValue}</Center>
     </Button>
   );
 };

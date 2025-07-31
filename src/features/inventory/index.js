@@ -47,7 +47,7 @@ export default function Inv() {
           <div className="w-1/5 flex justify-end">
             <BtnDelete />
             {pathname === "/" && (
-              <div className="ml-2.5">
+              <div className="lg:ml-2.5 ml-1">
                 <CreateItem />
               </div>
             )}

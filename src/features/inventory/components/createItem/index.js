@@ -1,37 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { deleteProduct } from "./context/productSlice";
-import { deleteResults } from "./context/resultsSlice";
-import { deleteSelected } from "./context/selectedSlice";
+import useHandleModal from "./hooks/useHandleModal";
+
 import {
   getCreateInventory,
   getCustomItemForm,
   getModalCreate,
   getProductDetails,
-  resetShow,
-  toggleModalCreate,
 } from "./context/showSlice";
-import {
-  getProductDetailsTabIndex,
-  setProductDetailsTabIndex,
-} from "./context/tabSlice";
-import { sizeError } from "../../../../context/errorSlice";
-import { deleteKeyword } from "../../../../context/keywordSlice";
-import { deleteSize, getSize } from "../../../../context/sizeSlice";
-
-import {
-  Button,
-  Slide,
-  useDisclosure,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/react";
-
-import { AddIcon } from "@chakra-ui/icons";
+import { getProductDetailsTabIndex } from "./context/tabSlice";
 
 import CreateInventory from "./components/CreateInventory";
 import Header from "./components/Header";
@@ -40,37 +17,28 @@ import ProductDetails from "./components/ProductDetails";
 import BtnNext from "../../../../components/form/BtnNext";
 import BtnSubmit from "../../../../components/form/BtnSubmit";
 
-export default function CreateItem() {
-  const dispatch = useDispatch();
+import {
+  Button,
+  Slide,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Center,
+} from "@chakra-ui/react";
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+import { AddIcon } from "@chakra-ui/icons";
+
+export default function CreateItem() {
+  const { isOpen, onOpen, handleClose, changeTab } = useHandleModal();
 
   const createInventory = useSelector(getCreateInventory);
   const customItemForm = useSelector(getCustomItemForm);
   const modalCreate = useSelector(getModalCreate);
   const productDetails = useSelector(getProductDetails);
-  const size = useSelector(getSize);
   const tabIndex = useSelector(getProductDetailsTabIndex);
-
-  function handleClose() {
-    onClose();
-    dispatch(toggleModalCreate(false));
-    dispatch(deleteKeyword());
-    dispatch(deleteProduct());
-    dispatch(deleteResults());
-    dispatch(deleteSelected());
-    dispatch(deleteSize());
-    dispatch(resetShow());
-  }
-
-  const changeTab = () => {
-    if (size === "") {
-      dispatch(sizeError(true));
-    } else {
-      dispatch(sizeError(false));
-      dispatch(setProductDetailsTabIndex(1));
-    }
-  };
 
   return (
     <>
@@ -81,7 +49,9 @@ export default function CreateItem() {
         borderRadius={3}
         _hover={{ bg: "#5388FE" }}
       >
-        <AddIcon boxSize={2.5} />
+        <Center>
+          <AddIcon boxSize={2.5} />
+        </Center>
       </Button>
 
       <Slide direction="right" in={modalCreate ? modalCreate : isOpen}>
@@ -103,12 +73,11 @@ export default function CreateItem() {
               }}
               maxW="56rem"
               minH="100vh"
-              w="70rem"
               mt={0}
               borderRadius={0}
             >
               <ModalHeader display="fixed" w="full" minH={15}>
-                <Header />
+                <Header handleClose={handleClose} />
               </ModalHeader>
               <ModalBody>
                 {createInventory === true && <CreateInventory />}

@@ -12,7 +12,7 @@ export default function Filter() {
     <div className="w-4/5 flex flex-row pb-2.5">
       <Search />
       {pathname === "/" && (
-        <div className="pl-3">
+        <div className="lg:pl-3 pl-1">
           <Status />
         </div>
       )}

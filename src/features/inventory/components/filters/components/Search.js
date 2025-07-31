@@ -15,7 +15,8 @@ export default function Search() {
       value={search}
       onChange={addSearch}
       focusBorder="0px"
-      w="27rem"
+      w="10rem"
+      respW="27rem"
       disabled={!inventory.length && true}
     />
   );

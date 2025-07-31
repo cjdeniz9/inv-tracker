@@ -16,6 +16,7 @@ const SearchBar = ({
   fontSize,
   px,
   w,
+  respW,
   disabled,
 }) => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const SearchBar = ({
       px={px}
       transition="ease-in-out"
       transitionDuration="300ms"
-      w={w}
+      w={{ base: w, lg: respW }}
       _disabled={{
         cursor: "not-allowed",
       }}

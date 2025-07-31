@@ -33,13 +33,15 @@ export default function Status() {
       pl={3}
       iconFontSize="18px"
       iconColor="#A1A5A4"
-      w="9.6rem"
+      w="7.5rem"
+      respW="9.6rem"
       labelFontSize="text-sm"
       label="Status:"
       titleFontSize="text-sm"
       title="All"
       options={statusOptions}
-      minW="9.6rem"
+      minW="7.8rem"
+      respMinW="9.6rem"
       handleClick={handleDropdownOnClick}
     />
   );

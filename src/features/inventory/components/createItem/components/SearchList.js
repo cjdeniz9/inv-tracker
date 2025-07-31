@@ -32,25 +32,21 @@ export default function SearchList() {
 
   return (
     searchList === true && (
-      <Box
-        w="52.7rem"
-        maxH="56.5vh"
-        pos="fixed"
-        zIndex={1}
-        boxShadow="md"
-        mt={2}
-        bg="white"
-      >
-        <Box display="fixed" w="full" minHeight="9vh">
-          <Flex alignItems="center" ml={3}>
+      <Box maxH="56.5vh" zIndex={1} boxShadow="md" mt={2}>
+        <Box minHeight={{ base: "8vh", lg: "9vh" }}>
+          <Flex
+            alignItems="center"
+            py={{ base: 4, md: 5, lg: 4 }}
+            ml={{ base: 3, md: 5, lg: 3 }}
+          >
             <Button
               onClick={handleCustomItem}
               bg="none"
               color="#003EFF"
               _hover={{ bg: "none", color: "#5F5F5F" }}
             >
-              <Flex alignItems="center" ml={6}>
-                <AddIcon mr={9} />
+              <Flex alignItems="center" ml={{ base: 2.5, md: 8, lg: 6 }}>
+                <AddIcon mr={{ base: 9, md: 16, lg: 9 }} />
                 <Text fontSize={15} fontWeight={450} m={0}>
                   Create custom item
                 </Text>
@@ -61,7 +57,7 @@ export default function SearchList() {
         <List maxH="47.5vh" overflowY="auto" px={0}>
           {noResults && (
             <ListItem>
-              <Text ml="3.25rem" my={2}>
+              <Text ml={{ base: "2.75rem", lg: "3.25rem" }} my={2}>
                 No Results found
               </Text>
             </ListItem>
@@ -80,41 +76,41 @@ export default function SearchList() {
                     dispatch(toggleProductDetails());
                   }}
                 >
-                  <Flex>
-                    <Button
-                      px={8}
-                      py={9}
-                      bg="none"
-                      borderRadius="none"
-                      _hover={{ bg: "#F3F3F3" }}
-                    >
-                      <div className="flex py-2">
-                        <div className="w-1/12 mr-4 bg-white flex items-center justify-center rounded">
-                          <img
-                            src={item.thumbnail}
-                            alt="results-img"
-                            className="w-10/12 py-1"
-                          />
-                        </div>
-                        <div className="w-10/12 text-left font-normal">
-                          <span className="block truncate mb-1">
-                            {item.shoeName}
-                          </span>
-                          <span className="text-sm font-light truncate ">
-                            {item.styleID}
-                          </span>
-                        </div>
+                  <Flex
+                    px={{ base: 6, lg: 8 }}
+                    py={{ base: 4, lg: 3 }}
+                    bg="none"
+                    borderRadius="none"
+                    _hover={{ bg: "#F3F3F3" }}
+                  >
+                    <div className="max-lg:w-11/12 max-md:w-10/12 flex">
+                      <div className="xl:w-1/12 xl:mr-4 md:w-2/12 w-1/4 mr-5 bg-white flex items-center justify-center rounded">
+                        <img
+                          src={item.thumbnail}
+                          alt="results-img"
+                          className="xl:w-5/6 md:w-2/3"
+                        />
                       </div>
-                      <div className="w-1/5 flex justify-end text-blue-ryb">
-                        <Flex
-                          alignItems="center"
-                          className="flex hover:text-granite-gray"
-                        >
-                          <AddIcon boxSize={3} />
-                          <span className="ml-2 text-sm">Add item</span>
-                        </Flex>
+                      <div className="xl:w-5/6 md:w-9/12 w-3/4 text-left font-normal">
+                        <span className="max-lg:mb-1 max-md:mb-.5 block truncate">
+                          {item.shoeName}
+                        </span>
+                        <span className="md:text-sm text-xs font-light truncate">
+                          {item.styleID}
+                        </span>
                       </div>
-                    </Button>
+                    </div>
+                    <div className="xl:w-[32%] md:w-1/12 md:max-lg:mr-1 w-1/6  flex justify-end text-blue-ryb">
+                      <Flex
+                        alignItems="center"
+                        className="flex hover:text-granite-gray"
+                      >
+                        <AddIcon boxSize={{ base: 3.5, md: 4, lg: 3 }} />
+                        <span className="max-xl:hidden text-sm ml-2 font-semibold">
+                          Add item
+                        </span>
+                      </Flex>
+                    </div>
                   </Flex>
                 </ListItem>
               );
