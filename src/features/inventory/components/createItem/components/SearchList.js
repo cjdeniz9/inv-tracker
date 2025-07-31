@@ -33,7 +33,7 @@ export default function SearchList() {
   return (
     searchList === true && (
       <Box maxH="56.5vh" zIndex={1} boxShadow="md" mt={2}>
-        <Box minHeight={{ base: "8vh", lg: "9vh" }}>
+        <Box minHeight={{ base: "8vh", lg: "6vh" }}>
           <Flex
             alignItems="center"
             py={{ base: 4, md: 5, lg: 4 }}
@@ -46,7 +46,7 @@ export default function SearchList() {
               _hover={{ bg: "none", color: "#5F5F5F" }}
             >
               <Flex alignItems="center" ml={{ base: 2.5, md: 8, lg: 6 }}>
-                <AddIcon mr={{ base: 9, md: 16, lg: 9 }} />
+                <AddIcon mr={{ base: 6, md: 7 }} />
                 <Text fontSize={15} fontWeight={450} m={0}>
                   Create custom item
                 </Text>
@@ -57,7 +57,7 @@ export default function SearchList() {
         <List maxH="47.5vh" overflowY="auto" px={0}>
           {noResults && (
             <ListItem>
-              <Text ml={{ base: "2.75rem", lg: "3.25rem" }} my={2}>
+              <Text ml={{ base: "2.75rem", lg: "3.25rem" }} mt={3.5} mb={8}>
                 No Results found
               </Text>
             </ListItem>
@@ -84,7 +84,7 @@ export default function SearchList() {
                     _hover={{ bg: "#F3F3F3" }}
                   >
                     <div className="max-lg:w-11/12 max-md:w-10/12 flex">
-                      <div className="xl:w-1/12 xl:mr-4 md:w-2/12 w-1/4 mr-5 bg-white flex items-center justify-center rounded">
+                      <div className="xl:w-1/12 xl:mr-4 md:w-2/12 sm:w-1/6 sm:mr-8 mr-5 bg-white flex items-center justify-center rounded">
                         <img
                           src={item.thumbnail}
                           alt="results-img"
