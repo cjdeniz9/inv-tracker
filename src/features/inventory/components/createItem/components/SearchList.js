@@ -32,12 +32,12 @@ export default function SearchList() {
 
   return (
     searchList === true && (
-      <Box maxH="56.5vh" zIndex={1} boxShadow="md" mt={2}>
+      <Box maxH="56.5vh" zIndex={1} boxShadow="md" mt={2} pb={1}>
         <Box minHeight={{ base: "8vh", lg: "6vh" }}>
           <Flex
             alignItems="center"
             py={{ base: 4, md: 5, lg: 4 }}
-            ml={{ base: 3, md: 5, lg: 3 }}
+            ml={{ base: 3, md: 5, lg: 6, xl: 3 }}
           >
             <Button
               onClick={handleCustomItem}
@@ -45,9 +45,16 @@ export default function SearchList() {
               color="#003EFF"
               _hover={{ bg: "none", color: "#5F5F5F" }}
             >
-              <Flex alignItems="center" ml={{ base: 2.5, md: 8, lg: 6 }}>
-                <AddIcon mr={{ base: 6, md: 7 }} />
-                <Text fontSize={15} fontWeight={450} m={0}>
+              <Flex alignItems="center" ml={{ base: 2.5, md: 6 }}>
+                <AddIcon
+                  boxSize={{ base: 3.5, md: 4, lg: 3.5 }}
+                  mr={{ base: 5, md: 9, xl: 7 }}
+                />
+                <Text
+                  fontSize={{ base: "sm", md: "unset" }}
+                  fontWeight={450}
+                  m={0}
+                >
                   Create custom item
                 </Text>
               </Flex>
@@ -77,22 +84,26 @@ export default function SearchList() {
                   }}
                 >
                   <Flex
-                    px={{ base: 6, lg: 8 }}
+                    px={{ base: 6, lg: 7, xl: 8 }}
                     py={{ base: 4, lg: 3 }}
+                    pl={{ lg: 3.5 }}
                     bg="none"
                     borderRadius="none"
                     _hover={{ bg: "#F3F3F3" }}
                   >
+                    {/* Left: image + name/style */}
                     <div className="max-lg:w-11/12 max-md:w-10/12 flex">
-                      <div className="xl:w-1/12 xl:mr-4 md:w-2/12 sm:w-1/6 sm:mr-8 mr-5 bg-white flex items-center justify-center rounded">
+                      {/* Image */}
+                      <div className="xl:w-1/12 xl:mr-4 lg:mr-5 sm:w-1/6 sm:mr-8 w-1/5 mr-5 bg-white flex items-center justify-center rounded">
                         <img
                           src={item.thumbnail}
                           alt="results-img"
-                          className="xl:w-5/6 md:w-2/3"
+                          className="xl:w-5/6 lg:w-7/12 md:w-2/3"
                         />
                       </div>
-                      <div className="xl:w-5/6 md:w-9/12 w-3/4 text-left font-normal">
-                        <span className="max-lg:mb-1 max-md:mb-.5 block truncate">
+                      {/* Name & style */}
+                      <div className="xl:w-5/6 w-3/4 text-left font-normal">
+                        <span className="max-lg:mb-1 max-md:mb-0.5 block truncate">
                           {item.shoeName}
                         </span>
                         <span className="md:text-sm text-xs font-light truncate">
@@ -100,7 +111,9 @@ export default function SearchList() {
                         </span>
                       </div>
                     </div>
-                    <div className="xl:w-[32%] md:w-1/12 md:max-lg:mr-1 w-1/6  flex justify-end text-blue-ryb">
+
+                    {/* Right: Add item */}
+                    <div className="xl:w-[32%] md:w-1/12 md:max-lg:mr-1 w-1/6 flex justify-end text-blue-ryb">
                       <Flex
                         alignItems="center"
                         className="flex hover:text-granite-gray"
