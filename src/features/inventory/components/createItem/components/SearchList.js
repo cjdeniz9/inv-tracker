@@ -61,7 +61,7 @@ export default function SearchList() {
             </Button>
           </Flex>
         </Box>
-        <List maxH="47.5vh" overflowY="auto" px={0}>
+        <List maxH="47.5vh" overflowY="auto" px={0} pb={2}>
           {noResults && (
             <ListItem>
               <Text ml={{ base: "2.75rem", lg: "3.25rem" }} mt={3.5} mb={8}>
