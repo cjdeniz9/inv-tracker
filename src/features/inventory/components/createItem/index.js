@@ -71,6 +71,8 @@ export default function CreateItem() {
                 justifyContent: "flex-end",
                 paddingRight: "0rem",
               }}
+              // display="flex"
+              // flexDirection="column"
               maxW="56rem"
               minH="100vh"
               mt={0}
@@ -79,11 +81,22 @@ export default function CreateItem() {
               <ModalHeader display="fixed" w="full" minH={15}>
                 <Header handleClose={handleClose} />
               </ModalHeader>
-              <ModalBody>
+              <ModalBody flex="1" overflowY="auto">
                 {createInventory === true && <CreateInventory />}
                 {productDetails === true && <ProductDetails />}
               </ModalBody>
-              <ModalFooter display="fixed" w="full" minH={20}>
+              <ModalFooter
+                position="sticky"
+                bottom="0"
+                w="full"
+                minH={20}
+                py={`calc(1rem + env(safe-area-inset-bottom))`}
+                style={{
+                  paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
+                  paddingBottom:
+                    "calc(1rem + constant(safe-area-inset-bottom))",
+                }}
+              >
                 {productDetails && !customItemForm && tabIndex === 0 && (
                   <BtnNext onClick={changeTab} value="Next" />
                 )}

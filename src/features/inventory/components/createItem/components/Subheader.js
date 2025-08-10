@@ -22,7 +22,7 @@ export default function Subheader() {
         <>
           <Divider />
           <div className="flex items-center">
-            <div className="w-1/12 mr-6">
+            <div className="sm:w-1/12 sm:mr-6 w-1/3 mr-4">
               <img src={selected.thumbnail} alt="header-img" />
             </div>
             <div className="text-sm">
