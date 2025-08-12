@@ -42,18 +42,7 @@ export default function ProductDetails() {
         variant="unstyled"
         index={tabIndex}
         onChange={handleTabChange}
-        sx={{
-          // default bottom padding
-          pb: "32px",
-          // only apply safe area padding if supported
-          "@supports (padding-bottom: env(safe-area-inset-bottom))": {
-            paddingBottom: "calc(32px + env(safe-area-inset-bottom))",
-          },
-          // legacy iOS syntax
-          "@supports (padding-bottom: constant(safe-area-inset-bottom))": {
-            paddingBottom: "calc(32px + constant(safe-area-inset-bottom))",
-          },
-        }}
+        pb={{ base: 32, md: 0 }}
       >
         <TabList>
           <Tab fontSize="14px" _selected={{ fontWeight: "600" }}>
