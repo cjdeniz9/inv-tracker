@@ -43,15 +43,13 @@ export default function ProductDetails() {
         index={tabIndex}
         onChange={handleTabChange}
         sx={{
-          // default bottom padding
-          pb: "16px",
           // only apply safe area padding if supported
           "@supports (padding-bottom: env(safe-area-inset-bottom))": {
-            paddingBottom: "calc(16px + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(20px + env(safe-area-inset-bottom))",
           },
           // legacy iOS syntax
           "@supports (padding-bottom: constant(safe-area-inset-bottom))": {
-            paddingBottom: "calc(16px + constant(safe-area-inset-bottom))",
+            paddingBottom: "calc(20px + constant(safe-area-inset-bottom))",
           },
         }}
       >
