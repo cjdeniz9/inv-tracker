@@ -42,7 +42,7 @@ export default function ProductDetails() {
         variant="unstyled"
         index={tabIndex}
         onChange={handleTabChange}
-        minH="36vh"
+        minH="38vh"
       >
         <TabList>
           <Tab fontSize="14px" _selected={{ fontWeight: "600" }}>
