@@ -50,7 +50,7 @@ export default function Edit() {
       <div className="border-b w-full" />
       <div className="flex justify-between items-center py-3">
         <div className="md:w-11/12 w-5/6 flex items-center">
-          <div className="md:w-1/12 md:mr-4 w-1/5 mr-3">
+          <div className="md:w-1/12 w-1/5 mr-4">
             <img
               src={
                 Boolean(selected.selectedArray)
