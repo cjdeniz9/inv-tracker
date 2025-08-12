@@ -43,6 +43,8 @@ export default function ProductDetails() {
         index={tabIndex}
         onChange={handleTabChange}
         sx={{
+          // default bottom padding
+          pb: "32px",
           // only apply safe area padding if supported
           "@supports (padding-bottom: env(safe-area-inset-bottom))": {
             paddingBottom: "calc(32px + env(safe-area-inset-bottom))",
