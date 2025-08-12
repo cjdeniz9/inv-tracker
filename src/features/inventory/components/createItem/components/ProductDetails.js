@@ -45,11 +45,11 @@ export default function ProductDetails() {
         sx={{
           // only apply safe area padding if supported
           "@supports (padding-bottom: env(safe-area-inset-bottom))": {
-            paddingBottom: "calc(20px + env(safe-area-inset-bottom))",
+            paddingBottom: "calc(32px + env(safe-area-inset-bottom))",
           },
           // legacy iOS syntax
           "@supports (padding-bottom: constant(safe-area-inset-bottom))": {
-            paddingBottom: "calc(20px + constant(safe-area-inset-bottom))",
+            paddingBottom: "calc(32px + constant(safe-area-inset-bottom))",
           },
         }}
       >
