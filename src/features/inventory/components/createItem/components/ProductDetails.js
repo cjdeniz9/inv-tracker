@@ -38,7 +38,12 @@ export default function ProductDetails() {
   return (
     <>
       <Subheader />
-      <Tabs variant="unstyled" index={tabIndex} onChange={handleTabChange}>
+      <Tabs
+        variant="unstyled"
+        index={tabIndex}
+        onChange={handleTabChange}
+        mb={{ base: 6, md: 0 }}
+      >
         <TabList>
           <Tab fontSize="14px" _selected={{ fontWeight: "600" }}>
             Size
