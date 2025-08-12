@@ -48,9 +48,9 @@ export default function Edit() {
   return (
     <>
       <div className="border-b w-full" />
-      <div className="flex items-center py-3">
-        <div className="flex w-11/12 items-center">
-          <div className="w-1/12 mr-6">
+      <div className="flex justify-between items-center py-3">
+        <div className="md:w-11/12 w-5/6 flex items-center">
+          <div className="md:w-1/12 md:mr-4 w-1/5 mr-3">
             <img
               src={
                 Boolean(selected.selectedArray)
@@ -60,7 +60,7 @@ export default function Edit() {
               alt="edit-img"
             />
           </div>
-          <div className="text-sm">
+          <div className="max-md:w-9/12 text-sm">
             <span className="block font-semibold">
               {Boolean(selected.selectedArray)
                 ? product.name
