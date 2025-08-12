@@ -22,10 +22,10 @@ export default function Subheader() {
         <>
           <Divider />
           <div className="flex items-center">
-            <div className="sm:w-1/12 sm:mr-6 w-1/3 mr-4">
+            <div className="sm:w-1/12 sm:mr-6 w-1/6 mr-4">
               <img src={selected.thumbnail} alt="header-img" />
             </div>
-            <div className="text-sm">
+            <div className="w-5/6 text-sm">
               <span className="block font-semibold">{selected.shoeName}</span>
               <span>{selected.styleID}</span>
             </div>

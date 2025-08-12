@@ -102,76 +102,86 @@ export default function PurchaseDetails() {
     dispatch(resetTabIndex());
   };
 
+  {
+    console.log(addNotes);
+  }
   return (
     <form onSubmit={createItem} id="additem">
-      <span className="block text-sm font-semibold mb-1">Purchase data</span>
+      <span className="block text-sm font-semibold">Purchase data</span>
       <Divider mt="5px" borderColor="#A1A5A4" />
-      <Flex w="60%">
+      <Flex
+        w={{ base: "full", md: "fit-content" }}
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="flex-start"
+        gap={{ base: 1.5, md: 2.5 }}
+      >
         <InputField
           label="Purchase Price"
           type="number"
           placeholder="0.00"
           value={product.price}
           onChange={addPrice}
-          width="10rem"
+          width={{ base: "full", md: "10rem" }}
           required={true}
         />
-        <Spacer />
         <InputField
           label="Tax"
           type="number"
           placeholder="0.00"
           value={product.tax}
           onChange={addTax}
-          width="10rem"
+          width={{ base: "full", md: "10rem" }}
           required={false}
         />
-        <Spacer />
         <InputField
           label="Shipping price"
           type="number"
           placeholder="0.00"
           value={product.shippingPrice}
           onChange={addShippingPrice}
-          width="10rem"
+          width={{ base: "full", md: "10rem" }}
           required={false}
         />
       </Flex>
-      <Flex w="60%" mt="2rem">
+      <Flex
+        w={{ base: "full", md: "fit-content" }}
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="flex-start"
+        gap={{ base: 1.5, md: 2.5 }}
+        mt={{ base: "1rem", md: "2rem" }}
+      >
         <InputField
           label="Place of purchase"
           type="text"
           placeholder="SNKRS"
           value={product.placeOfPurchase}
           onChange={addPlaceOfPurchase}
-          width="10rem"
+          width={{ base: "full", md: "10rem" }}
           required={false}
         />
-        <Spacer />
         <InputField
           label="Date of Purchase"
           type="date"
           value={product.purchasedDate}
           onChange={addPurchasedDate}
           max={moment().format("YYYY-MM-DD")}
-          width="10rem"
+          width={{ base: "full", md: "10rem" }}
           required={true}
         />
-        <Spacer />
         <InputField
           label="Order ID"
           type="text"
           placeholder="#12345"
           value={product.orderNum}
           onChange={addOrderNum}
-          width="10rem"
+          width={{ base: "full", md: "10rem" }}
           required={false}
         />
       </Flex>
       <span className="block font-semibold mt-4">Additional details</span>
       <div className="border-b w-full mb-2" />
-      <div className="flex w-5/6 justify-between">
-        <div className="w-[72%]">
+      <div className="md:w-fit md:flex-row md:gap-3.5 max-md:gap-2 w-full flex flex-col">
+        <div className="md:w-[31.8rem] w-full">
           <label className="text-xs inline-block mb-2">Notes</label>
           <textarea
             className="appearance-none block w-full resize-none text-gray-700 border border-gray-100 rounded-[3px] py-1.5 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -179,10 +189,12 @@ export default function PurchaseDetails() {
             rows="4"
             id="notes"
             value={product.notes}
-            onChange={addNotes}
+            onChange={(e) => {
+              dispatch(addNotes(e.target.value));
+            }}
           />
         </div>
-        <div className="w-[26%]">
+        <div className="md:w-[11.5rem] w-full">
           <label className="text-xs inline-block mb-2">Condition</label>
           <input
             className="appearance-none block w-full text-gray-700 border border-gray-100 rounded-[3px] py-2.5 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -190,7 +202,9 @@ export default function PurchaseDetails() {
             type="text"
             id="condition"
             value={product.condition}
-            onChange={addCondition}
+            onChange={(e) => {
+              dispatch(addCondition(e.target.value));
+            }}
           />
         </div>
       </div>

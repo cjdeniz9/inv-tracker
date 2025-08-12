@@ -32,7 +32,7 @@ export default function SearchList() {
 
   return (
     searchList === true && (
-      <Box maxH="56.5vh" zIndex={1} boxShadow="md" mt={2} pb={1}>
+      <Box maxH="56.5vh" zIndex={1} boxShadow="md" mt={2} pb={0.25}>
         <Box minHeight={{ base: "8vh", lg: "6vh" }}>
           <Flex
             alignItems="center"
