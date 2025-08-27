@@ -5,6 +5,7 @@ import { deleteResults } from "../context/resultsSlice";
 import { deleteSelected, getSelected } from "../context/selectedSlice";
 import {
   toggleCreateInventory,
+  toggleCustomItemForm,
   toggleProductDetails,
 } from "../context/showSlice";
 import { resetTabIndex } from "../context/tabSlice";
@@ -28,6 +29,8 @@ import Data from "../../../../../components/table/Data";
 import Heading from "../../../../../components/table/Heading";
 
 import { formatCurrency } from "../../../../../utils/formatCurrency";
+
+import trackerLogoAlt from "../../../../../assets/trackerLogo-alt.png";
 
 export default function Edit() {
   const dispatch = useDispatch();
@@ -54,10 +57,11 @@ export default function Edit() {
             <img
               src={
                 Boolean(selected.selectedArray)
-                  ? "https://app.scoutapp.ai/assets/images/scout-fallback.png"
+                  ? trackerLogoAlt
                   : selected.thumbnail
               }
               alt="edit-img"
+              className={Boolean(selected.selectedArray) && "w-3/4"}
             />
           </div>
           <div className="max-md:w-9/12 text-sm">
@@ -76,6 +80,8 @@ export default function Edit() {
             onClick={() => {
               dispatch(toggleCreateInventory());
               dispatch(toggleProductDetails());
+
+              product.name !== "" && dispatch(toggleCustomItemForm());
             }}
             h="2.25rem"
             bg="none"

@@ -102,9 +102,6 @@ export default function PurchaseDetails() {
     dispatch(resetTabIndex());
   };
 
-  {
-    console.log(addNotes);
-  }
   return (
     <form onSubmit={createItem} id="additem">
       <span className="block text-sm font-semibold">Purchase data</span>

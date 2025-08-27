@@ -35,7 +35,8 @@ const InputField = ({
         }
         max={max}
         w={width}
-        fontSize={17}
+        paddingLeft={{ base: 3.5, md: "" }}
+        fontSize={{ base: "sm", md: 17 }}
         _focusVisible={{
           border: ".1px",
           borderColor: "#CFCFCF",

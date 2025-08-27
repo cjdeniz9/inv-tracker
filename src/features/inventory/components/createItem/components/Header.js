@@ -7,9 +7,10 @@ import {
   getProductDetails,
   resetShow,
   toggleCreateInventory,
+  toggleCustomItemForm,
   toggleProductDetails,
 } from "../context/showSlice";
-import { getSize } from "../../../../../context/sizeSlice";
+import { deleteSize, getSize } from "../../../../../context/sizeSlice";
 
 import { Button, Flex, Heading, Icon, IconButton } from "@chakra-ui/react";
 
@@ -26,15 +27,21 @@ export default function Header({ handleClose }) {
   const size = useSelector(getSize);
 
   function handleReturn() {
-    if (
-      (!Boolean(selected.selectedArray) || !Boolean(product.productArray)) &&
+    if (!Boolean(selected.selectedArray) && size !== "") {
+      dispatch(toggleProductDetails());
+      dispatch(toggleCreateInventory());
+    } else if (
+      !Boolean(product.productArray) &&
+      product.name !== "" &&
       size !== ""
     ) {
       dispatch(toggleProductDetails());
+      dispatch(toggleCustomItemForm());
       dispatch(toggleCreateInventory());
     } else {
       dispatch(deleteProduct());
       dispatch(deleteSelected());
+      dispatch(deleteSize());
       dispatch(resetShow());
     }
   }

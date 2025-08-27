@@ -46,16 +46,18 @@ export default function CustomItemForm() {
             dispatch(nameError(false));
           }}
           width="97%"
+          fontSize="sm"
           required={true}
         />
         <Spacer />
         <InputField
           label="SKU"
           type="text"
-          placeholder="12345678"
+          placeholder="123456789"
           value={product.sku}
           onChange={addSku}
           width="full"
+          fontSize="sm"
           required={false}
         />
       </Flex>
@@ -67,6 +69,7 @@ export default function CustomItemForm() {
           value={product.brand}
           onChange={addBrand}
           width="97%"
+          fontSize="sm"
           required={false}
         />
         <Spacer />
@@ -77,6 +80,7 @@ export default function CustomItemForm() {
           value={product.color}
           onChange={addColor}
           width="full"
+          fontSize="sm"
           required={false}
         />
       </Flex>
