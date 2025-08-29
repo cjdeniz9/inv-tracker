@@ -48,12 +48,14 @@ export default function Edit() {
     dispatch(resetTabIndex());
   }
 
+  const imgMargins = Boolean(selected.thumbnail) && "mr-4";
+
   return (
     <>
       <div className="border-b w-full" />
       <div className="flex justify-between items-center py-3">
         <div className="md:w-11/12 w-5/6 flex items-center">
-          <div className="md:w-1/12 w-1/5 mr-4">
+          <div className={`md:w-1/12 w-1/5 ${imgMargins}`}>
             <img
               src={
                 Boolean(selected.selectedArray)
@@ -61,7 +63,7 @@ export default function Edit() {
                   : selected.thumbnail
               }
               alt="edit-img"
-              className={Boolean(selected.selectedArray) && "w-3/4"}
+              className={Boolean(selected.selectedArray) && "md:w-2/3 w-3/4"}
             />
           </div>
           <div className="max-md:w-9/12 text-sm">
